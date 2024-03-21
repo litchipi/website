@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}{{ notif_title }}{% endblock title %}
+
+{% block content %}
+<div class="notif-grid">
+  {% if notif_h1 %}
+    <h1 class="notif-title">{{ notif_h1 }}</h1>
+  {% endif %}
+  <p class="notif-content">
+  {{ notif_content }}
+  </p>
+  <div>
+    <a href="/" class="back-top">Return to Home</a>
+  </div>
+</div>
+{% endblock content %}

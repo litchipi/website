@@ -1,0 +1,4 @@
+
+[pages.index_fr]
+template = "index.html"
+lang = "fr"

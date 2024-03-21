@@ -1,0 +1,71 @@
+server_port = 4446
+default_lang = "fr"
+static_files_route = "/static"
+page_config = "./pages.toml"
+
+
+
+# Additionnal context
+[add_context.site]
+name = "Litchi Pi"
+author_name = "Litchi Pi"
+author_email = "litchi.pi@proton.me"
+base_url = "https://litchipi.site"
+description = """
+  Freelance Rust Software engineer
+
+  Crafting tailor-made software solutions for humans in businesses
+"""
+copyrights = "Content released under a Creative commons CC BY-NC license"
+
+[add_context.sources]
+og_image = "/static/images/og_banner.png"
+blog_src = "https://github.com/litchipi/blog"
+blog_engine_src = "https://github.com/litchipi/ecoweb"
+
+[add_context.site.social]
+github = "https://github.com/litchipi/"
+mastodon = "https://fosstodon.org/@litchipi"
+email = "mailto:litchi.pi@proton.me"
+
+[add_context.webring]
+name = "Experimental Math & Programming Ring"
+previous = "https://scatter.flowers"
+next = "https://themathjester.com"
+
+
+
+
+
+# Storage configuration
+[local_storage]
+data_root = "./data"
+scss_root = "scss"
+template_root = "./templates"
+supported_lang = [ "fr", "en" ]
+base_templates = [ "base.html", "banner.html", "macros/poll_question_types.html" ]
+include_assets = [
+  "images",
+  "fonts",
+  "scripts",
+]
+css_output_dir = ".tmp/css"
+default_sort = ["date", false]
+
+[local_storage.scss]
+"style.css" = [
+  "fonts.scss",
+  "dark_mode.scss",
+  "light_mode.scss",
+  "base.scss",
+  "banner.scss",
+  "nav.scss", 
+  "post.scss", 
+  "specific.scss", 
+  "tablet.scss",
+  "phone.scss",
+]
+"print.css" = [ "print.scss" ]
+"hireme.css" = [ "hireme.scss" ]
+"poll.css" = [ "poll.scss"]
+"code.css" = [ "code.scss" ]

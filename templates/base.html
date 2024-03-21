@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" class="light-mode">
+
+<head>
+    <meta charset="utf-8">
+    {% block head %}
+        {% block meta %}
+        {% endblock meta %}
+
+        {% block scripts %}
+        {% endblock scripts %}
+
+        <link rel="icon" type="image/x-icon" href="/static/images/favicon.png">
+        <link rel="stylesheet" href="/static/css/style.css" />
+        <link rel="stylesheet" media="print" href="/static/css/print.css" />
+        <link rel="alternate" type="application/rss+xml" href="/rss" title="RSS Feed">
+        <link type="text/plain" rel="author" href="/humans.txt" />
+        {% block stylesheets %}
+        {% endblock stylesheets %}
+
+        <title>{{ site.name }} - {% block title %}{% endblock title %}</title>
+    {% endblock head %}
+</head>
+
+<body>
+    <header>
+    {% include "banner.html" %}
+    </header>
+
+    <div class="page-grid">
+        <aside class="left-panel">
+        {% block leftpanel %}
+        {% endblock leftpanel %}
+        </aside>
+
+        <main
+            {%block mainattrs %}{%endblock mainattrs %}
+            class="body-content-wrapper {%block mainclass %}{%endblock mainclass %}"
+        >
+            {% block content %}{% endblock content %}
+        </main>
+
+        <aside class="right-panel">
+        {% block rightpanel %}
+        {% endblock rightpanel %}
+        </aside>
+    </div>
+
+    <footer>
+        <div class="copyrights">
+            {{ site.copyrights }}
+        </div>
+        <div class="webring-footer">
+            <a href="{{ webring.previous }}" class="webring-footer-element previous">Previous website</a>
+            <span class="webring-footer-element">This website is part of the webring <strong>{{ webring.name }}</strong></span>
+            <a href="{{ webring.next }}" class="webring-footer-element next">Next website</a>
+        </div>
+    </footer>
+</body>
+
+</html>

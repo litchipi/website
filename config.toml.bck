@@ -1,0 +1,54 @@
+server_port = 4446
+code_theme = "base16-eighties.dark"
+req_limit_per_sec = 50
+browser_cache_max_age = 3600
+
+scss_dir = "scss"
+scripts_dir = "scripts"
+templates_dir = "templates"
+posts_registry = "registry.toml"
+posts_dir = "posts"
+
+site_config_file = "site.toml"
+add_assets = [
+  "images",
+  "fonts",
+]
+
+[limits]
+recent_posts = 4
+categories = 5
+series = 5
+plain_posts_list = 15
+
+[templates]
+post = "post.html"
+post_list = "post_list.html"
+notification = "notification.html"
+
+[indexes]
+"/" = "pro_index.html"
+"/blog" = "blog_index.html"
+
+[scss]
+"style.css" = [
+  "fonts.scss",
+  "dark_mode.scss",
+  "light_mode.scss",
+  "base.scss",
+  "banner.scss",
+  "nav.scss", 
+  "post.scss", 
+  "specific.scss", 
+  "tablet.scss",
+  "phone.scss",
+]
+"print.css" = [ "print.scss" ]
+"hireme.css" = [ "hireme.scss" ]
+"poll.css" = [ "poll.scss"]
+
+[add_endpoints]
+"market_research/fr" = "extensions/poll.html"
+"market_research/en" = "extensions/poll.html"
+"hireme/fr" = "extensions/hireme.html"
+"hireme/en" = "extensions/hireme.html"

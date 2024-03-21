@@ -1,0 +1,178 @@
+# Series
+[series.containers_in_rust]
+title = "Writing a container in Rust"
+description = "Series where we create Crabcan, a container software like Docker written in Rust using Linux's various security and isolation features."
+end_date = 3
+
+# Posts
+[posts.bitfields_explain]
+id = "14762501311625827021"  # Forcing same ID with a different title than original
+title = "How Rust can build an elegant API around raw memory"
+category = "rust"
+date = 1694001613
+modified = 1694763814
+description = "This post will explain what registers are, what are their use in bare-metal programming, and how these macros allows for smooth Rust code when working with them."
+tags = [
+  "rust",
+  "embedded",
+  "macros",
+]
+
+[posts.build_jekyll_blog]
+title = "Build a Jekyll blog with Nix using flakes"
+category = "nix"
+date = 1673525163
+modified = 1698736070
+description = "Use Nix flakes to build a Jekyll blog, overcoming the setup issues to build the static website and/or serve it locally."
+tags = [
+  "jekyll",
+  "blog",
+  "nix",
+  "flake",
+]
+
+[posts.rust_simple_error_handling]
+title = "Simple errors handling in Rust using macros"
+category = "rust"
+date = 1662205300
+description = "Describes how using macros you can easily handle errors of a whole piece of software elegantly."
+tags = [
+  "rust",
+  "error",
+  "macros",
+]
+
+[posts.nixifying_webapp_build]
+title =  "Nixifying the build of web applications more easily"
+category = "nix"
+date = 1673689056
+description = "Build web applications using Nix, ease the processus using a library to build common Javascript frameworks, and present a script to manage a PostgreSQL database. Also calls for contribution on the nix library."
+tags = [
+  "nix",
+  "web",
+  "flake"
+]
+
+[posts.container_in_rust_part1]
+title = "Introduction to containers"
+category = "rust"
+date = 1632127354
+modified = 1646825092
+serie = "containers_in_rust"
+description = "Overview of what is a container, the problem of software isolation it solves and how does it compares to other solutions."
+tags = [ "rust", "docker", "container", "tutorial" ]
+
+[posts.container_in_rust_part2]
+title = "Starting the project"
+category = "rust"
+date = 1633009835
+modified = 1661375842
+serie = "containers_in_rust"
+description = "Creation of the project, the logging system, the error handlings, and arguments validation"
+images_add_attribute.0 = "width=250px style=\"align-self: center;\""
+tags = [ "rust", "docker", "container", "tutorial" ]
+
+[posts.container_in_rust_part3]
+title = "Creating the skeletton"
+category = "rust"
+date = 1633277875
+serie = "containers_in_rust"
+description = "Getting the configuration, creating the skeletton for the container, checking the Linux kernel version for compatibility"
+tags = [ "rust", "docker", "container", "tutorial" ]
+
+[posts.container_in_rust_part4]
+title = "Birth of a child process"
+category = "rust"
+date = 1636707300
+serie = "containers_in_rust"
+description = "Prepare inter-process communication (IPC), create a clone of the parent process while restricting its scope using namespaces."
+tags = [ "rust", "docker", "container", "tutorial" ]
+
+[posts.container_in_rust_part5]
+title = "Defining the container environment"
+category = "rust"
+date = 1641279700
+serie = "containers_in_rust"
+description = "Set the container hostname, modify the container mount point, pivoting the root."
+tags = [ "rust", "docker", "container", "tutorial" ]
+
+[posts.container_in_rust_part6]
+title = "User namespaces and Linux Capabilties"
+category = "rust"
+date = 1641458400
+modified = 1691311854
+serie = "containers_in_rust"
+description = "Set up user namespaces, map the UID / GID, restrict the child process with linux capabilities"
+tags = [ "rust", "docker", "container", "tutorial" ]
+
+[posts.container_in_rust_part7]
+title = "Syscalls and resources restriction"
+category = "rust"
+date = 1646894910
+serie = "containers_in_rust"
+description = "How to restrict the binary running inside our container in order to protect our system. Introduction to seccomp, syscalls, cgroups, rlimit"
+tags = [ "rust", "docker", "container", "tutorial" ]
+
+[posts.container_in_rust_part8]
+title = "Executing the binary"
+category = "rust"
+date = 1661247785
+serie = "containers_in_rust"
+description = "Execute a binary inside our container, resolve issues of dynamic libraries, mount directories inside the environment. Conclusion of the serie"
+tags = [ "rust", "docker", "container", "tutorial" ]
+
+[posts.copy_it_until_you_make_it]
+title =  "Copy it until you make it"
+category = "infosec"
+date = 1657289820
+description = "Reflexions on why copy other's work is great for learning, and use the angle of the learning process of pentesting to develop."
+tags = [
+  "pentesting",
+  "cybersecurity",
+  "infosec",
+  "hacking"
+]
+
+[posts.git_sourcecode_audit]
+title =  "The Git source code audit, viewed as a Rust programmer"
+category = "infosec"
+date = 1674550269
+modified = 1691311854
+description = "Analyse the Git source code audit performed by X41 and Gitlab, and find out if the vulnerabilities found would get mitigated by Rust or not. From there, describe good security practices when writing code in Rust."
+tags = [
+  "infosec",
+  "git",
+  "rust",
+  "cybersecurity"
+]
+
+[posts.attempt_nixos_secrets]
+title = "Yet another attempt at managing secrets of a NixOS system"
+category = "nix"
+date = 1700218355
+description = "Proposition for a new method to manage secrets inside a NixOS system. The idea is to keep secrets encrypted inside the nix store, and decrypt these at boot using a provisionned private key, serving as the base of the whole security system."
+tags = [
+  "nix",
+  "infosec",
+  "cybersecurity",
+  "nixos"
+]
+hidden = true
+
+# Posts content
+[post_contents_path]
+build_jekyll_blog = "nix/build_jekyll_blog.md"
+rust_simple_error_handling = "rust/simple_error_handling.md"
+nixifying_webapp_build = "nix/nixifying-build-web-app.md"
+container_in_rust_part1 = "rust/containers_in_rust/part1.md"
+container_in_rust_part2 = "rust/containers_in_rust/part2.md"
+container_in_rust_part3 = "rust/containers_in_rust/part3.md"
+container_in_rust_part4 = "rust/containers_in_rust/part4.md"
+container_in_rust_part5 = "rust/containers_in_rust/part5.md"
+container_in_rust_part6 = "rust/containers_in_rust/part6.md"
+container_in_rust_part7 = "rust/containers_in_rust/part7.md"
+container_in_rust_part8 = "rust/containers_in_rust/part8.md"
+copy_it_until_you_make_it = "infosec/copyit_until_you_make_it.md"
+git_sourcecode_audit = "infosec/git_code_audit_viewed_as_rust_programmer.md"
+bitfields_explain = "rust/bitfield_explain.md"
+attempt_nixos_secrets = "nix/attempt_nixos_secrets.md"

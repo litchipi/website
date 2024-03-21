@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+<!-- TODO   Add button to switch between wide text, medium text or little column text --> 
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="/static/css/code.css" />
+{% endblock stylesheets %}
+
+{% block scripts %}
+<script type="text/javascript" src="/static/scripts/post.js"></script>
+{% endblock scripts %}
+
+{% block meta %}
+  <meta name=" robots" content=" index">
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="{{ metadata.title }}" />
+  {% if metadata.description %}
+  <meta property="og:description" content="{{ metadata.description }}" />
+  <meta name="description" content="{{ metadata.description }}"/>
+  {% endif %}
+  {% if sources.og_image %}
+  <meta property="og:image" content="{{site.base_url | safe}}/{{ sources.og_image }}" />
+  {% endif %}
+  <meta property="og:url" content="{{ site.base_url | safe }}/post/{{ id }}" />
+  <meta property="og:site_name" content="{{ site.name }}" />
+{% endblock meta %}
+
+{% block rightpanel %}
+  <nav id="post-nav" class="nav">
+  {{ page_nav | safe }}
+  <a href="#" class="back-top">
+    &uarr; Go to top
+  </a>
+  </nav>
+{% endblock rightpanel %}
+
+
+{% block leftpanel %}
+  <nav class="nav" id="site-nav">
+  <a href="/" class="to-index">Home page</a>
+  {% set got_post = 0 %}
+  {% if metadata.serie %}
+    {% set_global got_post = 1 %}
+    <div id="nav-serie-post">
+    <a href="/serie/{{ metadata.serie.slug }}"><h3>{{ metadata.serie.title }}</h3></a>
+    <ul>
+    {% set n = 1 %}
+    {% for post in same_serie %}
+      <a href="/post/{{ post.id }}">
+        <li
+          {% if id == post.id %}
+          class="current-post"
+          {% endif %}
+        >
+          <div class="serie-post-index">{{ n }}</div>
+          <div class="serie-post-title">{{ post.metadata.title }}</div>
+        </li>
+      </a>
+      {% set_global n = n + 1 %}
+    {% endfor %}
+    </ul>
+    </div>
+  {% endif %}
+
+  {% if not metadata.serie %}
+    {% set post_len=same_category | length %}
+    {% if post_len > 0 %}
+      {% set_global got_post = 1 %}
+      <div id="same-category">
+        <h3>{{ metadata.category | capitalize }}</h3>
+        <ul>
+        {% for post in same_category %}
+          {% if post.id != id and not post.metadata.serie %}
+            <li><a href="/post/{{ post.id }}">{{ post.metadata.title }}</a></li>
+          {% endif %}
+        {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  {% endif %}
+
+  {% if got_post == 0 %}
+  <!-- TODO    Add recent posts here -->
+  {% endif %}
+  </nav>
+{% endblock leftpanel %}
+
+{% block title %}{{ metadata.title }}{% endblock title %}
+
+{% block mainattrs %}id="post"{% endblock %}
+{% block content %}
+  <h1 id="post-title">{{ metadata.title }}</h1>
+
+    <section id="post-metadata">
+      {% if metadata.serie %}
+      <div id="post-serie-metadata">
+        Part {{ metadata.serie.index }} of serie <a class="serie-title" href="/serie/{{ metadata.serie.slug }}">{{ metadata.serie.title }}</a>
+      </div>
+      {% endif %}
+      <div id="post-date">
+      Published: <time>{{ metadata.date | timestamp_convert }}</time>
+      </div>
+
+      {% if metadata.modified  %}
+      <div id="post-date-modified">
+      Modified: <time>{{ metadata.modified | timestamp_convert }}</time>
+      </div>
+      {% endif %}
+
+      {% set nbtags = metadata.tags | length %}
+      {% if nbtags > 0 %}
+        <div id="post-tags">
+        {% for tag in metadata.tags %}
+          <code class="post-tag">{{ tag }}</code>
+        {% endfor %}
+        </div>
+      {% endif %}
+    </section>
+
+    <article id="post-content">
+    {{ page_content | safe }}
+    </article>
+
+  <a href="#" class="back-top">
+    &uarr; Go to top
+  </a>
+
+  <a href="/hireme/en">
+    <div id="hireme-link">
+    Want us to work together ?<br/> <strong>Hire me</strong>
+    </div>
+  </a>
+
+  <nav id="pagination">
+    <span>
+    {% if prev_in_serie %}
+    <a href="/post/{{ prev_in_serie.id }}">
+      <div class="prev"><span>Previous post</span><br/>{{ prev_in_serie.title }}</div>
+    </a>
+    {% endif %}
+    </span>
+    <span>
+    </span>
+
+    <span>
+    {% if next_in_serie %}
+    <a href="/post/{{ next_in_serie.id }}">
+      <div class="next"><span>Next post</span><br/>{{ next_in_serie.title }}</div>
+    </a>
+    {% endif %}
+    </span>
+  </nav>
+{% endblock content %}

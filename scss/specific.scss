@@ -1,0 +1,20 @@
+@import "variables";
+
+$categories: (
+  "rust": #FF7F32,
+  "nix": #9FC5E8,
+  "infosec": #62DC2D,
+);
+
+@each $cat, $color in $categories {
+  li:hover.item-#{$cat} {
+     border-color: $color;
+  }
+
+  li.item-#{$cat} {
+    .item-category {
+      color: $color;
+      font-weight: bold;
+    }
+  }
+}

@@ -1,0 +1,117 @@
+{% macro yes_or_no(idbase, yes, no) %}
+<input type="radio" id="{{idbase}}-yes" name="{{idbase}}" value="true">
+<label for="{{idbase}}-yes">{{ yes }}</label>
+<input type="radio" id="{{idbase}}-no"  name="{{idbase}}" value="false">
+<label for="{{idbase}}-no">{{ no }}</label>
+{% endmacro yes_or_no %}
+
+{% macro recurse_state_set(id, addq, allq, func) %}
+  {% set qset = allq[addq] %}
+
+  // Qset {{ addq }}
+  {% for qslug, q in qset %}
+    // {{ id }} {{ qslug }}
+
+    {% if q.addq_yes %}
+      {{ func }}("{{ id }}", "q-{{ addq }}-{{ qslug }}-yes", "set-{{q.addq_yes}}");
+      {{ qtype::recurse_state_set(id=id, addq=q.addq_yes, allq=allq, func=func) }}
+    {% endif %}
+
+    {% if q.addq_no %}
+      // {{ id }}: {{ q.addq_no }} (no)
+      {{ func }}("{{ id }}", "q-{{ addq }}-{{ qslug }}-no", "set-{{q.addq_no}}");
+      {{ qtype::recurse_state_set(id=id, addq=q.addq_no, allq=allq, func=func) }}
+    {% endif %}
+  {% endfor %}
+{% endmacro recurse_state_set %}
+
+{% macro yes_or_no_addq(qslug, qsetslug, q, allq) %}
+  {%- if q.addq_yes -%}
+    visibleIfChecked("q-{{qsetslug}}-{{qslug}}-yes", null, "set-{{q.addq_yes}}");
+    {{ qtype::recurse_state_set(
+      id="q-" ~ qsetslug ~ "-" ~ qslug ~ "-yes",
+      addq=q.addq_yes,
+      allq=allq,
+      func="visibleIfChecked",
+    ) }}
+    invisibleIfChecked("q-{{qsetslug}}-{{qslug}}-no", null, "set-{{q.addq_yes}}");
+    {{ qtype::recurse_state_set(
+      id="q-" ~ qsetslug ~ "-" ~ qslug ~ "-no",
+      addq=q.addq_yes,
+      allq=allq,
+      func="invisibleIfChecked",
+    ) }}
+  {%- endif -%}
+  {%- if q.addq_no -%}
+    visibleIfChecked("q-{{qsetslug}}-{{qslug}}-no", null, "set-{{q.addq_no}}");
+    {{ qtype::recurse_state_set(
+      id="q-" ~ qsetslug ~ "-" ~ qslug ~ "-no",
+      addq=q.addq_no,
+      allq=allq,
+      func="visibleIfChecked",
+    ) }}
+    invisibleIfChecked("q-{{qsetslug}}-{{qslug}}-yes", null, "set-{{q.addq_no}}");
+    {{ qtype::recurse_state_set(
+      id="q-" ~ qsetslug ~ "-" ~ qslug ~ "-yes",
+      addq=q.addq_no,
+      allq=allq,
+      func="invisibleIfChecked",
+    ) }}
+  {%- endif -%}
+{% endmacro yes_or_no_addq %}
+
+{% macro radio(idbase, choices) %}
+{% for choice in choices %}
+  <input
+    type="radio"
+    id="{{idbase}}-{{ choice | slugify }}" name="{{idbase}}"
+    value="{{ loop.index0 }}"
+  >
+  <label for="{{idbase}}-{{ choice | slugify }}">{{ choice }}</label>
+  <br/>
+{% endfor %}
+{% endmacro radio %}
+
+{% macro number(idbase, min, max, step=0.1) %}
+<input
+  type="number" id="{{idbase}}-nb" name="{{idbase}}"
+  min="{{ min }}" max="{{ max }}" step="{{step}}"
+>
+{% endmacro number %}
+
+{% macro range(idbase, min, max) %}
+<input
+  type="range"
+  id="{{idbase}}-range" name="{{idbase}}"
+  min="{{min}}" max="{{max}}"
+  value="{{ min + ((max - min) / 2) }}"
+  list="rangelist-{{idbase}}"
+/>
+<output id="{{idbase}}-value" class="range-value"></output>
+{% endmacro range %}
+
+{% macro range_disp_threshold(qsetslug, qslug, q) %}
+var dict = {
+  {%- for th, val in q.threshold -%}
+    "{{th|urlencode_strict}}": {{val}},
+  {%- endfor -%}
+};
+initRangeThreshold("q-{{qsetslug}}-{{qslug}}", {{q.min}}, {{q.max}}, dict);
+{% endmacro range_disp_threshold %}
+
+{% macro text(idbase, rows, cols) %}
+<textarea id="{{idbase}}-txt" name="{{idbase}}" rows="{{rows}}" cols="{{cols}}">
+</textarea>
+{% endmacro text %}
+
+{% macro checkbox(idbase, choices) %}
+{% for choice in choices %}
+  <input
+    type="checkbox"
+    id="{{idbase}}-{{ choice | slugify }}" name="{{idbase}}"
+    value="{{ loop.index0 }}"
+  >
+  <label for="{{idbase}}-{{ choice | slugify }}">{{ choice }}</label>
+  <br/>
+{% endfor %}
+{% endmacro checkbox %}

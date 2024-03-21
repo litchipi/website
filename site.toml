@@ -1,0 +1,44 @@
+name = "Litchi Pi"
+author_name = "Litchi Pi"
+author_email = "litchi.pi@proton.me"
+base_url = "https://litchipi.site"
+description = """
+  Freelance Rust Software engineer
+
+  Crafting tailor-made software solutions for humans in businesses
+"""
+
+welcome_message = """
+Welcome on my blog, I write articles about anything I find interesting, and try to get an interesting scope instead of write "Yet another X article".
+
+I do have other passions and hobbies, but it's unlikely that I'll write about it. I'd be happy to chat with anyone about pretty much anything, so feel free to reach me to have a chat ! :-)
+"""
+
+copyrights = "Content released under a Creative commons CC BY-NC license"
+og_image = "images/og_banner.png"
+favicon = "favicon.png"
+
+blog_src = "https://github.com/litchipi/blog"
+blog_engine_src = "https://github.com/litchipi/ecoweb"
+
+allowed_savedata_tokens = [ "TOKEN_REPLACE" ]
+
+[webhook_update]
+zipfile_fetch_url = "https://github.com/litchipi/blog/archive/"
+
+[social]
+github = "https://github.com/litchipi/"
+mastodon = "https://fosstodon.org/@litchipi"
+email = "mailto:litchi.pi@proton.me"
+
+[webring]
+name = "Experimental Math & Programming Ring"
+previous = "https://scatter.flowers"
+next = "https://themathjester.com"
+
+[additionnal_context]
+poll_fr = "ctxt/poll_fr.toml"
+poll_en = "ctxt/poll_en.toml"
+
+hireme_fr = "ctxt/hireme_fr.toml"
+hireme_en = "ctxt/hireme_en.toml"

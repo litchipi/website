@@ -1,0 +1,169 @@
+{% import "macros/poll_question_types.html" as qtype %}
+{% extends "base.html" %}
+
+{% block meta %}
+  {% set_global langage = add_endpoint_path | split(pat="/") | last %}
+
+  {% if langage == "fr" %}
+    {% set_global poll = poll_fr %}
+  {% elif langage == "en" %}
+    {% set_global poll = poll_en %}
+  {% else %}
+    {{ throw(message="Langage not set: " ~ add_endpoint_path) }}
+  {% endif %}
+
+  <meta name=" robots" content=" index">
+  <meta property="og:type" content="profile" />
+  <meta property="og:title" content="{{ poll.title }}" />
+  {% if site.og_image %}
+  <meta property="og:image" content="{{site.base_url | safe}}/{{ site.og_image }}" />
+  {% endif %}
+  <meta property="og:url" content="{{ site.base_url | safe }}/{{ add_endpoint_path }}" />
+  <meta property="og:site_name" content="{{ site.name }}" />
+{% endblock meta %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="/poll.css" />
+{% endblock stylesheets %}
+
+{% block scripts %}
+  <script type="text/javascript" src="/poll.js"></script>
+  <script>
+  function init_questions_events() {
+    {%- for qsetslug, qset in poll.question -%}
+      {%- for qslug, q in qset -%}
+        {% if q.type == "yes_or_no" %}
+          {{ qtype::yes_or_no_addq(
+            qslug=qslug,
+            qsetslug=qsetslug,
+            q=q,
+            allq=poll.question,
+          ) }}
+        {% endif %}
+
+        {% if q.type == "range" %}
+          {{ qtype::range_disp_threshold(qsetslug=qsetslug, qslug=qslug, q=q) }}
+        {% endif %}
+      {%- endfor -%}
+    {%- endfor -%}
+  }
+  </script>
+{% endblock scripts %}
+
+{% block title %}{{ poll.title }}{% endblock title %}
+
+{% macro disp_child_question(key, poll) %}
+  {% for qslug, q in poll.question[key] %}
+    {{ self::disp_question(qset=key, qslug=qslug, q=q, poll=poll) }}
+  {% endfor %}
+{% endmacro disp_child_question %}
+
+{% macro disp_question(qset, qslug, q, poll, style="", addclass="") %}
+  {% set idbase = "q-" ~ qset ~ "-" ~ qslug %}
+
+  <li id="{{idbase}}" class="question-container set-{{ qset }}" style="{{ style }}">
+    <p class="question-text">{{ q.text }}</p>
+    {% if q.note %}
+      <p class="question-note">{{ q.note }}</p>
+    {% endif %}
+    {% if q.label_before %}
+      <label for="{{idbase}}">{{ q.label_before }}</label>
+    {% endif %}
+
+    {% if q.type == "yes_or_no" %}
+      {{ qtype::yes_or_no(
+        idbase=idbase,
+        yes=poll.lang.yes,
+        no=poll.lang.no
+      ) }}
+    {% endif %}
+
+    {% if q.type == "radio" %}
+      {{ qtype::radio(idbase=idbase,
+        choices=q.choices
+      ) }}
+    {% endif %}
+
+    {% if q.type == "number" %}
+      {{ qtype::number(idbase=idbase,
+        min=q.min,
+        max=q.max
+      ) }}
+    {% endif %}
+
+    {% if q.type == "range" %}
+      {{ qtype::range(idbase=idbase,
+        min=q.min | default(value="0"),
+        max=q.max | default(value="10")
+      ) }}
+    {% endif %}
+
+    {% if q.type == "text" %}
+      {{ qtype::text(idbase=idbase,
+        rows=q.rows | default(value="3"),
+        cols=q.cols | default(value="75"),
+      ) }}
+    {% endif %}
+
+    {% if q.type == "checkbox" %}
+      {{ qtype::checkbox(idbase=idbase, choices=q.choices) }}
+    {% endif %}
+
+    {% if q.label_after %}
+      <label for="{{idbase}}">{{ q.label_after }}</label>
+    {% endif %}
+  </li>
+
+  {% if q.addq_yes %}
+    {{ self::disp_child_question(key=q.addq_yes, poll=poll) }}
+  {% endif %}
+
+  {% if q.addq_no %}
+    {{ self::disp_child_question(key=q.addq_no, poll=poll) }}
+  {% endif %}
+{% endmacro disp_question %}
+
+{% block content %}
+  <div id="poll-intro">
+    {{ poll.introduction | markdown_render | safe }}
+  </div>
+
+  <form id="poll-form">
+  <ul>
+  {% for qset in poll.question_set_order %}
+    {% for qslug, q in poll.question[qset] %}
+      {{ self::disp_question(
+        qset=qset,
+        qslug=qslug, q=q,
+        poll=poll,
+        style="display: block;"
+      ) }}
+    {% endfor %}
+  {% endfor %}
+
+    <li id="ask-email" class="question-container ask-email" style="display: block;">
+      <div class="question-text">
+        {{ poll.lang.email_text | markdown_render | safe }}
+      </div>
+      <div class="question-note">
+        {{ poll.lang.email_note | markdown_render | safe }}
+      </div>
+      <label for="ask-email">{{ poll.lang.email_lbl }}</label>
+      <input type="email" id="ask-email" name="ask-email" size=50/>
+    </li>
+
+    <li id="data-consent" class="quesetion-container" style="display: block;">
+      <input type="checkbox" id="data-consent" name="data-consent" required>
+      <label for="data-consent">{{ poll.lang.data_consent }}</label>
+    </li>
+  </ul>
+
+  <input type="text" id="save-data-token" name="save-data-token" style="display: none;"/>
+  <input
+    type="submit"
+    id="submitForm" class="poll-submit-button"
+    value="{{ poll.lang.send_button }}"
+    formaction="{{ poll.endpoint }}" formmethod="post"
+  />
+  </form>
+{% endblock content %}

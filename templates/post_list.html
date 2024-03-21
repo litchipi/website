@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ by | capitalize }}{% if filter %} - {{ filter | capitalize }}{% endif %}
+{% endblock title %}
+
+{% block mainattrs %}id="post-list"{% endblock %}
+{% block mainclass %}styled-list{% endblock %}
+{% block content %}
+  {% if filter %}
+    <h1>{{ filter | capitalize }}</h1>
+  {% endif %}
+  <ul>
+  {% set n = 1 %}
+  {% for post in all_posts %}
+    <li class="item-{{ post.metadata.category }}">
+    <a href="/post/{{ post.id }}">
+    <div class="item-header">
+      <div class="item-title">
+        {% if by == "serie" %}
+          <span class="item-index">{{ n }}</span>
+        {% endif %}
+
+        {{ post.metadata.title }}
+      </div>
+    </div>
+
+    {% if by != "serie" %}
+      <div class="item-metadata">
+        <time class="item-date">{{ post.metadata.date | timestamp_convert }}</time>
+      {% if by == "all posts" %}
+        <span class="item-category">
+          {{ post.metadata.category | capitalize }}
+        </span>
+      {% endif %}
+      {% if post.metadata.serie %}
+        <div class="item-serie-title">(serie "<strong>{{ post.metadata.serie.title }}</strong>")</div>
+      {% endif %}
+      </div>
+    {% endif %}
+    <div class="item-description">{{ post.metadata.description }}</div>
+    </a>
+    </li>
+    {% set_global n = n + 1 %}
+  {% endfor %}
+  </ul>
+{% endblock content %}

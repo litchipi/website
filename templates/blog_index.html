@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Index{% endblock title %}
+
+{% block content %}
+
+  <a href="/hireme/en">
+    <div id="hireme-link">
+      Want us to work together ?<br/> <strong>Hire me</strong>
+    </div>
+  </a>
+
+  <div class="styled-list">
+    <h1>Recent posts</h1>
+    <ul>
+    {% for post in recent_posts %}
+      <a href="/post/{{ post.id }}">
+        <li>
+          <div class="item-title">{{ post.metadata.title }}</div>
+          <div class="item-metadata">
+            {% if post.metadata.serie %}
+              (serie "<strong>{{ post.metadata.serie.title | capitalize }}</strong>")
+            {% endif %}
+            <time class="item-date">{{ post.metadata.date | timestamp_convert }}</time>
+          </div>
+          <div class="item-description">{{ post.metadata.description }}</div>
+        </li>
+      </a>
+    {% endfor %}
+      <a href="/allposts">
+        <li>
+          <div class="item-title show-more">See all posts</div>
+        </li>
+      </a>
+    </ul>
+  </div>
+
+  <div class="styled-list">
+    <h1>All series</h1>
+    <ul>
+    {% for serie in all_series | unique(attribute="slug") %}
+      <a href="/serie/{{ serie.slug }}">
+        <li>
+          <div class="item-title">{{ serie.title | capitalize }}</div>
+          <div class="item-description">{{ serie.description }}</div>
+        </li>
+      </a>
+    {% endfor %}
+    </ul>
+  </div>
+
+  <div class="styled-list">
+    <h1>All categories</h1>
+    <ul>
+    {% for cat in all_categories | unique() %}
+      <a href="/category/{{ cat }}" class="item-title">
+      <li><div>
+      {{ cat | capitalize }}
+      </div></li>
+      </a>
+    {% endfor %}
+    </ul>
+  </div>
+{% endblock content %}

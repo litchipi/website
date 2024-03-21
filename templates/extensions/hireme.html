@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block meta %}
+  {% set_global langage = add_endpoint_path | split(pat="/") | last %}
+
+  {% if langage == "fr" %}
+    {% set_global hireme = hireme_fr %}
+  {% elif langage == "en" %}
+    {% set_global hireme = hireme_en %}
+  {% else %}
+    {{ throw(message="Langage not set: " ~ add_endpoint_path) }}
+  {% endif %}
+
+  <meta name=" robots" content=" index">
+  <meta property="og:type" content="profile" />
+  <meta property="og:title" content="{{hireme.title}}" />
+  {% if site.og_image %}
+  <meta property="og:image" content="{{site.base_url | safe}}/{{ site.og_image }}" />
+  {% endif %}
+  <meta property="og:url" content="{{ site.base_url | safe }}/{{ add_endpoint_path }}" />
+  <meta property="og:site_name" content="{{ site.name }}" />
+{% endblock meta %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="/hireme.css" />
+{% endblock stylesheets %}
+
+{% block title %}{{ hireme.title }}{% endblock title %}
+
+{% block mainattrs %}id="hireme"{% endblock %}
+{% block content %}
+<section id="why">
+  <h1>{{ hireme.why.title }}</h1>
+  {{ hireme.why.body | markdown_render | safe }}
+</section>
+
+<hr>
+
+<section id="how">
+  <h1>{{ hireme.how.title }}</h1>
+  {{ hireme.how.body | markdown_render | safe }}
+</section>
+
+<hr>
+
+<section id="what">
+  <h1>{{ hireme.what.title }}</h1>
+  {{ hireme.what.body | markdown_render | safe }}
+</section>
+
+<hr>
+
+<section id="outro">
+  <h2>{{ hireme.outro.title }}</h2>
+  {{ hireme.outro.body | markdown_render | safe }}
+</section>
+{% endblock content %}

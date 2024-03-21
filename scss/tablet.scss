@@ -1,0 +1,94 @@
+// @import "variables";
+
+// TODO  Tablet media style
+
+// @media screen and (max-width: $tablet-media) {
+
+//   // Base
+//   html {
+//     font-size: calc($base-font-size * 1.5);
+//   }
+//   .item-title {
+//     font-size: calc($base-font-size * 1.8) !important;
+//   }
+//   .page-grid {
+//     grid-template-columns: 0pt minmax(300px, 3fr) minmax($min-panel-size, 1fr);
+//   }
+//   .body-content-wrapper {
+//     max-width: unset;
+//     min-width: $phone-content-width;
+//   }
+//   .styled-list {
+//     padding-top: 30px;
+//     padding-bottom: 30px;
+//   }
+//   footer .copyrights strong {
+//     font-size: calc(22px * 1.6);
+//   }
+//   .webring-footer {
+//     display: none;
+//   }
+
+  
+//   // Post
+//   #post-title {
+//     font-size: calc($title-font-size * 1.3);
+//     line-height: $title-line-height;
+//   }
+//   #post-content {
+//     line-height: calc($base-line-height * 1.3);
+//     margin-left: 20px;
+//   }
+//   blockquote {
+//     font-size: calc($base-font-size * 1.5);
+//     line-height: calc($blockquote-line-height * 1.4);
+//   }
+//   h1 {
+//     font-size: calc($title-font-size * 1.3);
+//   }
+//   h2 {
+//     font-size: $title-font-size;
+//   }
+//   code {
+//     white-space: unset;
+//   }
+
+//   // Nav
+//   #site-nav {
+//     display: none !important;
+//   }
+
+//   #pagination span a div {
+//     font-size: calc($pagination-font-size * 1.4);
+//   }
+
+//   // Banner
+//   #banner {
+//     grid-template-columns: $logo-size calc($left-margin-offset - $logo-size) 1fr;
+//   }
+//   #sitesocial {
+//     display: none !important;
+//   }
+//   #banner {
+//     display: block;
+//   }
+//   header { 
+//     padding-bottom: 20px;
+//   }
+//   #sitename {
+//     text-align: center;
+//     width: 100%;
+//     font-size: calc($title-font-size * 2);
+//     line-height: calc($title-line-height * 1.1);
+//     margin-bottom: 50px;
+//   }
+//   #sitedescr {
+//     display: flex;
+//     margin: 10px 0px 40px 40px;
+//   }
+//   #logo {
+//     width: $logo-size;
+//     height: 0px;
+//     overflow: hidden;
+//   }
+// }

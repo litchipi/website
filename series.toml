@@ -1,0 +1,4 @@
+[containers_in_rust]
+title = "Writing a container in Rust"
+description = "Series where we create Crabcan, a container software like Docker written in Rust using Linux's various security and isolation features."
+end_date = 3

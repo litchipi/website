@@ -1,0 +1,45 @@
+@import "variables";
+
+$title-space: calc($side-panel-size - $logo-size - $logo-padding);
+
+#banner {
+  display: grid;
+  grid-template-columns: calc($logo-size + $logo-padding) $title-space 1fr $side-panel-size;
+  column-gap: 10pt;
+}
+
+#sitedescr {
+  text-align: center;
+  margin: auto;
+}
+
+#logo {
+  margin: auto;
+  img {
+    width: $logo-size;
+  }
+}
+
+#sitename {
+  display: block;
+  margin: auto;
+  margin-left: 0px;
+}
+
+#sitesocial {
+  margin-right: 10px;
+  text-align: right;
+
+  li {
+    padding-top: 2px;
+    list-style: none;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+}

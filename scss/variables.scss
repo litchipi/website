@@ -1,0 +1,60 @@
+// Logo
+$logo-size: 140px;
+$logo-padding: 0px;
+
+// Colors
+$color1: #e34967; // Pink
+$color2: #77de81; //67e349; //39b54a; // Green
+$color3: #A2B2F0; //7B91EA; //4967E3; //4297cf; // Blue
+
+$light-gray: #8F8F8F;
+
+$color1_dark:  darken($color1, 20%);
+$color2_dark:  darken($color2, 30%);
+$color3_dark:  darken($color3, 20%);
+
+$color1_light: lighten($color1, 18%);
+$color2_light: lighten($color2, 17%);
+$color3_light: lighten($color3, 5%);
+
+$color1_dimmed: desaturate($color1_dark, 40%);
+$color2_dimmed: desaturate($color2_dark, 40%);
+$color3_dimmed: desaturate($color3_dark, 40%);
+
+$code-background-color: #EAEAEA;
+
+// Fonts
+$base-font-size: 16pt;
+$title-font-size: 30pt;
+$blockquote-font-size: calc($base-font-size * 0.9);
+$note-font-size: 15pt;
+
+$title-line-height: calc($title-font-size * 1.4);
+$blockquote-line-height: 1em;
+
+$h1-size: $title-font-size;
+$h2-size: calc(0.75 * $h1-size);
+$h3-size: calc(0.75 * $h2-size);
+
+//   Screen calculation
+$title-nb-chars: 10;
+$banner-padding-left: 10px;
+$title-padding-right: 10px;
+$social-padding-right: 30px;
+$pagination-font-size: 20px;
+
+$footer-height: calc(10px + $base-font-size);
+$pagination-height: 40px;
+$banner-top-border: 10px;
+$banner-height: calc(90px + $banner-top-border);
+
+$left-margin-offset: ($title-nb-chars * $title-font-size) + $banner-padding-left + $title-padding-right;
+
+// Media width threshold
+$desktop-content-width: 1000px;
+$tablet-content-width: 800px;
+$phone-content-width: 600px;
+$side-panel-size: 400px;
+
+$tablet-media: $tablet-content-width + ($side-panel-size * 2);
+$phone-media: $phone-content-width + ($side-panel-size);

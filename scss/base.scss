@@ -1,0 +1,125 @@
+@import "variables";
+
+html {
+  scroll-behavior: smooth;
+}
+
+a {
+  transition: color 150ms ease-in-out;
+  text-decoration: none;
+}
+
+body {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: calc(100vh - $footer-height);
+}
+
+.page-grid {
+  margin-top: 3pt;
+  display: grid;
+  grid-template-columns: minmax($side-panel-size, 1fr) minmax(300px, auto) minmax($side-panel-size, 1fr);
+}
+
+.body-content-wrapper {
+  max-width: $desktop-content-width;
+  min-width: $tablet-content-width;
+  clear: both;
+}
+
+.styled-list {
+  a {
+    text-decoration: none;
+  }
+
+  li {
+    list-style: none;
+    margin-bottom: 40px;
+    border-left-width: 3px;
+    border-left-style: solid;
+    padding-left: 20px;
+    margin-left: 2px;
+    transition-property: color, border-color;
+    transition-duration: 500ms;
+
+    .item-header {
+      strong {
+        transition: inherit;
+      }
+    }
+  }
+
+  .item-description {
+    padding-top: 10px;
+    padding-left: 30px;
+  }
+
+  .item-metadata {
+    padding-left: 20px;
+  }
+
+  .item-index {
+    transition: all 200ms ease-in-out;
+    margin-right: 10px;
+  }
+
+  .show-more {
+    border-left: unset;
+    margin-left: 5px;
+  }
+
+  li:hover {
+    border-left-width: 5px;
+    border-left-style: solid;
+    margin-left: 0px; 
+  }
+}
+
+#welcome-message {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  border-width: 1px;
+  border-style: solid;
+  padding: 30px;
+  border-radius: 10px;
+}
+
+footer {
+  margin-bottom: 10px;
+
+  .copyrights {
+    text-align: center;
+    color: $light-gray;
+  }
+}
+
+.webring-footer {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  margin: 10px 20px 10px 20px;
+  text-align: center;
+  
+  .next {
+    padding-right: 20px;
+    border-right: 5px solid $color2;
+    text-align: right;
+  }
+  
+  .previous {
+    padding-left: 20px;
+    border-left: 5px solid $color2;
+    text-align: left;
+  }
+}
+
+#hireme-link {
+  margin: 30pt auto;
+  padding: 0.3em;
+  text-align: center;
+  transition-duration: 200ms;
+  transition-timing-function: ease-in-out;
+  transition-property: background-color, color;
+  strong {
+    transition: color 200ms ease-in-out;
+  }
+}

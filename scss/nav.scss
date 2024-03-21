@@ -1,0 +1,151 @@
+@import "variables";
+
+$link-animation-time: 250ms;
+$slide-amount: 15px;
+
+nav {
+  margin-top: 40px;
+  ul, ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+#post-nav {
+  position: sticky;
+  top: 2rem;
+  margin-left: 50px;
+  margin-right: 20px;
+
+  a {
+    display: block;
+    padding: 7px 0;
+    transition: all 50ms ease-in-out;
+    margin-left: 6px;
+  }
+
+  .h1 {
+    padding-left: 30px;
+  }
+
+  .h2 {
+    padding-left: 45px;
+  }
+
+  .h3 {
+    padding-left: 60px;
+  }
+
+  li > a {
+    transition: all 400ms ease-out;
+    border-left-width: 3px;
+    border-left-style: solid;
+  }
+
+  li.active > a.h1 {
+    border-left-width: 3px;
+    border-left-style: solid;
+  }
+
+  li.active > a.h2 {
+    border-left-width: 3px;
+    border-left-style: solid;
+  }
+
+  li.active > a.h3 {
+    border-left-width: 3px;
+    border-left-style: solid;
+  }
+
+  .back-top {
+    margin: unset;
+    margin-top: 20px;
+  }
+}
+
+#site-nav {
+  position: sticky; //absolute;
+  margin-top: 50px;
+  top: 2rem; //50%;
+  margin-left: 20px;
+
+  .to-index {
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  #nav-serie-post {
+    ul {
+      margin-left: 20px;
+      list-decoration: none;
+    }
+    a {
+      li {
+        padding-top: 10px;
+        display: grid;
+        grid-template-columns: calc($base-font-size + 0px) auto $slide-amount;
+        transition: all $link-animation-time ease-out;
+        .serie-post-index {
+          margin-right: 20px;
+        }
+      }
+      li:hover {
+        grid-template-columns: calc($base-font-size + $slide-amount) auto 0px;
+        .post-title {
+          padding-left: 10px;
+        }
+      }
+      .current-post {
+        grid-template-columns: calc($base-font-size + $slide-amount) auto 0px;
+        .post-index {
+          margin-right: 10px;
+        }
+      }
+      .current-post:hover {
+        padding-left: 0px;  
+      }
+    }
+    a h3 {
+      transition: all $link-animation-time ease-out;
+    }
+  }
+
+  #same-category {
+    a {
+      transition: all $link-animation-time ease-in-out;
+      display: block;
+      padding-right: $slide-amount;
+      padding-left: 0px;
+    }
+    a:hover {
+      padding-right: 0px;
+      padding-left: $slide-amount;
+    }
+
+    li {
+      margin-bottom: 20px;
+    }
+  }
+}
+
+#pagination {
+  margin-top: unset;
+  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  span a {
+    div {
+      transition: color 150ms ease-in-out;
+    }
+  }
+
+  .next {
+    // border: 1px solid red;
+    text-align: end;
+  }
+
+  .prev {
+    // border: 1px solid green;
+  }
+}

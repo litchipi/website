@@ -1,0 +1,83 @@
+# Index page
+[pro_index]
+route = "/"
+lang_detect = false # TODO  Lang detection on pro_index
+default_template = "pro_index.html"
+
+# TODO  Design pro index
+
+# Blog index page
+[blog_index]
+route = "/blog"
+lang_detect = false  # TODO  Lang detection on blog_index
+default_template = "blog_index.html"
+
+[blog_index.add_context.recent_posts]
+query = "recent_pages"
+args = ["blog", { limit = 5 }]
+
+[blog_index.add_context.all_series]
+query = "query_metadata"
+args = ["blog", ["serie"]]
+
+[blog_index.add_context.all_categories]
+query = "query_metadata"
+args = ["blog", ["category"]]
+
+
+
+
+# Blog post
+[blog]
+route = "/post/{id}"
+lang_detect = false
+default_template = "post.html"
+content_query = { method = "content_id", args = "id" }
+
+[blog.add_context.same_category]
+query = "similar_pages_from_metadata"
+args=["blog", ["category"], { limit = 5 }]
+
+[blog.add_context.same_serie]
+query = "similar_pages_from_metadata"
+args = ["blog", ["serie", "slug"], {}]
+
+
+
+
+# Serie page
+[serie]
+route = "/serie/{serie_name}"
+lang_detect = false
+default_template = "post_list.html"
+
+[serie.add_context.all_posts]
+query="similar_pages_from_uri"
+args = ["blog", ["serie", "slug"], "serie_name", {}]
+
+[serie.add_context.by]
+query = "plain"
+args = "serie"
+
+
+
+# Category page
+[category]
+route = "/category/{category_name}"
+lang_detect = false
+default_template = "post_list.html"
+
+[category.add_context.all_posts]
+query="similar_pages_from_uri"
+args = ["blog", ["category"], "category_name", {}]
+
+[category.add_context.by]
+query = "plain"
+args = "category"
+
+
+# TODO  Add allposts
+# TODO  Add hireme
+# TODO  Add poll
+# TODO  Add RSS
+# TODO  Add humans.txt
