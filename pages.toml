@@ -101,10 +101,7 @@ query = "plain"
 args = "All posts"
 
 
-
-# TODO  Add hireme
 # TODO  Add poll
-# TODO  Add humans.txt
 
 
 # RSS feed
@@ -116,3 +113,10 @@ add_headers = { "Content-Type" = "text/xml;charset=UTF-8"}
 [rss.add_context.recent_posts]
 query = "recent_pages"
 args = ["blog", { limit = 0 }]
+
+
+
+[humans_txt]
+route = "/humans.txt"
+default_template = "humans.txt"
+add_headers = { "Content-Type" = "text/plain" }

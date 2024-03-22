@@ -1,0 +1,12 @@
+/* TEAM */
+Author: {{ site.author_name }}
+Github: {{ site.social.github }}
+Mastodon: {{ site.social.mastodon }}
+Email: {{ site.author_email |  replace(from="@", to=" [at] ") }}
+
+Software sources: {{ sources.engine }}
+Content sources: {{ sources.content }}
+
+Language: English, French
+
+Have a pleasant time browsing my human-made website :-)

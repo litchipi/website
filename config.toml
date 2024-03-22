@@ -21,8 +21,8 @@ copyrights = "Content released under a Creative commons CC BY-NC license"
 
 [add_context.sources]
 og_image = "/static/images/og_banner.png"
-blog_src = "https://github.com/litchipi/blog"
-blog_engine_src = "https://github.com/litchipi/ecoweb"
+content = "https://github.com/litchipi/blog"
+engine = "https://github.com/litchipi/ecoweb"
 
 [add_context.site.social]
 github = "https://github.com/litchipi/"
