@@ -5,6 +5,7 @@ page_config = "./pages.toml"
 
 
 
+
 # Additionnal context
 [add_context.site]
 name = "Litchi Pi"
@@ -69,3 +70,9 @@ default_sort = ["date", false]
 "hireme.css" = [ "hireme.scss" ]
 "poll.css" = [ "poll.scss"]
 "code.css" = [ "code.scss" ]
+
+
+
+# Temporary redirections
+[redirections]
+"/post/11603320942166757384" = "/post/5607614558439774564"

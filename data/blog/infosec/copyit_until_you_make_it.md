@@ -1,5 +1,3 @@
-id = 11603320942166757384
-
 [metadata]
 title = "Copy it until you make it"
 category = "infosec"

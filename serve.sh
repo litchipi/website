@@ -11,4 +11,4 @@ cd "$ROOT_DIR"
 
 clear
 rm -rf ./target/assets
-cargo run --features "${FEATURES}" -- -c $CONFIG_FILE
+cargo run "$@" --features "${FEATURES}" -- -c $CONFIG_FILE
