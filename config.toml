@@ -51,7 +51,7 @@ include_assets = [
   "scripts",
 ]
 css_output_dir = ".tmp/css"
-default_sort = ["date", false]
+default_sort = [["date"], false]
 
 [local_storage.scss]
 "style.css" = [

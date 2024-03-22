@@ -40,7 +40,7 @@ args=["blog", ["category"], { limit = 5 }]
 
 [blog.add_context.same_serie]
 query = "similar_pages_from_metadata"
-args = ["blog", ["serie", "slug"], {}]
+args = ["blog", ["serie", "slug"], { sort_by = ["serie", "index"], rev_sort = true }]
 
 
 
