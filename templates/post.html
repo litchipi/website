@@ -111,7 +111,7 @@
       {% if nbtags > 0 %}
         <div id="post-tags">
         {% for tag in metadata.tags %}
-          <code class="post-tag">{{ tag }}</code>
+          <a href="/tag/{{ tag }}"><code class="post-tag">{{ tag }}</code></a>
         {% endfor %}
         </div>
       {% endif %}

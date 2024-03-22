@@ -44,6 +44,20 @@ args = ["blog", ["serie", "slug"], { sort_by = ["serie", "index"], rev_sort = tr
 
 
 
+# Tag page
+[tag]
+route = "/tag/{tag_name}"
+lang_detect = false
+default_template = "post_list.html"
+
+[tag.add_context.all_posts]
+query="similar_pages_from_uri"
+args = ["blog", ["tags"], "tag_name", {}]
+
+[tag.add_context.by]
+query = "plain"
+args = "tag"
+
 
 # Serie page
 [serie]
