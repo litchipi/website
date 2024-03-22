@@ -2,32 +2,22 @@
 {% extends "base.html" %}
 
 {% block meta %}
-  {% set_global langage = add_endpoint_path | split(pat="/") | last %}
-
-  {% if langage == "fr" %}
-    {% set_global poll = poll_fr %}
-  {% elif langage == "en" %}
-    {% set_global poll = poll_en %}
-  {% else %}
-    {{ throw(message="Langage not set: " ~ add_endpoint_path) }}
-  {% endif %}
-
   <meta name=" robots" content=" index">
   <meta property="og:type" content="profile" />
   <meta property="og:title" content="{{ poll.title }}" />
   {% if site.og_image %}
   <meta property="og:image" content="{{site.base_url | safe}}/{{ site.og_image }}" />
   {% endif %}
-  <meta property="og:url" content="{{ site.base_url | safe }}/{{ add_endpoint_path }}" />
+  <meta property="og:url" content="{{ route }}" />
   <meta property="og:site_name" content="{{ site.name }}" />
 {% endblock meta %}
 
 {% block stylesheets %}
-  <link rel="stylesheet" href="/poll.css" />
+  <link rel="stylesheet" href="/static/poll.css" />
 {% endblock stylesheets %}
 
 {% block scripts %}
-  <script type="text/javascript" src="/poll.js"></script>
+  <script type="text/javascript" src="/static/poll.js"></script>
   <script>
   function init_questions_events() {
     {%- for qsetslug, qset in poll.question -%}

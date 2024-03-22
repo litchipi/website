@@ -1,0 +1,278 @@
+title = "Survey"
+introduction = """
+  Thank you for the time you are giving for [my project](/hireme/en) !
+
+  All data from this survey are stored anonymously, only your answers are kept,
+  no other data is collected.
+"""
+
+question_set_order = ["intro", "tools", "quality_price"]
+endpoint="/savedata/market_research_en"
+
+[lang]
+yes = "Yes"
+no = "No"
+send_button = "Submit"
+email_text = """
+  If [my project](/hireme/en) interests you, please enter your e-mail,
+  and I will contact you
+"""
+
+email_note = """
+  This is totally optional.
+  The e-mail address collected will not be abused, and will not be shared with anyone.
+"""
+email_lbl = "E-mail address:"
+
+data_consent = """
+  I consent that my answers (and e-mail if given) gets stored and used to conduct a
+  market research.
+"""
+
+# Introduction
+
+[question.intro.1_numeric_or_not]
+text = "Are you a profesionnal from the Information Technology industry ?"
+type = "yes_or_no"
+addq_yes = "numeric-pro"
+addq_no = "not-numeric"
+
+[question.intro.2_position]
+text = "What is your current position in your company ?"
+type = "text"
+
+[question.intro.3_company_size]
+text = "How many employees does your company hire ?"
+type = "radio"
+choices = [
+  "Individual",
+  "Less than 5 people",
+  "From 5 to 20 people",
+  "From 20 to 50 people",
+  "From 50 to 200 people",
+  "From 200 to 1000 people",
+  "More than 1000 people"
+]
+
+[question.intro.4_hours_front_computer]
+text = "In a working day, how many hours do you spend in front of a computer ?"
+type = "number"
+min = 0
+max = 24
+
+
+# Numeric pro
+
+[question.numeric-pro.1_write_code]
+text = "Do you write code ?"
+type = "yes_or_no"
+addq_yes = "write-code"
+
+## Write code
+[question.write-code.1_what_langage]
+text = "What language do you use to write code ?"
+type = "text"
+
+[question.write-code.2_high_constraints]
+text = "Are some parts of your code pressured by high constraints ?"
+type = "yes_or_no"
+note = """
+  Constraints on performance, memory usage, and any aspect requiring an optimisation.
+  It can be a software used internally, or deployed in a client.
+"""
+addq_yes = "high_constraints"
+
+[question.write-code.3_reach_limits]
+text = "Have you ever reached the limits of your code during an unusual event ?"
+note = "A high frequentation, voluminous data, computer attack..."
+type = "yes_or_no"
+addq_yes = "code_limit_details"
+
+[question.code_limit_details.details]
+text = "Could you write some details on this matter ?"
+note = "As many as discretion allows you to write"
+type = "text"
+
+[question.high_constraints.benchmark]
+text = "Do you perform benchmarks and optimisations on the critical parts of your code ?"
+type = "yes_or_no"
+
+
+# Not numeric pro
+
+[question.not-numeric.1_what_field]
+text = "In which field are you working on ?"
+type = "text"
+
+[question.not-numeric.2_ease_with_software]
+text = "How comfortable are you with software tools in general ?"
+type = "range"
+min = 0
+max = 100
+
+[question.not-numeric.2_ease_with_software.threshold]
+"No clue what I am doing" = 5
+"Not very comfortable" = 20
+"Basic actions" = 40
+"Moderately comfortable" = 60
+"Comfortable as a user" = 75
+"System Administrator" = 90
+"Hacker" = 100
+
+
+# Tools used
+
+[question.tools.1_link_ergonomy_tools]
+text = "Is your ergonomics related to the software tools you are using ?"
+type = "range"
+min = 0
+max = 10
+
+[question.tools.1_link_ergonomy_tools.threshold]
+"Not at all" = 1
+"A little bit" = 4
+"Moderately" = 6
+"A lot" = 9
+"Entirely" = 10
+
+[question.tools.2_tools_used_everyday]
+text = "What are the tools that you are using everyday ?"
+note = """
+  If there is too many to list, please prioritize the one specific to your field
+"""
+type = "text"
+rows=10
+cols=50
+
+[question.tools.3_software_frustration]
+text = "Are you sometime frustrated by a software tool ?"
+note = "Because it's too slow, lack features, not comfortable to use ..."
+type = "range"
+min = 0
+max = 10
+
+[question.tools.3_software_frustration.threshold]
+"Never" = 2
+"Very rare" = 4
+"From time to time" = 6
+"Regularly" = 8
+"All the time" = 10
+
+[question.tools.4_special_need]
+text = "Does your field lacks a software tool that doesn't yet exist, or isn't sufficient ?"
+type = "yes_or_no"
+addq_yes = "special_need_details"
+
+[question.special_need_details.details]
+text = "Could you write more details about this ?"
+note = "As many details as discretion allows you to"
+type = "text"
+
+[question.tools.5_manual_trask_repetition]
+text = "Have you ever had to do a manual repetitive task, because you had no tool to automate it ?"
+note = "Easy tasks, which doesn't need any thinking"
+type = "yes_or_no"
+
+[question.tools.6_high_intensity_slow]
+text = "During a high intensity period, did you ever got slowed down or frustrated by a software tool ?"
+note = "You or any coworker"
+type = "yes_or_no"
+
+[question.tools.7_tools_slowing_everyday]
+text = "Would estimate that, on average, software tools are wasting your time ?"
+note = "You or any coworker"
+type = "range"
+min = 0
+max = 100
+
+[question.tools.7_tools_slowing_everyday.threshold]
+"I gain a lot of time thanks to them" = 20
+"On average, I gain time" = 40
+"I don't waste time" = 60
+"On average, I lose time" = 80
+"I waste a lot of time because of them" = 100
+
+[question.quality_price.1_software_quality_importance]
+text="Among the quality criteria listed below for a software, what is the most important one for you ?"
+type = "checkbox"
+choices = [
+  "Ergonomics",
+  "Lack of bugs",
+  "Frequent updates",
+  "Execution speed",
+  "Lack of security vulnerabilities",
+]
+
+[question.quality_price.2_prefer_quality_or_price]
+text = "Do you prefer a high quality tool, to the detriment of its price ?"
+note = """
+  In relation to the quality criteria which were importants for you among those
+  listed in the past question
+"""
+type="range"
+min=0
+max=100
+
+[question.quality_price.2_prefer_quality_or_price.threshold]
+"Very cheap, but mediocre quality" = 20
+"Cheap, but bad quality" = 40
+"Average price and quality" = 60
+"Expensive, but good quality" = 80
+"Very expensive, but excellent quality" = 100
+
+[question.quality_price.3_simple_iface_or_graphic]
+text = "Do you prefer a sober and synthetic interface, or a graphic but voluminous one ?"
+type = "radio"
+choices = [
+  "Sober and synthetic",
+  "No preferences",
+  "Graphic but voluminous"
+]
+
+[question.quality_price.4_rse_important]
+text = "Is the CSR impact of a software tool an important choice criterium for you ?"
+note = """
+  Its ecological impact, accessibility for visually impaired people, disabled,
+  or with a bad computer equipment
+"""
+type = "range"
+min=0
+max=10
+
+[question.quality_price.4_rse_important.threshold]
+"Not important at all" = 2
+"Not really important" = 4
+"Neutral" = 6
+"Important" = 8
+"Very important" = 10
+
+[question.quality_price.5_hired_freelance_before]
+text = "Did you ever hired an external consultant for a software need ?"
+note = "A freelance, a software service company, etc ..."
+type = "yes_or_no"
+
+[question.quality_price.6_customer_service_importance]
+text = "How much is the customer service important for you ?"
+type = "range"
+min=0
+max=10
+
+[question.quality_price.6_customer_service_importance.threshold]
+"Not important at all" = 2
+"Not really important" = 4
+"Neutral" = 6
+"Important" = 8
+"Very important" = 10
+
+[question.quality_price.7_price_over_service]
+text = "Do you prefer a cheap software without customer service, or expensive with a complete customer service ?"
+type = "range"
+min = 0
+max = 10
+
+[question.quality_price.7_price_over_service.threshold]
+"Very cheap, but no customer service" = 2
+"Cheap, with minimal customer service" = 4
+"Average price and customer service" = 6
+"Expensive, with complete customer service" = 8
+"Very expensive, with maximal customer service" = 10
