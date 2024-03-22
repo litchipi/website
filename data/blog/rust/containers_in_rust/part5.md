@@ -2,8 +2,10 @@
 title = "Defining the container environment"
 category = "rust"
 tags = ["rust", "docker", "container", "tutorial"]
-date = 3
-description = "todo"
+date = 1641279700
+description = """
+    Set the container hostname, modify the container mount point, pivoting the root.
+"""
 
 [metadata.serie]
 index = 5

@@ -4,8 +4,11 @@ id = 2861149924092690398
 title = "Creating the skeletton"
 category = "rust"
 tags = ["rust", "docker", "container", "tutorial"]
-date = 3
-description = "todo"
+date = 1633277875
+description = """
+    Getting the configuration, creating the skeletton for the container, checking
+    the Linux kernel version for compatibility
+"""
 
 [metadata.serie]
 index = 3

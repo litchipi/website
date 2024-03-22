@@ -2,8 +2,11 @@
 title = "Syscalls and resources restriction"
 category = "rust"
 tags = ["rust", "docker", "container", "tutorial"]
-date = 3
-description = "todo"
+date = 1646894910
+description = """
+    How to restrict the binary running inside our container in order to protect our
+    system. Introduction to seccomp, syscalls, cgroups, rlimit
+"""
 
 [metadata.serie]
 index = 7

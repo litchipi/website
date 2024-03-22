@@ -1,7 +1,7 @@
 #!/bin/sh
 
 CONFIG_FILE=$(realpath ./config.toml)
-ROOT_DIR=$(realpath ../../web/ecoweb)
+ROOT_DIR=$(realpath ../../../web/ecoweb)
 
 FEATURES_LIST=(dev)
 # FEATURES_LIST=(rss humans-txt webring local_storage add-endpoint save-data githook minify)

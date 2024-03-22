@@ -4,8 +4,12 @@ id = 911064764032430296
 title = "Introduction to containers"
 category = "rust"
 tags = ["rust", "docker", "container", "tutorial"]
-date = 3
-description = "todo"
+date = 1632127354
+modified = 1646825092
+description = """
+    Overview of what is a container, the problem of software isolation it solves
+    and how does it compares to other solutions.
+"""
 
 [metadata.serie]
 index = 1

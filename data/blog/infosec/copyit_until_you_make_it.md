@@ -1,9 +1,12 @@
 [metadata]
 title = "Copy it until you make it"
 category = "infosec"
-tags = ["infosec", "cybersecurity"]
-date = 3
-description = "todo"
+tags = [ "pentesting", "cybersecurity", "infosec", "hacking" ]
+description = """
+    Reflexions on why copy other's work is great for learning,
+    and use the angle of the learning process of pentesting to develop.
+"""
+date = 1657289820
 
 ---
 

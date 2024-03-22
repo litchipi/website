@@ -3,9 +3,14 @@ id = 6171008673983561657
 [metadata]
 title = "Git code audit viewed as a Rust programmer"
 category = "infosec"
-tags = ["infosec", "cybersecurity", "git"]
-date = 3
-description = "todo"
+tags = ["infosec", "cybersecurity", "git", "rust" ]
+date = 1674550269
+modified = 1691311854
+description = """
+    Analyse the Git source code audit performed by X41 and Gitlab, and find out
+    if the vulnerabilities found would get mitigated by Rust or not.
+    From there, describe good security practices when writing code in Rust.
+"""
 
 ---
 

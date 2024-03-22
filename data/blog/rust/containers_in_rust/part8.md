@@ -4,8 +4,12 @@ id = 4939354172459981694
 title = "Executing the binary"
 category = "rust"
 tags = ["rust", "docker", "container", "tutorial"]
-date = 3
-description = "todo"
+date = 1661247785
+description = """
+    Execute a binary inside our container, resolve issues of dynamic libraries, mount
+    directories inside the environment.
+    Conclusion of the serie
+"""
 
 [metadata.serie]
 index = 8

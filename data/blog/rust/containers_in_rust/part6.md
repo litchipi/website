@@ -4,8 +4,12 @@ id = 4037271223033086059
 title = "User namespaces and Linux capabilities"
 category = "rust"
 tags = ["rust", "docker", "container", "tutorial"]
-date = 3
-description = "todo"
+date = 1641458400
+modified = 1691311854
+description = """
+    Set up user namespaces, map the UID / GID, restrict the child process with linux
+    capabilities
+"""
 
 [metadata.serie]
 index = 6

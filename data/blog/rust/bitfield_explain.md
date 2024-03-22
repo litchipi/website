@@ -2,8 +2,12 @@
 title = "How Rust can build an elegant API around raw memory"
 category = "rust"
 tags = ["rust", "embedded", "macros"]
-date = 3
-description = "todo"
+description = """
+    This post will explain what registers are, what are their use in bare-metal
+    programming, and how these macros allows for smooth Rust code when working with them.
+"""
+date = 1694001613
+modified = 1694763814
 
 ---
 

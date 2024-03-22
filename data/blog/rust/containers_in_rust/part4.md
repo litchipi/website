@@ -2,8 +2,11 @@
 title = "Birth of a child process"
 category = "rust"
 tags = ["rust", "docker", "container", "tutorial"]
-date = 3
-description = "todo"
+date = 1636707300
+description = """
+    Prepare inter-process communication (IPC), create a clone of the parent process
+    while restricting its scope using namespaces.
+"""
 
 [metadata.serie]
 index = 4

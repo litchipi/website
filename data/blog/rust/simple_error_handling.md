@@ -2,8 +2,11 @@
 title = "Simple errors handling in Rust using macros"
 category = "rust"
 tags = ["rust", "error", "macros"]
-date = 3
-description = "todo"
+date = 1662205300
+description = """
+    Describes how using macros you can easily handle errors of a whole piece of
+    software elegantly.
+"""
 
 ---
 

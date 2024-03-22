@@ -3,9 +3,13 @@ id = 4494997644360118003
 [metadata]
 title = "Build a Jekyll blog using Nix"
 category = "nix"
-tags = ["nix", "jekyll", "ruby"]
-date = 3
-description = "todo"
+tags = [ "nix", "jekyll", "ruby", "flake" ]
+date = 1673525163
+modified = 1698736070
+description = """
+  Use Nix flakes to build a Jekyll blog, overcoming the setup issues to build the
+  static website and/or serve it locally.
+"""
 
 ---
 

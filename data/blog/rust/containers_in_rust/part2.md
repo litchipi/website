@@ -4,8 +4,12 @@ id = 3339105518980600940
 title = "Starting the project"
 category = "rust"
 tags = ["rust", "docker", "container", "tutorial"]
-date = 3
-description = "todo"
+date = 1633009835
+modified = 1661375842
+description = """
+    Creation of the project, the logging system, the error handlings,
+    and arguments validation
+"""
 
 [metadata.serie]
 index = 2

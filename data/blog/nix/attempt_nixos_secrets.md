@@ -3,9 +3,13 @@ hidden = true
 [metadata]
 title = "My attempt at managing NixOS secrets"
 category = "nix"
-tags = ["nix", "secrets", "nixos"]
-date = 3
-description = "todo"
+tags = [ "nix", "infosec", "cybersecurity", "nixos" ]
+date = 1700218355
+description = """
+  Proposition for a new method to manage secrets inside a NixOS system.
+  The idea is to keep secrets encrypted inside the nix store, and decrypt these at boot
+  using a provisionned private key, serving as the base of the whole security system.
+"""
 
 ---
 

@@ -3,9 +3,13 @@ id = 5372913703797036942
 [metadata]
 title = "Nixfying the build of web applications easily"
 category = "nix"
-tags = ["nix", "web", "build"]
-date = 234000000
-description = "todo"
+tags = [ "nix", "web", "build", "flake" ]
+date = 1673689056
+description = """
+    Build web applications using Nix, ease the processus using a library to build common
+    Javascript frameworks, and present a script to manage a PostgreSQL database.
+    Also calls for contribution on the nix library.
+"""
 
 ---
 
