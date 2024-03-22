@@ -47,14 +47,8 @@
     </div>
 
     <footer>
-        <div class="copyrights">
-            {{ site.copyrights }}
-        </div>
-        <div class="webring-footer">
-            <a href="{{ webring.previous }}" class="webring-footer-element previous">Previous website</a>
-            <span class="webring-footer-element">This website is part of the webring <strong>{{ webring.name }}</strong></span>
-            <a href="{{ webring.next }}" class="webring-footer-element next">Next website</a>
-        </div>
+        {% block footer %}
+        {% endblock footer %}
     </footer>
 </body>
 
