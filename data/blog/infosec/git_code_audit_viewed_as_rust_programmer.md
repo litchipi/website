@@ -1,3 +1,5 @@
+id = 6171008673983561657
+
 [metadata]
 title = "Git code audit viewed as a Rust programmer"
 category = "infosec"
