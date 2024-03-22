@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="/static/rss/styles.xsl" type="text/xsl"?>
+<rss version="2.0">
+  <channel>
+    <title>{{ site.name }}</title>
+    <link>{{ site.base_url }}</link>
+    <description>{{ site.description }}</description>
+    <managingEditor>{{ site.author_email }} ({{ site.author_name}})</managingEditor>
+    <webMaster>{{ site.author_email }} ({{ site.author_name}})</webMaster>
+    <copyright>{{ site.copyrights }}</copyright>
+
+    {% for post in recent_posts %}
+    <item>
+      <title>{{ post.metadata.title }}</title>
+      <link type="text/html" title="{{ post.metadata.title }}">
+        {{ site.base_url }}/post/{{ post.id }}
+      </link>
+      <author>{{ site.author_email }} ({{ site.author_name }})</author>
+      <guid isPermaLink="false">{{ post.id }}</guid>
+      <pubDate>{{ post.metadata.date | timestamp_convert }}</pubDate>
+      <description type="html">{{ post.metadata.description }}</description>
+      <category>{{ post.metadata.category }}</category>
+    </item>
+    {% endfor %}
+  </channel>
+</rss>

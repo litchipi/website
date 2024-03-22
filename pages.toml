@@ -1,7 +1,7 @@
 # Index page
 [pro_index]
 route = "/"
-lang_detect = false # TODO  Lang detection on pro_index
+lang_detect = true
 default_template = "pro_index.html"
 
 # TODO  Design pro index
@@ -9,7 +9,7 @@ default_template = "pro_index.html"
 # Blog index page
 [blog_index]
 route = "/blog"
-lang_detect = false  # TODO  Lang detection on blog_index
+lang_detect = true
 default_template = "blog_index.html"
 
 [blog_index.add_context.recent_posts]
@@ -30,7 +30,6 @@ args = ["blog", ["category"]]
 # Blog post
 [blog]
 route = "/post/{id}"
-lang_detect = false
 default_template = "post.html"
 content_query = { method = "content_id", args = "id" }
 
@@ -47,7 +46,6 @@ args = ["blog", ["serie", "slug"], { sort_by = ["serie", "index"], rev_sort = tr
 # Tag page
 [tag]
 route = "/tag/{tag_name}"
-lang_detect = false
 default_template = "post_list.html"
 
 [tag.add_context.all_posts]
@@ -62,7 +60,6 @@ args = "tag"
 # Serie page
 [serie]
 route = "/serie/{serie_name}"
-lang_detect = false
 default_template = "post_list.html"
 
 [serie.add_context.all_posts]
@@ -78,7 +75,6 @@ args = "serie"
 # Category page
 [category]
 route = "/category/{category_name}"
-lang_detect = false
 default_template = "post_list.html"
 
 [category.add_context.all_posts]
@@ -90,8 +86,33 @@ query = "plain"
 args = "category"
 
 
-# TODO  Add allposts
+
+# All posts
+[all_posts]
+route = "/allposts"
+default_template = "post_list.html"
+
+[all_posts.add_context.all_posts]
+query = "recent_pages"
+args = ["blog", {}]
+
+[all_posts.add_context.by]
+query = "plain"
+args = "All posts"
+
+
+
 # TODO  Add hireme
 # TODO  Add poll
-# TODO  Add RSS
 # TODO  Add humans.txt
+
+
+# RSS feed
+[rss]
+route = "/rss"
+default_template = "rss_feed.xml"
+add_headers = { "Content-Type" = "text/xml;charset=UTF-8"}
+
+[rss.add_context.recent_posts]
+query = "recent_pages"
+args = ["blog", { limit = 0 }]

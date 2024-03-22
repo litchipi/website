@@ -49,6 +49,7 @@ include_assets = [
   "images",
   "fonts",
   "scripts",
+  "rss",
 ]
 css_output_dir = ".tmp/css"
 default_sort = [["date"], false]
