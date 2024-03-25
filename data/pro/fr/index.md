@@ -1,0 +1,6 @@
+[metadata]
+title = "Accueil"
+
+---
+
+# Accueil

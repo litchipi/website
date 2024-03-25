@@ -1,10 +1,14 @@
 # Index page
 [pro_index]
+storage = "pro"
 route = "/"
 lang_detect = true
 default_template = "pro_index.html"
+content_query = { method = "from_name", args = "index" }
 
-# TODO  Design pro index
+
+
+
 
 # Blog index page
 [blog_index]
