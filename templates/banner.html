@@ -1,11 +1,28 @@
+{% for lang in pref_langs %}
+  {% if banner[lang] %}
+    {% set_global banner = banner[lang] %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
 <div id="banner">
   <div id="logo"><a href="/"><img src="/static/logo.png" alt="Logo of a litchi fruit"/></a></div>
   <a id="sitename" href="/">{{ site.name }}</a>
-  <p></p>
-  <ul id="sitesocial">
-    <li id="rss"><a href="/rss">RSS</a></li>
-    {% for socialnet, link in site.social %}
-      <li id="{{ socialnet }}"><a href="{{ link }}">{{ socialnet | capitalize }}</a></li>
-    {% endfor %}
-  </ul>
+
+  <nav id="menu">
+    <ul>
+      <a href="/"><li>{{ banner.home }}</li></a>
+      <a href="/blog"><li>{{ banner.blog }}</li></a>
+      <a href="/"><li>{{ banner.contact }}</li></a>
+    </ul>
+  </nav>
+
+  <nav id="sitesocial">
+    <ul>
+      <li id="rss"><a href="/rss">RSS</a></li>
+      {% for socialnet, link in site.social %}
+        <li id="{{ socialnet }}"><a href="{{ link }}">{{ socialnet | capitalize }}</a></li>
+      {% endfor %}
+    </ul>
+  </nav>
 </div>

@@ -7,7 +7,7 @@ page_config = "./pages.toml"
 
 
 # Additionnal context
-[add_context.site]
+[plain_context.site]
 name = "Litchi Pi"
 author_name = "Litchi Pi"
 author_email = "litchi.pi@proton.me"
@@ -19,23 +19,24 @@ description = """
 """
 copyrights = "Content released under a Creative commons CC BY-NC license"
 
-[add_context.sources]
+[plain_context.sources]
 og_image = "/static/images/og_banner.png"
 content = "https://github.com/litchipi/blog"
 engine = "https://github.com/litchipi/ecoweb"
 
-[add_context.site.social]
+[plain_context.site.social]
 github = "https://github.com/litchipi/"
 mastodon = "https://fosstodon.org/@litchipi"
 email = "mailto:litchi.pi@proton.me"
 
-[add_context.webring]
+[plain_context.webring]
 name = "Experimental Math & Programming Ring"
 previous = "https://scatter.flowers"
 next = "https://themathjester.com"
 
-
-
+[add_context.banner]
+query = "query_context"
+args = ["pro", "banner"]
 
 
 # Storage configuration

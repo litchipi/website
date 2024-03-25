@@ -43,3 +43,19 @@ $title-space: calc($side-panel-size - $logo-size - $logo-padding);
     text-decoration: underline;
   }
 }
+
+#menu {
+  ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 10pt;
+  }
+
+  a {
+    display: inline-block;
+    font-size: $title-font-size;
+    font-weight: 1000;
+    color: $color2;
+    text-align: center;
+  }
+}

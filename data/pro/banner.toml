@@ -1,0 +1,9 @@
+[fr]
+home = "Accueil"
+blog = "Articles"
+contact = "Contactez moi"
+
+[en]
+home = "Home"
+blog = "Articles"
+contact = "Contact me"
