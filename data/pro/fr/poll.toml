@@ -1,0 +1,281 @@
+title = "Sondage"
+introduction = """
+  Merci des quelques minutes que vous accordez pour [mon projet](/hireme/fr)  !
+
+  Les données de ce formulaire sont stockées de façon anonyme,
+  seuls vos réponses sont conservées, aucune autre donnée n'est collectée.
+"""
+
+question_set_order = ["intro", "tools", "quality_price"]
+endpoint="/savedata/market_research_fr"
+
+[lang]
+yes = "Oui"
+no = "Non"
+send_button = "Envoyer"
+email_text = """
+  Si [mon project](/hireme/fr) vous intéresse, entrez votre e-mail
+  et je vous recontacterai
+"""
+
+email_note = """
+  Ceci est totalement optionnel.  
+  L'adresse e-mail collectée ne sera pas utilisé avec abus, et ne sera partagé avec
+  personne.
+"""
+email_lbl = "Adresse e-mail:"
+
+data_consent = """
+  Je consent à ce que mes réponses (et e-mail si renseigné) soit stocké
+  et utilisé afin de conduire une étude de marché.
+"""
+
+# Introduction
+
+[question.intro.1_numeric_or_not]
+text = "Êtes-vous un professionnel du secteur du numérique ou non ?"
+type = "yes_or_no"
+addq_yes = "numeric-pro"
+addq_no = "not-numeric"
+
+[question.intro.2_position]
+text = "Quel poste excercez vous au sein de votre entreprise ?"
+type = "text"
+
+[question.intro.3_company_size]
+text = "Combien d'employés environ compte votre entreprise ?"
+type = "radio"
+choices = [
+  "Individuel",
+  "Moins de 5 personnes",
+  "De 5 à 20 personnes",
+  "De 20 à 50 personnes",
+  "De 50 à 200 personnes",
+  "De 200 à 1000 personnes",
+  "Plus de 1000 personnes"
+]
+
+[question.intro.4_hours_front_computer]
+text = "Dans une journée de travail, combien d'heure passez-vous devant un ordinateur ?"
+type = "number"
+min = 0
+max = 24
+
+
+# Numeric pro
+
+[question.numeric-pro.1_write_code]
+text = "Écrivez-vous du logiciel à partir d'un langage de programmation ?"
+type = "yes_or_no"
+addq_yes = "write-code"
+
+## Write code
+[question.write-code.1_what_langage]
+text = "Quel(s) language(s) utilisez-vous ?"
+type = "text"
+
+[question.write-code.2_high_constraints]
+text = "Certaines parties de votre code sont-ils soumis à de hautes contraintes ?"
+type = "yes_or_no"
+note = """
+  En terme de performance, mémoire utilisée, et tout aspect pouvant être optimisé.
+  Logiciels utilisés en interne ou développé pour un client
+"""
+addq_yes = "high_constraints"
+
+[question.write-code.3_reach_limits]
+text = "Avez vous déjà atteint les limites de votre code lors d'une période inhabituelle ?"
+note = "Une fréquentation inhabituelle, des données volumineuses, une attaque informatique..."
+type = "yes_or_no"
+addq_yes = "code_limit_details"
+
+[question.code_limit_details.details]
+text = "Pouvez-vous nous donner des détails sur ce sujet ?"
+note = "Autant de détails que la discrétion vous permet de donner"
+type = "text"
+
+[question.high_constraints.benchmark]
+text = "Effectuez-vous des benchmarks et optimsations sur ces parties critiques ?"
+type = "yes_or_no"
+
+
+# Not numeric pro
+
+[question.not-numeric.1_what_field]
+text = "Dans quel secteur d'activité travaillez-vous ?"
+type = "text"
+
+[question.not-numeric.2_ease_with_software]
+text = "À quel point êtes vous à l'aise avec l'informatique en général ?"
+type = "range"
+min = 0
+max = 100
+
+[question.not-numeric.2_ease_with_software.threshold]
+"Sans aucun repères" = 5
+"Pas très à l'aise" = 20
+"Actions de base" = 40
+"Moyennement à l'aise" = 60
+"À l'aise en tant qu'utilisateur" = 75
+"Administrateur" = 90
+"Hacker" = 100
+
+
+# Tools used
+
+[question.tools.1_link_ergonomy_tools]
+text = "Votre ergonomie de travail est-elle liée aux outils logiciels que vous utilisez ?"
+type = "range"
+min = 0
+max = 10
+
+[question.tools.1_link_ergonomy_tools.threshold]
+"Pas du tout" = 1
+"Un peu" = 4
+"Moyennement" = 6
+"Beaucoup" = 9
+"Entièrement" = 10
+
+[question.tools.2_tools_used_everyday]
+text = "Quels sont les outils que vous utilisez au quotidien ?"
+note = """
+  S'il y en a trop à lister, merci de prioriser les logiciels les plus spécifiques à
+  votre corps de métier.
+"""
+type = "text"
+rows=10
+cols=50
+
+[question.tools.3_software_frustration]
+text = "Vous arrive-t-il d'être frustré par un outil logiciel ?"
+note = "Parce qu'il est trop lent, pas assez complet, pas agréable à utiliser..."
+type = "range"
+min = 0
+max = 10
+
+[question.tools.3_software_frustration.threshold]
+"Jamais" = 2
+"C'est très rare" = 4
+"De temps en temps" = 6
+"Régulièrement" = 8
+"Tout le temps" = 10
+
+[question.tools.4_special_need]
+text = "Manque-t-il à votre corps de métier un outil qui n'existe pas encore, ou est insuffisant ?"
+type = "yes_or_no"
+addq_yes = "special_need_details"
+
+[question.special_need_details.details]
+text = "Pouvez-vous nous donner des détails sur ce sujet ?"
+note = "Autant de détails que la discrétion vous permet de donner"
+type = "text"
+
+[question.tools.5_manual_trask_repetition]
+text = "Avez-vous déjà effecuté une tâche manuelle répétitive par faute d'avoir un outil l'automatisant ?"
+note = "Des tâches peu complexes, ne nécessitant pas de réflexion réelle"
+type = "yes_or_no"
+
+[question.tools.6_high_intensity_slow]
+text = "Lors d'une période de haute intensité, un outil logiciel vous a-t-il déjà ralenti, dérangé, frustré ?"
+note = "Vous ou vos collaborateurs"
+type = "yes_or_no"
+
+[question.tools.7_tools_slowing_everyday]
+text = "Estimez-vous que, au quotidien, les outils logiciels vous font perdre du temps ?"
+note = "Vous ou vos collaborateurs"
+type = "range"
+min = 0
+max = 100
+
+[question.tools.7_tools_slowing_everyday.threshold]
+"Ils me font gagner beaucoup de temps" = 20
+"En moyenne, je gagne du temps" = 40
+"Je ne perds pas de temps" = 60
+"En moyenne, je perds du temps" = 80
+"Ils me font perdre beaucoup de temps" = 100
+
+[question.quality_price.1_software_quality_importance]
+text="Parmis les critères de qualité d'un logiciel ci-dessous, quel est le plus important pour votre usage ?"
+type = "checkbox"
+choices = [
+  "Ergonomie",
+  "Absence de bugs",
+  "Mise à jour fréquente",
+  "Rapidité d'exécution",
+  "Absence de failles de sécurité"
+]
+
+[question.quality_price.2_prefer_quality_or_price]
+text = "Préférez-vous un outil de très bonne qualité, au détriment de son prix ?"
+note = """
+  Par rapport aux critères de qualités importants pour vous parmis ceux listés
+  à la question précédente
+"""
+type="range"
+min=0
+max=100
+
+[question.quality_price.2_prefer_quality_or_price.threshold]
+"Très peu cher, qualité médiocre" = 20
+"Peu cher, mauvaise qualité" = 40
+"Prix et qualité moyens" = 60
+"Cher, mais de bonne qualité" = 80
+"Très cher, mais d'une excellente qualité" = 100
+
+[question.quality_price.3_simple_iface_or_graphic]
+text = "Préférez-vous une interface sobre et synthétique, ou graphique mais plus volumineuse ?"
+type = "radio"
+choices = [
+  "Sobre et synthétique",
+  "Pas de préférence",
+  "Graphique mais volumineuse"
+]
+
+[question.quality_price.4_rse_important]
+text = "Est-ce que l'impact RSE d'un outil est un critère important dans votre choix ?"
+note = """
+  Son impact écologique, son accessibilité pour les personnes malvoyantes, handicapées,
+  ou ayant un mauvais équipement informatique.
+"""
+type = "range"
+min=0
+max=10
+
+[question.quality_price.4_rse_important.threshold]
+"Pas du tout important" = 2
+"Peu important" = 4
+"Neutre" = 6
+"Important" = 8
+"Très important" = 10
+
+[question.quality_price.5_hired_freelance_before]
+text = "Avez-vous déjà eu recours à un consultant externe pour un besoin en logiciel ?"
+note = "Un freelance, une entreprise de prestation, ..."
+type = "yes_or_no"
+
+[question.quality_price.6_customer_service_importance]
+text = "À quel point est-ce que le SAV est important pour vous ?"
+note = "SAV = Service après vente"
+type = "range"
+min=0
+max=10
+
+[question.quality_price.6_customer_service_importance.threshold]
+"Pas du tout important" = 2
+"Peu important" = 4
+"Neutre" = 6
+"Important" = 8
+"Très important" = 10
+
+[question.quality_price.7_price_over_service]
+text = "Préférez-vous un logiciel peu cher sans SAV, ou cher avec un SAV très poussé ?"
+type = "range"
+min = 0
+max = 10
+
+[question.quality_price.7_price_over_service.threshold]
+"Très peu cher, aucun SAV" = 2
+"Peu cher, SAV minimal" = 4
+"Prix et SAV moyen" = 6
+"Cher, SAV assez complet" = 8
+"Très cher, SAV maximal" = 10
