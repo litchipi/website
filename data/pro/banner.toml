@@ -3,6 +3,8 @@ home = "Accueil"
 blog = "Articles"
 contact = "Contactez moi"
 
+# TODO About, Services, Portfolio
+
 [en]
 home = "Home"
 blog = "Articles"

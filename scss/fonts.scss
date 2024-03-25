@@ -24,6 +24,13 @@ code {
   font-weight: bold;
 }
 
+#menu {
+  a {
+    font-size: $title-font-size;
+    font-weight: 1000;
+  }
+}
+
 .styled-list {
   .item-title {
     font-size: calc($base-font-size * 1.3);
