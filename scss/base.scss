@@ -10,13 +10,16 @@ a {
 }
 
 body {
+  margin: unset;
+  margin-top: 50px;
   display: grid;
   grid-template-rows: auto 1fr auto;
   min-height: calc(100vh - $footer-height);
 }
 
 .page-grid {
-  margin-top: 3pt;
+  z-index: 3;
+  margin-top: 100px;
   display: grid;
   grid-template-columns: minmax($side-panel-size, 1fr) minmax(300px, auto) minmax($side-panel-size, 1fr);
 }
@@ -85,8 +88,6 @@ body {
 }
 
 footer {
-  margin-bottom: 10px;
-
   .copyrights {
     text-align: center;
     color: $light-gray;

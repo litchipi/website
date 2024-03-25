@@ -3,9 +3,7 @@
 $title-space: calc($side-panel-size - $logo-size - $logo-padding);
 
 #banner {
-  display: grid;
-  grid-template-columns: calc($logo-size + $logo-padding) $title-space 1fr $side-panel-size;
-  column-gap: 10pt;
+  margin-top: 50px;
 }
 
 #sitedescr {
@@ -13,21 +11,37 @@ $title-space: calc($side-panel-size - $logo-size - $logo-padding);
   margin: auto;
 }
 
-#logo {
-  margin: auto;
+#biglogo {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 10px auto;
+  z-index: 1;
+
+  a {
+    display: inline-block;
+  }
+
+  .sitename {
+    margin: auto;
+    font-size: 60px;
+  }
+
   img {
     width: $logo-size;
   }
 }
 
-#sitename {
-  display: block;
-  margin: auto;
-  margin-left: 0px;
-}
-
 #sitesocial {
-  margin-right: 10px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index: 1;
+  margin: unset;
+  padding-top: 10px;
+  padding-right: 10px;
   text-align: right;
 
   li {
@@ -44,17 +58,46 @@ $title-space: calc($side-panel-size - $logo-size - $logo-padding);
   }
 }
 
+#menubar {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 10pt;
+  width: 100%;
+
+  .sitename {
+    margin-left: 40px;
+  }
+
+  img {
+    position: absolute;
+    right: 0px;
+    width: 50px;
+    height: 50px;
+  }
+}
+
 #menu {
+  margin-top: unset;
+  height: 100%;
+  
   ul {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     column-gap: 10pt;
-    height: 100%;
   }
 
   a {
-    color: $color2;
-    text-align: center;
+    color: darken(#cecece, 10%);
     margin: auto;
+    text-align: center;
+    border-bottom: 3px solid #f1f1f1;
+    width: fit-content;
+    transition-property: border-color, color;
+    transition-duration: 300ms;
+  }
+
+  a:hover {
+    color: $color1;
+    border-bottom: 3px solid $color1;
   }
 }

@@ -9,7 +9,7 @@ ROOT_DIR=$(realpath `dirname $0`/../../../web/ecoweb)
 
 echo "$CONFIG_FILE $ROOT_DIR"
 
-FEATURES_LIST=(dev)
+FEATURES_LIST=(dev minify)
 # FEATURES_LIST=(rss humans-txt webring local_storage add-endpoint save-data githook minify)
 FEATURES=$(IFS=, ; echo "${FEATURES_LIST[*]}")
 

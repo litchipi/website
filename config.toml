@@ -52,7 +52,6 @@ include_assets = [
   "scripts",
   "rss",
 ]
-css_output_dir = ".tmp/css"
 default_sort = [["date"], false]
 
 [local_storage.scss]
@@ -65,11 +64,11 @@ default_sort = [["date"], false]
   "nav.scss", 
   "post.scss", 
   "specific.scss", 
+  "pro.scss",
   "tablet.scss",
   "phone.scss",
 ]
 "print.css" = [ "print.scss" ]
-"hireme.css" = [ "hireme.scss" ]
 "poll.css" = [ "poll.scss"]
 "code.css" = [ "code.scss" ]
 

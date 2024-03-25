@@ -1,3 +1,9 @@
+<!-- TODO  IMPORTANT Restyle banner
+  Merge icon & writing into single image file
+  Create nav buttons on the right of the banner
+  Simple & elegant
+-->
+
 {% for lang in pref_langs %}
   {% if banner[lang] %}
     {% set_global banner = banner[lang] %}
@@ -5,10 +11,13 @@
   {% endif %}
 {% endfor %}
 
-<div id="banner">
-  <div id="logo"><a href="/"><img src="/static/logo.png" alt="Logo of a litchi fruit"/></a></div>
-  <a id="sitename" href="/">{{ site.name }}</a>
+<div id="biglogo">
+  <a href="/"><img src="/static/logo.png" alt="Logo of a litchi fruit"/></a>
+  <a class="sitename" href="/">{{ site.name }}</a>
+</div>
 
+<div id="menubar">
+  <a class="sitename" href="/">{{ site.name }}</a>
   <nav id="menu">
     <ul>
       <a href="/"><li>{{ banner.home }}</li></a>
@@ -16,13 +25,14 @@
       <a href="/"><li>{{ banner.contact }}</li></a>
     </ul>
   </nav>
-
-  <nav id="sitesocial">
-    <ul>
-      <li id="rss"><a href="/rss">RSS</a></li>
-      {% for socialnet, link in site.social %}
-        <li id="{{ socialnet }}"><a href="{{ link }}">{{ socialnet | capitalize }}</a></li>
-      {% endfor %}
-    </ul>
-  </nav>
+  <img src="/static/logo_micro.png">
 </div>
+
+<nav id="sitesocial">
+  <ul>
+    <li id="rss"><a href="/rss">RSS</a></li>
+    {% for socialnet, link in site.social %}
+      <li id="{{ socialnet }}"><a href="{{ link }}">{{ socialnet | capitalize }}</a></li>
+    {% endfor %}
+  </ul>
+</nav>

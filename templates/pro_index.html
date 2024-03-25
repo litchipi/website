@@ -1,46 +1,120 @@
 {% extends "base.html" %}
 
 {% block title %}{{ metadata.title }}{% endblock title %}
+{% block mainclass %}pro-content-wrapper{% endblock mainclass %}
 
-{% block content %}
-  {{ page_content | safe }}
+{% block stylesheets %}
+<style>
+#menubar {
+  position: sticky;
+  top: 0px;
+}
+.page-grid {
+  display: none;
+}
+</style>
+{% endblock stylesheets %}
 
-  <!--
-    TODO  Big banner image
-    with a catchy phrase on top of it
-    with subheadline that elaborate what is written in the image
-  -->
+{% block beforecontent %}
+<main class="pro-content-wrapper">
+  <section id="pro-intro">
+    <h1>Apportez de la sérénité à votre quotidien</h1>
+    <div>
+      <img src="/static/pro/serenity.png"/>
+      <ul>
+        <li>Plus de temps</li>
+        <li>Plus de confort</li>
+      </ul>
+    </div>
+  </section>
 
-  <!-- TODO  Featured services
-    Grid with a list of services I can do
-    With appealling thumbnails
-    And a CTA
-  -->
+  <section id="pro-services">
+    <ul id="pro-services">
+      <li>
+        <h2>Programmation</h2>
+        <img>logo</img>
+        <p>
+          Un besoin pour un outil, pour un truc, hésitez pas
+        </p>
+      </li>
+      <li>
+        <h2>Intelligence artificielle</h2>
+        <img>logo</img>
+        <p>
+          Besoin d'ajouter de l'intelligence là où il en manque ?
+        </p>
+      </li>
+      <li>
+        <h2>Formation</h2>
+        <img>logo</img>
+        <p>
+          Apprendre le rust ou la sécurité avec moi, c'est fun !
+        </p>
+      </li>
+    </ul>
+    <a class="pro-hireme" href="#pro-contact">On travaille ensemble ?</a>
+  </section>
 
-  <!-- TODO  About section
-    Storytelling
-    Mission / Vision
-    Photo
-  -->
+  <section id="pro-vision">
+    <h1>Un logiciel, pour un humain</h1>
+    <div>
+      <p style="grid-area: a">
+        Humaniser le logiciel, optimiser l'ergonomie de chacun, afin que
+        <strong>vous</strong> puissiez vous concentrer sur votre métier.
+      </p>
 
-  <!-- TODO  Testimonials section
-    Customer reviews, with real names and real photos if possible
-    With a CTA at the end of it
-  -->
+      <img src="/static/pro/serenity.png" style="grid-area: b"/>
 
-  <!-- TODO  Blog section
-    Fetch latest blog posts, and display it here
-  -->
+      <img src="/static/pro/serenity.png" style="grid-area: c"/>
 
-  <!-- TODO  Contact section
-    CTA with contact form
-    Contact form
-  -->
-  
+      <p style="grid-area: d">
+        Bla bla bla
+      </p>
 
+      <p style="grid-area: e">
+        Bla bla bla
+      </p>
+
+      <img src="/static/pro/serenity.png" style="grid-area: f"/>
+    </div>
+  </section>
+
+  <!-- TODO Testimonials section -->
+  <!-- <section id="pro-testimonials"> -->
+  <!-- </section> -->
+
+  <section id="pro-contact">
+    <h1>Contactez moi</h1>
+    <form action="/contact" method="post">
+        <input type="text" placeholder="Nom" name="name" size="50" required />
+        <input type="email" placeholder="Email" name="email" size="50" required />
+        <input type="text" placeholder="Sujet" name="subject" size="150" required />
+        <textarea name="body" rows="10" placeholder="Message" maxlength=2000></textarea>
+
+        <input type="submit" value="Envoyer" />
+    </form>
+  </section>
+</main>
+{% endblock beforecontent %}
+
+{% block footer %}
+<div id="pro-footer">
+  <nav>
+    <ul>
+      <a href="#pro-contact"><li>Contact</li></a>
+      <a href="/blog"><li>Blog</li></a>
+      {% for socialnet, link in site.social %}
+        <a href="{{ link }}"><li>{{ socialnet | capitalize }}</li></a>
+      {% endfor %}
+      <a href="/rss"><li>RSS feed</li></a>
+    </ul>
+  </nav>
   <!-- TODO  Footer
     Navigation links
     Social media icons
     Copyright infos
   -->
-{% endblock content %}
+
+  <img class="micro_logo" src="/static/logo_micro.png">
+</div>
+{% endblock footer %}

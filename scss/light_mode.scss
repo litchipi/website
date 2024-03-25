@@ -113,6 +113,14 @@ html[class="light-mode"] {
     }
   }
 
+  #menubar {
+    background-color: $background-color;
+    }
+
+  #biglogo {
+    background-color: $background-color;
+  }
+
   #welcome-message {
     background-color: #2A2A2A;
     border-color: $color3_dark;
@@ -291,6 +299,8 @@ html[class="light-mode"] {
   }
 
   #sitesocial {
+    background-color: $background-color;
+
     a {
       color: $color1;
     }

@@ -17,16 +17,15 @@ code {
   font-size: $note-font-size;
 }
 
-#sitename {
+.sitename {
   letter-spacing: -1px;
   font-size: $title-font-size;
-  line-height: $title-line-height;
   font-weight: bold;
 }
 
 #menu {
   a {
-    font-size: $title-font-size;
+    font-size: calc($base-font-size * 1.3);
     font-weight: 1000;
   }
 }

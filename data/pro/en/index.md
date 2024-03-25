@@ -1,6 +1,9 @@
 [metadata]
 title = "Home"
 
+[metadata.intro]
+banner_text = "Get some serenity"
+
 ---
 
 # Empowering our differences
