@@ -50,11 +50,14 @@ include_assets = [
   "images",
   "fonts",
   "scripts",
-  "rss",
+  "data/static",
 ]
 default_sort = [["date"], false]
 
 [local_storage.scss]
+"pro.css" = [
+  "pro.scss"
+]
 "style.css" = [
   "fonts.scss",
   "dark_mode.scss",
@@ -64,13 +67,13 @@ default_sort = [["date"], false]
   "nav.scss", 
   "post.scss", 
   "specific.scss", 
-  "pro.scss",
   "tablet.scss",
   "phone.scss",
 ]
 "print.css" = [ "print.scss" ]
 "poll.css" = [ "poll.scss"]
 "code.css" = [ "code.scss" ]
+"rss.css" = [ "rss.scss" ]
 
 
 
