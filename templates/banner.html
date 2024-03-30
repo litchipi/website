@@ -1,9 +1,3 @@
-<!-- TODO  IMPORTANT Restyle banner
-  Merge icon & writing into single image file
-  Create nav buttons on the right of the banner
-  Simple & elegant
--->
-
 {% for lang in pref_langs %}
   {% if banner[lang] %}
     {% set_global banner = banner[lang] %}
@@ -17,6 +11,7 @@
 </div>
 
 <div id="menubar">
+  <img src="/static/logo_micro.png">
   <a class="sitename" href="/">{{ site.name }}</a>
   <nav id="menu">
     <ul>
@@ -25,7 +20,7 @@
       <a href="/"><li>{{ banner.contact }}</li></a>
     </ul>
   </nav>
-  <img src="/static/logo_micro.png">
+  <div></div>
 </div>
 
 <nav id="sitesocial">

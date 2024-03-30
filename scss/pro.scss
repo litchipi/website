@@ -10,15 +10,17 @@ $base-font-size: calc($base-font-size * 1.3);
   column-gap: 50px;
 
   section {
-    padding-top: 80px;
+    padding-top: 100px;
+    margin-top: 50px;
   }
 
   .pro-hireme {
-    margin: 60px auto;
-    width: 60%;
+    display: block;
+    margin: auto;
+    width: 50%;
     text-align: center;
     background-color: #f1f1f1;
-    padding: 20px;
+    padding: 20px 0px 20px 0px;
   }
 
   h1 {
@@ -30,7 +32,7 @@ $base-font-size: calc($base-font-size * 1.3);
   }
 
   #pro-intro {
-    padding-top: 40px;
+    padding-top: 0px;
 
     h1 {
       margin-bottom: 60px;
@@ -54,24 +56,31 @@ $base-font-size: calc($base-font-size * 1.3);
   }
 
   #pro-services {
-    margin: 0px 150px;
-    display: grid;
-    column-gap: 50px;
+    margin: 30px auto;
+    width: 60%;
+
+    ul {
+      display: grid;
+      column-gap: 20px;
+      grid-auto-columns: 1fr;
+      padding: unset;
+    }
 
     li {
       grid-row: 1;
       display: grid;
-      grid-template-rows: 1fr 1fr 1fr;
+      grid-auto-rows: 1fr;
       text-align: center;
-      height: 300px;
-      max-width: 500px;
-      margin: auto;
+      margin: auto 0px auto 0px;
+
+      img {
+        margin: auto;
+        width: 150px;
+      }
 
       h2 {
         color: $color1;
       }
-
-      border-radius: 6px;
     }
   }
 
