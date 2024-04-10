@@ -85,3 +85,23 @@ default_sort = [["date"], false]
 "/post/17037986568830293248" = "/post/9546819213850085468"
 "/post/14221337313176405949" = "/post/392340953423320473"
 "/post/17138451467994647381" = "/post/7783911364247322844"
+
+
+
+
+# Mail configuration
+[mail]
+relay = "in-v3.mailjet.com"
+username = "7c6b32b31a794ba0b3b107ea580ab1f3"
+password = "212c35e4d70611565dde107b55d3c71d"
+
+from = "Blog <blog@litchipi.site>"
+recipient = "LitchiPi <litchi.pi@proton.me>"
+pubkey = "MIGJAoGBAK98NWNHYefwkH0ipJ6t6kVcYJmkKX4wf6AwX+HtC9qFLR09wrtqz8q6D3jl/P9sAolXiitdpdSENjLeZgNGY59RLfVh15jdyndgcNzg5OghaMLNLbazeTbKT+mZQYDyBhNi/F1cbGSyeyGJ1KDeo5rnuLcEwZSUh9reRGZNC3aTAgMBAAE="
+
+
+
+
+# Forms configuration
+[form_endpoints]
+"/contact" = { action = "SendOverEmail", args = "New contact from homepage form" }
