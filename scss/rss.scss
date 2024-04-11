@@ -1,51 +1,78 @@
-// TODO  Pimp the RSS feed theme
+@import "variables";
 
-/* Styles for .container-md */
-.container-md {
-  max-width: 768px; /* Example width */
-  margin-right: auto;
-  margin-left: auto;
-}
-
-/* Styles for .px-3 */
-.px-3 {
-  padding-left: 0.75rem; /* Example padding */
-  padding-right: 0.75rem;
-}
-
-/* Styles for .py-3 */
-.py-3 {
-  padding-top: 0.75rem; /* Example padding */
-  padding-bottom: 0.75rem;
-}
-
-/* Styles for .markdown-body */
-.markdown-body {
-  font-family: Arial, sans-serif; /* Example font */
-  font-size: 16px; /* Example font size */
-  line-height: 1.5; /* Example line height */
-  word-wrap: break-word;
-}
-
-.mb-0 {
-  margin-bottom: 0px;
-}
-
-/* Styles for .bg-yellow-light */
-
-.text-gray {
-  color: #586069 !important
-}
-
-.bg-yellow-light {
-  background-color: #fff5b1 !important; /* Example background color */
-}
-
-mb-5 {
-  margin-bottom: 32px;
+html {
+  background-color: #FCFCFC;
 }
 
 a {
-  color: #0366d6;
-  text-decoration: none
+  text-decoration: none;
+}
+
+.rss-intro {
+  text-align: center;
+  font-size: 20px;
+
+  code {
+    color: $color1;
+  }
+}
+
+.rss-post-list {
+  min-width: 500px;
+  width: 50%;
+  margin: auto;
+}
+
+.banner {
+  display: grid;
+  width: 650px;
+  grid-template-columns: 140px 3fr;
+  column-gap: 50px;
+  margin: auto;
+
+  img {
+    width: 140px;
+  }
+
+  h1 a {
+    color: $color1;
+    font-size: 90px;
+  }
+
+  a:hover {
+    color: $color1_light;
+  }
+
+  margin-bottom: 80px;
+}
+
+.rss-item {
+  margin: auto;
+  display: block;
+  margin-bottom: 30px;
+  padding: 10px 30px;
+  border-radius: 20px;
+
+  .rss-item-title {
+    font-size: 30px;
+    margin-bottom: 10px;
+    color: $color2;
+  }
+
+  .rss-item-metadata {
+    color: #aeaeae;
+    font-size: 18px;
+  }
+
+  .rss-item-description {
+    color: #000000;
+  }
+}
+
+.rss-item:hover {
+  background-color: #f1f1f1;
+
+  .rss-item-title {
+    color: $color1;
+  }
 }
