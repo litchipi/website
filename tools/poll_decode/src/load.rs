@@ -1,10 +1,11 @@
 use std::{collections::HashMap, path::PathBuf};
 
 use base64::Engine;
+use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use toml::map::Map;
 
-#[derive(Debug)]
+#[derive(Clone, Hash, PartialEq, Eq, Debug, Serialize, Deserialize)]
 pub struct PollQuestion {
     text: String,
     qtype: String,
