@@ -153,6 +153,7 @@ $services-icon-size: 150px;
         border: 1px solid #cecece; //$color1;
         padding: 20px;
         grid-column: span 2;
+        resize: none;
       }
 
       input[type="submit"] {

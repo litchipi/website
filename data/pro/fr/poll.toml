@@ -1,13 +1,19 @@
 title = "Sondage"
 introduction = """
-  Merci des quelques minutes que vous accordez pour [mon projet](/hireme/fr)  !
+  Merci des quelques minutes que vous accordez pour [mon projet entreprenarial](/)  !
 
   Les données de ce formulaire sont stockées de façon anonyme,
   seuls vos réponses sont conservées, aucune autre donnée n'est collectée.
 """
 
-question_set_order = ["intro", "tools", "quality_price"]
-endpoint="/savedata/market_research_fr"
+question_set_order = ["intro", "tools", "quality_price", "specific"]
+endpoint="/save_market_research/fr"
+
+[introductions]
+specific = """
+  Ayant déjà des projets pour de futurs services, vos réponses à ces questions m'aideront
+  grandement à les développer.
+"""
 
 [lang]
 yes = "Oui"
@@ -33,7 +39,7 @@ data_consent = """
 # Introduction
 
 [question.intro.1_numeric_or_not]
-text = "Êtes-vous un professionnel du secteur du numérique ou non ?"
+text = "Êtes-vous un professionnel du secteur du numérique ?"
 type = "yes_or_no"
 addq_yes = "numeric-pro"
 addq_no = "not-numeric"
@@ -54,12 +60,6 @@ choices = [
   "De 200 à 1000 personnes",
   "Plus de 1000 personnes"
 ]
-
-[question.intro.4_hours_front_computer]
-text = "Dans une journée de travail, combien d'heure passez-vous devant un ordinateur ?"
-type = "number"
-min = 0
-max = 24
 
 
 # Numeric pro
@@ -137,7 +137,7 @@ max = 10
 "Entièrement" = 10
 
 [question.tools.2_tools_used_everyday]
-text = "Quels sont les outils que vous utilisez au quotidien ?"
+text = "Quels sont les logiciels que vous utilisez au quotidien ?"
 note = """
   S'il y en a trop à lister, merci de prioriser les logiciels les plus spécifiques à
   votre corps de métier.
@@ -181,18 +181,12 @@ note = "Vous ou vos collaborateurs"
 type = "yes_or_no"
 
 [question.tools.7_tools_slowing_everyday]
-text = "Estimez-vous que, au quotidien, les outils logiciels vous font perdre du temps ?"
-note = "Vous ou vos collaborateurs"
-type = "range"
+text = "En moyenne, estimez le temps perdu à cause de logiciels mal adaptés"
+note = "En minutes"
+type = "number"
 min = 0
-max = 100
-
-[question.tools.7_tools_slowing_everyday.threshold]
-"Ils me font gagner beaucoup de temps" = 20
-"En moyenne, je gagne du temps" = 40
-"Je ne perds pas de temps" = 60
-"En moyenne, je perds du temps" = 80
-"Ils me font perdre beaucoup de temps" = 100
+max = 12000
+step = 1
 
 [question.quality_price.1_software_quality_importance]
 text="Parmis les critères de qualité d'un logiciel ci-dessous, quel est le plus important pour votre usage ?"
@@ -221,15 +215,6 @@ max=100
 "Prix et qualité moyens" = 60
 "Cher, mais de bonne qualité" = 80
 "Très cher, mais d'une excellente qualité" = 100
-
-[question.quality_price.3_simple_iface_or_graphic]
-text = "Préférez-vous une interface sobre et synthétique, ou graphique mais plus volumineuse ?"
-type = "radio"
-choices = [
-  "Sobre et synthétique",
-  "Pas de préférence",
-  "Graphique mais volumineuse"
-]
 
 [question.quality_price.4_rse_important]
 text = "Est-ce que l'impact RSE d'un outil est un critère important dans votre choix ?"
@@ -279,3 +264,45 @@ max = 10
 "Prix et SAV moyen" = 6
 "Cher, SAV assez complet" = 8
 "Très cher, SAV maximal" = 10
+
+
+
+# Specific for my own product / services ideas
+
+[question.specific.1_archive_data]
+text = "Vos données sont-elles archivées régulièrement ?"
+note = """
+  Afin de contrer les possibles attaques informatiques, ou défauts matériels,
+  et éviter ainsi la perte de données importantes
+"""
+type = "yes_or_no"
+
+[question.specific.2_meeting_remote]
+text = "Faites-vous régulièrement des réunions en distanciel ?"
+note = "Avec des logiciels comme Microsoft Teams, ou Google Meet"
+type = "yes_or_no"
+
+[question.specific.3_brainstorming]
+text = "Avez-vous déjà utilisé des méthodes de réunions plus interactives ?"
+note = "Brainstorming, résolution de problèmes avec le role play, méthode du Lotus, ..."
+type = "radio"
+choices = [
+  "Fréquemment",
+  "De temps en temps",
+  "Rarement",
+  "Jamais",
+]
+
+[question.specific.4_usage_of_ai]
+text = "Utilisez-vous fréquemment une IA du type ChatGPT ?"
+type = "radio"
+choices = [
+  "Fréquemment",
+  "De temps en temps",
+  "Rarement",
+  "Jamais",
+]
+
+[question.specific.5_private_ai]
+text = "Seriez-vous prêts à payer une IA privée, personnalisée, et ne collectant pas de données ?"
+type = "yes_or_no"

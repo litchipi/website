@@ -76,6 +76,7 @@
 
     {% if q.type == "number" %}
       {{ qtype::number(idbase=idbase,
+        step=q.step | default(value="0.1"),
         min=q.min,
         max=q.max
       ) }}
@@ -121,6 +122,11 @@
   <form id="poll-form">
   <ul>
   {% for qset in poll.question_set_order %}
+    {% if poll.introductions[qset] %}
+      <p class="qset-intro">
+        {{ poll.introductions[qset] }}
+      </p>
+    {% endif %}
     {% for qslug, q in poll.question[qset] %}
       {{ self::disp_question(
         qset=qset,

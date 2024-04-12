@@ -1,5 +1,13 @@
 @import "variables";
 
+textarea {
+  border-radius: 20px;
+  border: 1px solid #cecece; //$color1;
+  padding: 20px;
+  grid-column: span 2;
+  resize: none;
+}
+
 .question-container {
   border-left: 5pt solid $color1;
   padding-bottom: 10pt;
@@ -50,4 +58,10 @@
   margin-left: auto;
   margin-right: auto;
   width: 30%;
+}
+
+.qset-intro {
+  margin-top: 80px;
+  font-size: 30px;
+  color: $color1;
 }
