@@ -5,13 +5,14 @@ use clap::Parser;
 use serde::Deserialize;
 
 use crate::answer::to_poll_answers;
-use crate::load::{get_mail_data, load_poll_questions};
+use crate::maildata::get_mail_data;
+use crate::question::load_poll_questions;
 use crate::stats::PollStatistics;
 
 mod answer;
-mod load;
 mod stats;
-mod handle;
+mod maildata;
+mod question;
 
 #[derive(Debug, Deserialize)]
 pub struct Settings {
@@ -32,7 +33,7 @@ pub struct Args {
     #[arg(short, long)]
     poll: PathBuf,
 
-    #[arg(short, long)]
+    #[arg(short='f', long)]
     statsfile: PathBuf,
 
     #[arg(short, long)]

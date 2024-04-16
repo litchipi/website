@@ -108,10 +108,10 @@ initRangeThreshold("q-{{qsetslug}}-{{qslug}}", {{q.min}}, {{q.max}}, dict);
 {% for choice in choices %}
   <input
     type="checkbox"
-    id="{{idbase}}-{{ choice | slugify }}" name="{{idbase}}"
+    id="{{idbase}}-{{ loop.index0 }}" name="{{ idbase }}-{{ loop.index0 }}"
     value="{{ loop.index0 }}"
   >
-  <label for="{{idbase}}-{{ choice | slugify }}">{{ choice }}</label>
+  <label for="{{ idbase }}-{{ loop.index0 }}">{{ choice }}</label>
   <br/>
 {% endfor %}
 {% endmacro checkbox %}

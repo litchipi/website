@@ -1,9 +1,12 @@
 title = "Sondage"
 introduction = """
-  Merci des quelques minutes que vous accordez pour [mon projet entreprenarial](/)  !
+  Merci des quelques minutes que vous accordez pour mon projet entreprenarial !
 
   Les données de ce formulaire sont stockées de façon anonyme,
   seuls vos réponses sont conservées, aucune autre donnée n'est collectée.
+
+  Vous avez la possibilité de ne pas répondre à certaines questions si vous ne le désirez
+  pas.
 """
 
 question_set_order = ["intro", "tools", "quality_price", "specific"]
@@ -20,8 +23,8 @@ yes = "Oui"
 no = "Non"
 send_button = "Envoyer"
 email_text = """
-  Si [mon project](/hireme/fr) vous intéresse, entrez votre e-mail
-  et je vous recontacterai
+  Intéressés par [ce que je peux vous offrir](/) ?
+  Entrez votre e-mail et je vous recontacterai
 """
 
 email_note = """
@@ -69,35 +72,9 @@ text = "Écrivez-vous du logiciel à partir d'un langage de programmation ?"
 type = "yes_or_no"
 addq_yes = "write-code"
 
-## Write code
 [question.write-code.1_what_langage]
 text = "Quel(s) language(s) utilisez-vous ?"
 type = "text"
-
-[question.write-code.2_high_constraints]
-text = "Certaines parties de votre code sont-ils soumis à de hautes contraintes ?"
-type = "yes_or_no"
-note = """
-  En terme de performance, mémoire utilisée, et tout aspect pouvant être optimisé.
-  Logiciels utilisés en interne ou développé pour un client
-"""
-addq_yes = "high_constraints"
-
-[question.write-code.3_reach_limits]
-text = "Avez vous déjà atteint les limites de votre code lors d'une période inhabituelle ?"
-note = "Une fréquentation inhabituelle, des données volumineuses, une attaque informatique..."
-type = "yes_or_no"
-addq_yes = "code_limit_details"
-
-[question.code_limit_details.details]
-text = "Pouvez-vous nous donner des détails sur ce sujet ?"
-note = "Autant de détails que la discrétion vous permet de donner"
-type = "text"
-
-[question.high_constraints.benchmark]
-text = "Effectuez-vous des benchmarks et optimsations sur ces parties critiques ?"
-type = "yes_or_no"
-
 
 # Not numeric pro
 
@@ -254,6 +231,7 @@ max=10
 
 [question.quality_price.7_price_over_service]
 text = "Préférez-vous un logiciel peu cher sans SAV, ou cher avec un SAV très poussé ?"
+note = "SAV logiciel = mises à jours, correctifs, documentation, contact privilégié..."
 type = "range"
 min = 0
 max = 10
@@ -303,6 +281,6 @@ choices = [
   "Jamais",
 ]
 
-[question.specific.5_private_ai]
-text = "Seriez-vous prêts à payer une IA privée, personnalisée, et ne collectant pas de données ?"
+[question.specific.5_integrate_ai]
+text = "Désireriez-vous intégrer plus de services d'IA dans vos outils du quotidien ?"
 type = "yes_or_no"

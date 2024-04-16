@@ -3,18 +3,21 @@
 {% block title %}{{ notif_title }}{% endblock title %}
 
 {% block content %}
-<h1>Notification</h1>
+
+{% if notif_h1 %}
+  <h1 class="notif-h1">{{ notif_h1 }}</h1>
+{% else %}
+  <h1 class="notif-h1">{{ notif_title }}</h1>
+{% endif %}
+
 <div class="notif-grid">
-  {% if notif_h1 %}
-    <h1 class="notif-h1">{{ notif_h1 }}</h1>
-  {% else %}
-    <h1 class="notif-h1">{{ notif_title }}</h1>
-  {% endif %}
   <p class="notif-content">
   {{ notif_content }}
   </p>
+
   <div>
     <a href="/" class="back-top">Return to Home</a>
   </div>
 </div>
+
 {% endblock content %}

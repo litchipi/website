@@ -46,6 +46,7 @@ data_root = "./data"
 scss_root = "scss"
 template_root = "./templates"
 supported_lang = [ "fr", "en" ]
+base_templates = [ "base.html", "banner.html", "macros/poll_question_types.html" ]
 include_assets = [
   "images",
   "fonts",

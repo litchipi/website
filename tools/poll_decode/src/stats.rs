@@ -4,7 +4,7 @@ use serde::{Serialize, Deserialize};
 
 use crate::Settings;
 use crate::answer::PollAnswer;
-use crate::load::PollQuestion;
+use crate::question::PollQuestion;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub enum PollQuestionStat {
@@ -26,7 +26,7 @@ impl PollQuestionStat {
 pub struct PollStatistics {
     answers: usize,
 
-    questions_stats: HashMap<PollQuestion, PollQuestionStat>,
+    questions_stats: HashMap<String, PollQuestionStat>,
 
     // Keep track of data already included in this stats
     accounted: Vec<String>,
@@ -34,7 +34,7 @@ pub struct PollStatistics {
 
 impl PollStatistics {
     pub fn save(&self, fpath: &PathBuf) {
-        let data = serde_json::to_string(&self).unwrap();
+        let data = serde_json::to_string(self).unwrap();
         std::fs::write(fpath, data).unwrap();
     }
 
@@ -48,12 +48,12 @@ impl PollStatistics {
     }
 
     // Add the data to the statistics
-    pub fn feed(&mut self, id: String, data: HashMap<PollQuestion, PollAnswer>) {
-        for (question, answer) in data {
-            if let Some(s) = self.questions_stats.get_mut(&question) {
+    pub fn feed(&mut self, id: String, data: HashMap<String, PollAnswer>) {
+        for (slug, answer) in data {
+            if let Some(s) = self.questions_stats.get_mut(&slug) {
                 s.feed(answer)
             } else {
-                self.questions_stats.insert(question, answer.into());
+                self.questions_stats.insert(slug.clone(), answer.into());
             }
         }
         self.accounted.push(id);
