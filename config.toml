@@ -2,6 +2,7 @@ server_port = 4446
 default_lang = "fr"
 static_files_route = "/static"
 page_config = "./pages.toml"
+notification_template = "notification.html"
 
 
 
@@ -45,7 +46,6 @@ data_root = "./data"
 scss_root = "scss"
 template_root = "./templates"
 supported_lang = [ "fr", "en" ]
-base_templates = [ "base.html", "banner.html", "macros/poll_question_types.html" ]
 include_assets = [
   "images",
   "fonts",
@@ -103,7 +103,31 @@ pubkey = "MIGJAoGBAK98NWNHYefwkH0ipJ6t6kVcYJmkKX4wf6AwX+HtC9qFLR09wrtqz8q6D3jl/P
 
 
 # Forms configuration
-[form_endpoints]
-"/contact" = { action = "SendOverEmail", args = "New contact from homepage form" }
-"/save_market_research/fr" = { action = "SendOverEmail", args = "New market research answer in French" }
-"/save_market_research/en" = { action = "SendOverEmail", args = "New market research answer in English" }
+
+## Contact
+[form_endpoints.contact]
+endpoint = "/contact"
+method = { action = "SendOverEmail", args = "New contact from homepage form" }
+
+[form_endpoints.contact.notification.fr]
+title = "Merci"
+message = "Merci de votre contact, je vous répondrai dans les meilleurs délais"
+
+[form_endpoints.contact.notification.en]
+title = "Thank you"
+message = "Thank you for contacting me, be sure I will reply to you very soon"
+
+
+
+## Market research
+[form_endpoints.market_research]
+endpoint = "/save_market_research"
+method = { action = "SendOverEmail", args = "New market research answer" }
+
+[form_endpoints.market_research.notification.fr]
+title = "Merci"
+message = "Merci pour votre contribution !"
+
+[form_endpoints.market_research.notification.en]
+title = "Thank you"
+message = "Thank you for your contribution !"

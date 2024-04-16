@@ -7,7 +7,7 @@ introduction = """
 """
 
 question_set_order = ["intro", "tools", "quality_price", "specific"]
-endpoint="/save_market_research/fr"
+endpoint="/save_market_research"
 
 [introductions]
 specific = """

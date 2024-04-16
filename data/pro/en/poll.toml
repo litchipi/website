@@ -1,3 +1,4 @@
+# TODO  IMPORTANT  Adapt this survey
 title = "Survey"
 introduction = """
   Thank you for the time you are giving for [my project](/hireme/en) !
@@ -7,7 +8,7 @@ introduction = """
 """
 
 question_set_order = ["intro", "tools", "quality_price"]
-endpoint="/savedata/market_research_en"
+endpoint="/save_market_research"
 
 [lang]
 yes = "Yes"
