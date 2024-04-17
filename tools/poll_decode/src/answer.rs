@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::collections::{HashMap, BTreeMap};
 
 use serde::{Deserialize, Serialize};
 
@@ -13,23 +13,22 @@ pub enum PollAnswer {
     Range(usize),
     YesOrNo(bool),
     Text(String),
-    Checkbox(usize),
+    Checkbox(Vec<usize>),
 }
 
 
 impl PollAnswer {
     pub fn create(slug: String, question: &PollQuestion, value: String) -> PollAnswer {
-        // println!("{slug} {question:?} {value}");
         match question.qtype.as_str() {
             "yes_or_no" => PollAnswer::YesOrNo(value == "true"),
             "number" => PollAnswer::Numeric(value.parse()
                 .expect(format!("Unable to parse question {slug} number value").as_str())
             ),
-            // TODO    Get the original question slug from choice slug, and add it
-            //        to enum data so that we can merge them into a single poll stat
-            "checkbox" => PollAnswer::Checkbox(value.parse()
-                .expect(format!("Unable to parse question {slug} checkbox value").as_str())
-            ),
+            "checkbox" => {
+                let n = value.parse()
+                    .expect(format!("Unable to parse question {slug} checkbox value").as_str());
+                PollAnswer::Checkbox(vec![ n ])
+            },
             "range" => PollAnswer::Range(value.parse()
                 .expect(format!("Unable to parse question {slug} range value").as_str())
             ),
@@ -41,16 +40,53 @@ impl PollAnswer {
             
         }
     }
-}
 
-impl Into<PollQuestionStat> for PollAnswer {
-    fn into(self) -> PollQuestionStat {
-        PollQuestionStat::YesOrNo(0, 0) // TODO Create stat from poll answer
+    pub fn merge_with(&mut self, other: PollAnswer) {
+        match (self, other) {
+            (PollAnswer::Checkbox(na), PollAnswer::Checkbox(nb)) => {
+                nb.iter().for_each(|n| if !na.contains(&n) { na.push(*n) });
+            }
+            (a, b) => unimplemented!("Attempt to merge answer {:?} with {:?}", a, b),
+        }
+    }
+
+    pub fn init_stat(self, question: &PollQuestion) -> PollQuestionStat {
+        match self {
+            PollAnswer::Numeric(nb) => {
+                let mut map = BTreeMap::new();
+                map.insert(nb, 1);
+                PollQuestionStat::Number(map)
+            },
+            PollAnswer::Radio(choice) => {
+                let nb_choices = question.choices.as_ref().unwrap().len();
+                let mut v = vec![0; nb_choices];
+                *v.get_mut(choice).unwrap() = 1;
+                PollQuestionStat::Radio(v)
+            },
+            PollAnswer::Range(nb) => {
+                let mut map = BTreeMap::new();
+                map.insert(nb, 1);
+                PollQuestionStat::Range(map)
+            },
+            PollAnswer::YesOrNo(ans) => {
+                let y = if ans { 1 } else { 0 };
+                let n = if ans { 0 } else { 1 };
+                PollQuestionStat::YesOrNo(y, n)
+            },
+            PollAnswer::Text(t) => PollQuestionStat::Text(vec![ t ]),
+            PollAnswer::Checkbox(choices) => {
+                let nb_choices = question.choices.as_ref().unwrap().len();
+                let mut v = vec![0; nb_choices];
+                choices.iter().for_each(|c| *v.get_mut(*c).unwrap() = 1);
+                PollQuestionStat::Checkbox(v)
+            },
+        }
+        
     }
 }
 
-pub fn to_poll_answers(poll: HashMap<String, PollQuestion>, data: HashMap<String, String>) -> HashMap<String, PollAnswer> {
-    let mut answers = HashMap::new();
+pub fn to_poll_answers(poll: &HashMap<String, PollQuestion>, data: HashMap<String, String>) -> HashMap<String, PollAnswer> {
+    let mut answers: HashMap<String, PollAnswer> = HashMap::new();
     for (key, val) in data {
         if val.is_empty() {
             continue;
@@ -58,9 +94,28 @@ pub fn to_poll_answers(poll: HashMap<String, PollQuestion>, data: HashMap<String
         if !key.starts_with("q-") {
             continue;
         }
-        let q = poll.get(&key).unwrap().clone();
+
+        let mut key_split = key.split("-");
+        let Some(qset) = key_split.nth(1) else {
+            println!("Unable to get qset from key {key}");
+            continue;
+        };
+        let Some(qslug) = key_split.next() else {
+            println!("Unable to get qslug from key {key}");
+            continue;
+        };
+        let qkey = format!("q-{qset}-{qslug}");
+        let Some(q) = poll.get(&qkey) else {
+            println!("Key {key} not found in poll, skipping...");
+            continue;
+        };
+        let q = q.clone();
         let answer = PollAnswer::create(key.clone(), &q, val);
-        answers.insert(key, answer);
+        if let Some(asw) = answers.get_mut(&qkey) {
+            asw.merge_with(answer);
+        } else {
+            answers.insert(qkey, answer);
+        }
     }
     answers
 }

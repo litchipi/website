@@ -26,7 +26,6 @@ pub struct PollQuestion {
 
 impl From<&Map<String, toml::Value>> for PollQuestion {
     fn from(tmap: &toml::map::Map<String, toml::Value>) -> Self {
-        // println!("\n{tmap:?}");
         PollQuestion {
             slug: String::new(),
             text: get_toml_string("text", tmap).unwrap(),
