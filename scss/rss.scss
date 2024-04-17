@@ -25,13 +25,14 @@ a {
 
 .banner {
   display: grid;
-  width: 650px;
-  grid-template-columns: 140px 3fr;
+  width: 50%;
+  min-width: 500px;
+  grid-template-columns: $logo-size 3fr;
   column-gap: 50px;
   margin: auto;
 
   img {
-    width: 140px;
+    width: $logo-size;
   }
 
   h1 a {

@@ -16,18 +16,8 @@
 
       <body>
         <header class="banner">
-          <img class="head_link" target="_blank">
-            <xsl:attribute name="src">
-              <xsl:value-of select="/rss/channel/link"/>/images/logo.png
-            </xsl:attribute>
-          </img>
-
-          <h1><a class="head_link" target="_blank">
-            <xsl:attribute name="href">
-              <xsl:value-of select="/rss/channel/link"/>
-            </xsl:attribute>
-            <xsl:value-of select="/rss/channel/title"/>
-          </a></h1>
+          <img src="/static/logo.png"/>
+          <h1><a href="/"><xsl:value-of select="/rss/channel/title"/></a></h1>
         </header>
 
         <p class="rss-intro">
