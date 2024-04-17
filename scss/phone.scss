@@ -1,5 +1,7 @@
 @import "variables";
 
+// TODO  Move this back to individual files
+
 $header-font-mult: 1.9;
 $title-font-mult: 1.3;
 $font-mult: 2.2;
@@ -9,7 +11,7 @@ $line-height-mult: 2.2;
 @media screen and (max-width: $phone-media) {
   // Base
   html {
-    font-size: calc($base-font-size * $font-mult);
+    font-size: calc($base-font-size * $font-mult) !important;
   }
   .page-grid {
     grid-template-columns: 30pt auto 30pt;

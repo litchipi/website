@@ -61,7 +61,7 @@ $title-space: calc($side-panel-size - $logo-size - $logo-padding);
 #menubar {
   display: grid;
   grid-template-columns: 50px 1fr 1fr 1fr;
-  margin-left: 40px;
+  padding-left: 40px;
   column-gap: 10pt;
 
   img {

@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block title %}{{ proindex.metadata.title }}{% endblock title %}
-{% block mainclass %}pro-content-wrapper{% endblock mainclass %}
 
 {% block stylesheets %}
 <link rel="stylesheet" href="/static/pro.css" />
@@ -20,7 +19,7 @@
 
 {% block beforecontent %}
 <main class="pro-content-wrapper">
-  <section id="pro-intro">
+  <section class="pro-section" id="pro-intro">
     <!-- Titre de l'offre -->
     <h1>{{ proindex.intro.title }}</h1>
     <div id="pro-intro-container">
@@ -37,7 +36,7 @@
   </section>
 
   <!-- Détail de la solution -->
-  <section id="pro-services">
+  <section class="pro-section" id="pro-services">
     <ul>
       {% for sname in proindex.services.order %}
       {% set service = proindex.services[sname] %}
@@ -52,44 +51,44 @@
   </section>
 
   <!-- Valeurs / Mission -->
-  <section id="pro-vision">
+  <section class="pro-section" id="pro-vision">
     <h1>{{ proindex.vision.title }}</h1>
     <div>
-      <ul id="pro-vision-why" style="grid-area: a">
+      <div id="pro-vision-why" style="grid-area: a">
         {% for t in proindex.vision.why %}
-        <li>{{ t | safe }}</li>
+        <p>{{ t | safe }}</p>
         {% endfor %}
-      </ul>
+      </div>
       <img src="/static/pro/vision-why.png" style="grid-area: b"/>
 
       <img src="/static/pro/vision-how.png" style="grid-area: c"/>
-      <ul id="pro-vision-how" style="grid-area: d">
+      <div id="pro-vision-how" style="grid-area: d">
         {% for t in proindex.vision.how %}
-        <li>{{ t | safe }}</li>
+        <p>{{ t | safe }}</p>
         {% endfor %}
-      </ul>
+      </div>
 
-      <ul id="pro-vision-what" style="grid-area: e">
+      <div id="pro-vision-what" style="grid-area: e">
         {% for t in proindex.vision.what %}
-        <li>{{ t | safe }}</li>
+        <p>{{ t | safe }}</p>
         {% endfor %}
-      </ul>
+      </div>
       <img src="/static/pro/vision-what.png" style="grid-area: f"/>
     </div>
   </section>
 
   <!-- TODO Testimonials section -->
   <!-- Preuves -->
-  <!-- <section id="pro-testimonials"> -->
+  <!-- <section class="pro-section" id="pro-testimonials"> -->
   <!-- </section> -->
 
   <!-- Action -->
-  <section id="contact">
+  <section class="pro-section" id="contact">
     <h1>{{ proindex.contact.title }}</h1>
     <form action="/contact" method="post">
-        <input type="text" placeholder="{{ proindex.contact.name }}" name="name" size="50" required />
-        <input type="email" placeholder="{{ proindex.contact.email }}" name="email" size="50" required />
-        <input type="text" placeholder="{{ proindex.contact.subject }}" name="subject" size="150" required />
+        <input type="text" placeholder="{{ proindex.contact.name }}" name="name" required />
+        <input type="email" placeholder="{{ proindex.contact.email }}" name="email" required />
+        <input type="text" placeholder="{{ proindex.contact.subject }}" name="subject" required />
         <textarea name="body" rows="10" placeholder="{{ proindex.contact.body }}" maxlength=2000></textarea>
 
         <input type="submit" value="{{ proindex.contact.submit }}" />
