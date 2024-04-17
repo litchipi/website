@@ -7,7 +7,7 @@ use toml::map::Map;
 pub struct PollQuestion {
     #[serde(skip)]
     pub slug: String,
-    
+
     text: String,
     pub qtype: String,
     note: Option<String>,
@@ -31,15 +31,13 @@ impl From<&Map<String, toml::Value>> for PollQuestion {
             text: get_toml_string("text", tmap).unwrap(),
             qtype: get_toml_string("type", tmap).unwrap(),
             note: get_toml_string("note", tmap),
-            choices: tmap.
-                get("choices")
-                .map(|a| a
-                    .as_array()
+            choices: tmap.get("choices").map(|a| {
+                a.as_array()
                     .unwrap()
                     .iter()
                     .map(|choice| choice.as_str().unwrap().to_string())
                     .collect()
-                ),
+            }),
             min: tmap.get("min").map(|n| n.as_integer().unwrap() as usize),
             max: tmap.get("max").map(|n| n.as_integer().unwrap() as usize),
             addq_no: get_toml_string("addq_no", tmap),
@@ -52,10 +50,9 @@ fn get_toml_string(key: &str, tmap: &Map<String, toml::Value>) -> Option<String>
     tmap.get(key).map(|v| v.as_str().unwrap().to_string())
 }
 
-
 pub fn load_poll_questions(fpath: &PathBuf) -> HashMap<String, PollQuestion> {
     let data = std::fs::read_to_string(fpath).unwrap();
-    let data : HashMap<String, toml::Value> = toml::from_str(&data).unwrap();
+    let data: HashMap<String, toml::Value> = toml::from_str(&data).unwrap();
     let questions = data.get("question").unwrap().as_table().unwrap();
     let mut hmap = HashMap::new();
     for (qset, qtable) in questions {

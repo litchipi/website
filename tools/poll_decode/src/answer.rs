@@ -1,10 +1,9 @@
-use std::collections::{HashMap, BTreeMap};
+use std::collections::{BTreeMap, HashMap};
 
 use serde::{Deserialize, Serialize};
 
 use crate::question::PollQuestion;
 use crate::stats::PollQuestionStat;
-
 
 #[derive(Debug, Serialize, Deserialize)]
 pub enum PollAnswer {
@@ -16,35 +15,44 @@ pub enum PollAnswer {
     Checkbox(Vec<usize>),
 }
 
-
 impl PollAnswer {
     pub fn create(slug: String, question: &PollQuestion, value: String) -> PollAnswer {
         match question.qtype.as_str() {
             "yes_or_no" => PollAnswer::YesOrNo(value == "true"),
-            "number" => PollAnswer::Numeric(value.parse()
-                .expect(format!("Unable to parse question {slug} number value").as_str())
+            "number" => PollAnswer::Numeric(
+                value
+                    .parse()
+                    .unwrap_or_else(|_| panic!("Unable to parse question {slug} number value")),
             ),
             "checkbox" => {
-                let n = value.parse()
-                    .expect(format!("Unable to parse question {slug} checkbox value").as_str());
-                PollAnswer::Checkbox(vec![ n ])
-            },
-            "range" => PollAnswer::Range(value.parse()
-                .expect(format!("Unable to parse question {slug} range value").as_str())
+                let n = value
+                    .parse()
+                    .unwrap_or_else(|_| panic!("Unable to parse question {slug} checkbox value"));
+                PollAnswer::Checkbox(vec![n])
+            }
+            "range" => PollAnswer::Range(
+                value
+                    .parse()
+                    .unwrap_or_else(|_| panic!("Unable to parse question {slug} range value")),
             ),
-            "radio" => PollAnswer::Radio(value.parse()
-                .expect(format!("Unable to parse question {slug} radio value").as_str())
+            "radio" => PollAnswer::Radio(
+                value
+                    .parse()
+                    .unwrap_or_else(|_| panic!("Unable to parse question {slug} radio value")),
             ),
             "text" => PollAnswer::Text(value),
             _ => unimplemented!("Question type {}", question.qtype),
-            
         }
     }
 
     pub fn merge_with(&mut self, other: PollAnswer) {
         match (self, other) {
             (PollAnswer::Checkbox(na), PollAnswer::Checkbox(nb)) => {
-                nb.iter().for_each(|n| if !na.contains(&n) { na.push(*n) });
+                nb.iter().for_each(|n| {
+                    if !na.contains(n) {
+                        na.push(*n)
+                    }
+                });
             }
             (a, b) => unimplemented!("Attempt to merge answer {:?} with {:?}", a, b),
         }
@@ -56,36 +64,38 @@ impl PollAnswer {
                 let mut map = BTreeMap::new();
                 map.insert(nb, 1);
                 PollQuestionStat::Number(map)
-            },
+            }
             PollAnswer::Radio(choice) => {
                 let nb_choices = question.choices.as_ref().unwrap().len();
                 let mut v = vec![0; nb_choices];
                 *v.get_mut(choice).unwrap() = 1;
                 PollQuestionStat::Radio(v)
-            },
+            }
             PollAnswer::Range(nb) => {
                 let mut map = BTreeMap::new();
                 map.insert(nb, 1);
                 PollQuestionStat::Range(map)
-            },
+            }
             PollAnswer::YesOrNo(ans) => {
                 let y = if ans { 1 } else { 0 };
                 let n = if ans { 0 } else { 1 };
                 PollQuestionStat::YesOrNo(y, n)
-            },
-            PollAnswer::Text(t) => PollQuestionStat::Text(vec![ t ]),
+            }
+            PollAnswer::Text(t) => PollQuestionStat::Text(vec![t]),
             PollAnswer::Checkbox(choices) => {
                 let nb_choices = question.choices.as_ref().unwrap().len();
                 let mut v = vec![0; nb_choices];
                 choices.iter().for_each(|c| *v.get_mut(*c).unwrap() = 1);
                 PollQuestionStat::Checkbox(v)
-            },
+            }
         }
-        
     }
 }
 
-pub fn to_poll_answers(poll: &HashMap<String, PollQuestion>, data: HashMap<String, String>) -> HashMap<String, PollAnswer> {
+pub fn to_poll_answers(
+    poll: &HashMap<String, PollQuestion>,
+    data: HashMap<String, String>,
+) -> HashMap<String, PollAnswer> {
     let mut answers: HashMap<String, PollAnswer> = HashMap::new();
     for (key, val) in data {
         if val.is_empty() {
@@ -95,7 +105,7 @@ pub fn to_poll_answers(poll: &HashMap<String, PollQuestion>, data: HashMap<Strin
             continue;
         }
 
-        let mut key_split = key.split("-");
+        let mut key_split = key.split('-');
         let Some(qset) = key_split.nth(1) else {
             println!("Unable to get qset from key {key}");
             continue;

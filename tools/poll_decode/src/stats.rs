@@ -1,37 +1,39 @@
-use std::{path::PathBuf, collections::BTreeMap};
+use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
-use serde::{Serialize, Deserialize};
+use std::{collections::BTreeMap, path::PathBuf};
 
 use crate::answer::PollAnswer;
 use crate::question::PollQuestion;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub enum PollQuestionStat {
-    YesOrNo(usize, usize),     // How many Yes / No
-    Radio(Vec<usize>),         // How many for each choice
-    Checkbox(Vec<usize>), // How many for each choice
-    Number(BTreeMap<usize, usize>),    // All the numbers given
-    Range(BTreeMap<usize, usize>),     // All the numbers given
-    Text(Vec<String>),                 // All the texts given
+    YesOrNo(usize, usize),          // How many Yes / No
+    Radio(Vec<usize>),              // How many for each choice
+    Checkbox(Vec<usize>),           // How many for each choice
+    Number(BTreeMap<usize, usize>), // All the numbers given
+    Range(BTreeMap<usize, usize>),  // All the numbers given
+    Text(Vec<String>),              // All the texts given
 }
 
 impl PollQuestionStat {
     pub fn feed(&mut self, answer: PollAnswer) {
         match (self, answer) {
-            (PollQuestionStat::YesOrNo(ref mut nyes, ref mut nno),
-                PollAnswer::YesOrNo(res)
-            ) => if res {
-                *nyes += 1;
-            } else {
-                *nno += 1;
-            },
+            (PollQuestionStat::YesOrNo(ref mut nyes, ref mut nno), PollAnswer::YesOrNo(res)) => {
+                if res {
+                    *nyes += 1;
+                } else {
+                    *nno += 1;
+                }
+            }
 
             (PollQuestionStat::Radio(ref mut choices), PollAnswer::Radio(choice)) => {
                 *choices.get_mut(choice).unwrap() += 1;
             }
 
             (PollQuestionStat::Checkbox(ref mut stats), PollAnswer::Checkbox(checked)) => {
-                checked.iter().for_each(|c| *stats.get_mut(*c).unwrap() += 1);
+                checked
+                    .iter()
+                    .for_each(|c| *stats.get_mut(*c).unwrap() += 1);
             }
 
             (PollQuestionStat::Number(ref mut map), PollAnswer::Numeric(nb))
@@ -78,7 +80,12 @@ impl PollStatistics {
     }
 
     // Add the data to the statistics
-    pub fn feed(&mut self, id: String, poll: &HashMap<String, PollQuestion>, data: HashMap<String, PollAnswer>) {
+    pub fn feed(
+        &mut self,
+        id: String,
+        poll: &HashMap<String, PollQuestion>,
+        data: HashMap<String, PollAnswer>,
+    ) {
         if self.accounted.contains(&id) {
             println!("Answer already accounted for in stats");
             return;

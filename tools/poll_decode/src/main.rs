@@ -8,9 +8,9 @@ use crate::question::load_poll_questions;
 use crate::stats::PollStatistics;
 
 mod answer;
-mod stats;
 mod maildata;
 mod question;
+mod stats;
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
@@ -18,7 +18,7 @@ pub struct Args {
     #[arg(short, long)]
     poll: PathBuf,
 
-    #[arg(short='f', long)]
+    #[arg(short = 'f', long)]
     statsfile: PathBuf,
 }
 
