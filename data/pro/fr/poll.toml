@@ -44,8 +44,8 @@ data_consent = """
 [question.intro.1_numeric_or_not]
 text = "Êtes-vous un professionnel du secteur du numérique ?"
 type = "yes_or_no"
-addq_yes = "numeric-pro"
-addq_no = "not-numeric"
+addq_yes = "numeric_pro"
+addq_no = "not_numeric"
 
 [question.intro.2_position]
 text = "Quel poste excercez vous au sein de votre entreprise ?"
@@ -67,28 +67,28 @@ choices = [
 
 # Numeric pro
 
-[question.numeric-pro.1_write_code]
+[question.numeric_pro.1_write_code]
 text = "Écrivez-vous du logiciel à partir d'un langage de programmation ?"
 type = "yes_or_no"
-addq_yes = "write-code"
+addq_yes = "write_code"
 
-[question.write-code.1_what_langage]
+[question.write_code.1_what_langage]
 text = "Quel(s) language(s) utilisez-vous ?"
 type = "text"
 
 # Not numeric pro
 
-[question.not-numeric.1_what_field]
+[question.not_numeric.1_what_field]
 text = "Dans quel secteur d'activité travaillez-vous ?"
 type = "text"
 
-[question.not-numeric.2_ease_with_software]
+[question.not_numeric.2_ease_with_software]
 text = "À quel point êtes vous à l'aise avec l'informatique en général ?"
 type = "range"
 min = 0
 max = 100
 
-[question.not-numeric.2_ease_with_software.threshold]
+[question.not_numeric.2_ease_with_software.threshold]
 "Sans aucun repères" = 5
 "Pas très à l'aise" = 20
 "Actions de base" = 40
