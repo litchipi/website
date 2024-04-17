@@ -116,7 +116,7 @@ pub fn to_poll_answers(
         };
         let qkey = format!("q-{qset}-{qslug}");
         let Some(q) = poll.get(&qkey) else {
-            println!("Key {key} not found in poll, skipping...");
+            println!("Key {qkey} not found in poll, skipping...");
             continue;
         };
         let q = q.clone();
