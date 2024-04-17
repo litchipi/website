@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{ metadata.title }}{% endblock title %}
+{% block title %}{{ proindex.metadata.title }}{% endblock title %}
 {% block mainclass %}pro-content-wrapper{% endblock mainclass %}
 
 {% block stylesheets %}
@@ -16,127 +16,83 @@
 </style>
 {% endblock stylesheets %}
 
-<!-- TODO  IMPORTANT    Finish this homepage, with content, then separate into toml file -->
+<!-- TODO  IMPORTANT    Make accessible with smartphones -->
 
 {% block beforecontent %}
 <main class="pro-content-wrapper">
   <section id="pro-intro">
-    <h1>Le numérique authentique</h1> <!--Apportez de la sérénité à votre quotidien</h1>-->
-    <div>
+    <!-- Titre de l'offre -->
+    <h1>{{ proindex.intro.title }}</h1>
+    <div id="pro-intro-container">
       <img src="/static/pro/serenity.png"/>
-      <ul>
-        <li>
-          Soyez plus heureux dans votre travail, soyez vous même.
-        </li>
-        <li>
-          Selon les chiffres de blabla, 80% des départs en burn-out sont causés
-          au moins en partie par un environment de travail inadapté.
-        </li>
-        <li>
-          Aujourd'hui le numérique s'impose comme un outil majeur de nos environment
-          de travail, il est alors normal que lui aussi soit adapté
-        </li>
-      </ul>
+
+      <!-- Descriptif de l'offre -->
+      <div id="pro-intro-text">
+        <!-- Promesse -->
+        {% for t in proindex.intro.texts %}
+        <p>{{ t | safe }}</p>
+        {% endfor %}
+      </div>
     </div>
   </section>
 
+  <!-- Détail de la solution -->
   <section id="pro-services">
     <ul>
+      {% for sname in proindex.services.order %}
+      {% set service = proindex.services[sname] %}
       <li>
-        <h2>Programmation</h2>
-        <img src="/static/pro/icon_programming.png"/>
-        <p>
-          Un besoin pour un outil, pour un truc, hésitez pas
-        </p>
+        <h2>{{ service.title }}</h2>
+        <img src="/static/pro/icon_{{ sname }}.png"/>
+        <p>{{ service.text | safe }}</p>
       </li>
-      <li>
-        <h2>Intelligence artificielle</h2>
-        <img src="/static/pro/icon_ai.png"/>
-        <p>
-          Besoin d'ajouter de l'intelligence là où il en manque ?
-        </p>
-      </li>
-      <li>
-        <h2>Formation</h2>
-        <img src="/static/pro/icon_formation.png"/>
-        <p>
-          Apprendre le rust ou la sécurité avec moi, c'est fun !
-        </p>
-      </li>
+      {% endfor %}
     </ul>
-    <a class="pro-hireme" href="#pro-contact">On travaille ensemble ?</a>
+    <a class="pro-hireme" href="#contact">{{ proindex.contact.linktext }}</a>
   </section>
 
+  <!-- Valeurs / Mission -->
   <section id="pro-vision">
-    <h1>Un logiciel, pour un humain</h1>
+    <h1>{{ proindex.vision.title }}</h1>
     <div>
       <ul id="pro-vision-why" style="grid-area: a">
-        <li>
-          Notre <strong>diversité</strong> est une force dont il faut profiter,
-          et non normaliser
-        </li>
-
-        <li>
-          Mon objectif est d'apporter de la <strong>sérénité</strong> à un métier,
-          <strong>valoriser</strong> nos différences,
-          et optimiser le <strong>bonheur</strong> au travail
-        </li>
-
-        <li>
-          Ma mission est de créer des outils numériques adaptés
-          <strong>à l'humain</strong>, et non l'inverse
-        </li>
+        {% for t in proindex.vision.why %}
+        <li>{{ t | safe }}</li>
+        {% endfor %}
       </ul>
-
       <img src="/static/pro/vision-why.png" style="grid-area: b"/>
 
       <img src="/static/pro/vision-how.png" style="grid-area: c"/>
-
       <ul id="pro-vision-how" style="grid-area: d">
-        <li>
-          En centrant le processus sur <strong>vous</strong>,
-          nous pourrons <strong>ensemble</strong> inventer une solution
-          selon votre <strong>vision</strong>
-        </li>
-
-        <li>
-          <strong>Épurée</strong> du superflu,
-          <strong>efficace</strong> pour satisfaire vos critères,
-          la solution sera taillée pour vous convenir <strong>parfaitement</strong>
-        </li>
+        {% for t in proindex.vision.how %}
+        <li>{{ t | safe }}</li>
+        {% endfor %}
       </ul>
 
       <ul id="pro-vision-what" style="grid-area: e">
-        <li>
-          Le résultat est un outil de qualité, <strong>ergonomique</strong>,
-          performant et <strong>fiable</strong> à travers les années,
-          et qui ne provoquera aucune tension à l'utilisation
-        </li>
-
-        <li>
-          Ajouter cet outil à votre environment aujourd'hui,
-          c'est vous permettre de vous <strong>concentrer</strong> sur le principal,
-          ce qui vous apporte de la <strong>joie</strong> dans votre métier
-        </li>
+        {% for t in proindex.vision.what %}
+        <li>{{ t | safe }}</li>
+        {% endfor %}
       </ul>
-
       <img src="/static/pro/vision-what.png" style="grid-area: f"/>
     </div>
   </section>
 
   <!-- TODO Testimonials section -->
+  <!-- Preuves -->
   <!-- <section id="pro-testimonials"> -->
   <!-- </section> -->
 
-  <section id="pro-contact">
-    <h1>Contactez moi</h1>
+  <!-- Action -->
+  <section id="contact">
+    <h1>{{ proindex.contact.title }}</h1>
     <form action="/contact" method="post">
-        <input type="text" placeholder="Nom" name="name" size="50" required />
-        <input type="email" placeholder="Email" name="email" size="50" required />
-        <input type="text" placeholder="Sujet" name="subject" size="150" required />
-        <textarea name="body" rows="10" placeholder="Message" maxlength=2000></textarea>
+        <input type="text" placeholder="{{ proindex.contact.name }}" name="name" size="50" required />
+        <input type="email" placeholder="{{ proindex.contact.email }}" name="email" size="50" required />
+        <input type="text" placeholder="{{ proindex.contact.subject }}" name="subject" size="150" required />
+        <textarea name="body" rows="10" placeholder="{{ proindex.contact.body }}" maxlength=2000></textarea>
 
-        <input type="submit" value="Envoyer" />
+        <input type="submit" value="{{ proindex.contact.submit }}" />
     </form>
   </section>
 </main>
@@ -146,7 +102,7 @@
 <div id="pro-footer">
   <nav>
     <ul>
-      <a href="#pro-contact"><li>Contact</li></a>
+      <a href="#contact"><li>Contact</li></a>
       <a href="/blog"><li>Blog</li></a>
       {% for socialnet, link in site.social %}
         <a href="{{ link }}"><li>{{ socialnet | capitalize }}</li></a>

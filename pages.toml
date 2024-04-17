@@ -4,8 +4,10 @@ storage = "pro"
 route = "/"
 lang_detect = true
 default_template = "pro_index.html"
-content_query = { method = "from_name", args = "index" }
 
+[pro_index.add_context.proindex]
+query = "query_context"
+args = ["pro", "index"]
 
 
 

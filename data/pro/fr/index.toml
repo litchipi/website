@@ -1,0 +1,102 @@
+[metadata]
+title = "Accueil"
+
+[contact]
+linktext = "On travaille ensemble ?"
+title = "Contactez moi"
+name = "Nom"
+email = "Email"
+subject = "Sujet"
+body = "Message"
+submit = "Envoyer"
+
+[intro]
+title = "L'efficacité par l'Harmonie"
+texts = [
+  """
+  Apportez un cadre de travail idéal, maximisez le bonheur de vos collaborateurs,
+  apportez de l'efficacité dans votre quotidien.
+  """,
+  """
+  Les effets du mal-être au travail coûte en moyenne aux entreprises
+  <strong>13 340 € / an</strong> par salarié. (en 2018,
+  <a href="https://www.mozartconsulting.eu/wp-content/uploads/2018/07/IBET-2018_REGARDS-EXPERTS.pdf">source</a>)
+  """,
+  """
+  Chaque départ d'un salarié, chaque absence d'un collaborateur, chaque inefficacité
+  coûte à votre entreprise, et freine son développement.</br>
+
+  Quelle que soit la taille de votre entreprise, vous pouvez offrir à vos collaborateurs
+  un cadre de travail qui les fera rester, et faire fructifier votre entreprise.
+  """,
+]
+
+[services]
+order = ["programming", "ai", "formation"]
+
+[services.programming]
+title = "Outils logiciels"
+text = """
+  Adapté à vos besoins, vos envies, votre contexte, un outil logiciel conçu
+  pour vous sera un compagnon fiable pour vous accompagner dans votre métier.
+"""
+
+[services.ai]
+title = "Intelligence artificielle"
+text = """
+  Bien utilisée, configurée, et intégrée, l'intelligence artificielle peut
+  révolutionner votre façon de travailler, et vous apporter un confort
+  de travail jusque là inégalé.
+"""
+
+[services.formation]
+title = "Formation"
+text = """
+  De l'initiation à la formation avancée, la transmission de savoir fait
+  partie de mes passions. Monter en compétence est le plus beau cadeau
+  que l'on peut faire à un collaborateur, ou à soi-même.
+"""
+
+[vision]
+title = "Un logiciel, pour un humain"
+why = [
+  """
+    Notre <strong>diversité</strong> est une force dont il faut profiter,
+    et non normaliser
+  """,
+  """
+    Mon objectif est d'apporter de la <strong>sérénité</strong> à un métier,
+    <strong>valoriser</strong> nos différences,
+    et optimiser le <strong>bonheur</strong> au travail
+  """,
+  """
+    Ma mission est de créer des outils numériques adaptés
+    <strong>à l'humain</strong>, et non l'inverse
+  """,
+]
+
+how = [
+  """
+    En centrant le processus sur <strong>vous</strong>,
+    nous pourrons <strong>ensemble</strong> inventer une solution
+    selon votre <strong>vision</strong>
+  """,
+  """
+    <strong>Épurée</strong> du superflu,
+    <strong>efficace</strong> pour satisfaire vos critères,
+    la solution sera taillée pour vous convenir <strong>parfaitement</strong>
+  """,
+]
+
+what = [
+  """
+    Le résultat est un outil de qualité, <strong>ergonomique</strong>,
+    performant et <strong>fiable</strong> à travers les années,
+    et qui ne provoquera aucune tension à l'utilisation
+  """,
+  """
+    Ajouter cet outil à votre environment aujourd'hui,
+    c'est vous permettre de vous <strong>concentrer</strong> sur le principal,
+    ce qui vous apporte de la <strong>joie</strong> dans votre métier
+  """,
+]
