@@ -1,16 +1,26 @@
 @import "variables";
 
-$title-font-size: calc($title-font-size * 1.5);
-$base-font-size: calc($base-font-size * 1.3);
+$title-font-size: calc($title-font-size * 1.2);
+$base-font-size: calc($base-font-size * 1.15);
 
 $services-icon-size: 190px;
 
 html {
   font-size: $base-font-size;
+  strong {
+    color: $color1 !important;
+    font-weight: 1000;
+  }
+
+  .extlink {
+    text-decoration: underline;
+    font-style: italic;
+  }
 }
 
 .pro-section {
     margin: 0px 120px;
+    max-width: calc(100% - 240px);
 }
 
 .pro-content-wrapper {
@@ -39,8 +49,8 @@ html {
   }
 
   #pro-intro {
-    padding-top: 50px;
-
+    padding-top: 0px;
+    margin-top: 0px;
     h1 {
       margin-bottom: 60px;
     }
@@ -113,9 +123,6 @@ html {
         margin: auto;
         p {
           margin-top: 20px;
-          strong {
-            color: $color1;
-          }
         }
       }
     }

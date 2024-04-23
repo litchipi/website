@@ -15,12 +15,13 @@ title = "L'efficacité par l'Harmonie"
 texts = [
   """
   Apportez un cadre de travail idéal, maximisez le bonheur de vos collaborateurs,
-  apportez de l'efficacité dans votre quotidien.
+  apportez de l'efficacité dans votre quotidien,
+  avec des <strong>outils logiciels de qualité</strong>.
   """,
   """
   Les effets du mal-être au travail coûte en moyenne aux entreprises
-  <strong>13 340 € / an</strong> par salarié. (en 2018,
-  <a href="https://www.mozartconsulting.eu/wp-content/uploads/2018/07/IBET-2018_REGARDS-EXPERTS.pdf">source</a>)
+  <strong>13 340 € / an</strong> par salarié.<br/>(en 2018,
+  <a class="extlink" href="https://www.mozartconsulting.eu/wp-content/uploads/2018/07/IBET-2018_REGARDS-EXPERTS.pdf">source</a>)
   """,
   """
   Chaque départ d'un salarié, chaque absence d'un collaborateur, chaque inefficacité
