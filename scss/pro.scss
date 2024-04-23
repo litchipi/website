@@ -185,6 +185,7 @@ html {
 
 #pro-footer {
   margin-top: 160px;
+  padding-bottom: 20px;
   padding-top: 10px;
   background-color: #f1f1f1;
   position: relative;
@@ -215,27 +216,36 @@ html {
 }
 
 #menubar {
-  position: sticky;
+  position: sticky;  // TODO  FIXME  Doesn't stick on tablet mode
   top: 0px;
+  margin-bottom: 50px;
 }
+
 .page-grid {
   display: none;
 }
 
 @media (max-width: $tablet-media) {
+  html {
+    font-size: calc($base-font-size * 0.8) !important;
+  }
+
   body {
     margin-top: unset;
   }
 
   .pro-content-wrapper {
     margin-top: unset;
+
+    h1 {
+      font-size: 1.6em !important;
+    }
   }
 
   .pro-section {
-    margin-left: 60px !important;
-    margin-right: 60px !important;
-    max-width: calc(100% - (2 * 60px)) !important;
-    padding-top: 20px !important;
+    margin: 0px 60px !important;
+    max-width: calc(100% - 120px) !important;
+    padding-top: 0px !important;
   }
 
   #pro-intro {
@@ -248,7 +258,7 @@ html {
     img { 
       display: block !important;
       margin: 50px auto !important;
-      width: 95% !important;
+      width: 50% !important;
       height: unset !important;
     }
 
@@ -273,7 +283,7 @@ html {
         img {
           display: block;
           margin-left: auto;
-          width: 50% !important;
+          width: 65% !important;
         }
       }
     }
@@ -288,20 +298,26 @@ html {
   #pro-vision {
     width: unset !important;
     div {
+      column-gap: 10px !important;
+      row-gap: 10px !important;
+      padding-top: 0px !important;
+      padding-bottom: 30px !important;
       img {
         display: block;
         margin: auto;
+        width: 100% !important;
       }
     }
   }
 
   #contact {
     form {
-      margin-top: 90px !important;
+      margin-top: 30px !important;
       width: 100% !important;
     }
 
     input {
+      height: 1.6em;
       border: 1px solid #cecece;
       padding: 0px 10px !important;
     }
@@ -315,7 +331,7 @@ html {
   }
 
   #pro-footer {
-    margin-top: unset;
+    margin-top: 50px !important;
     font-size: calc($base-font-size * 0.6);
     img {
       display: none;
@@ -324,10 +340,6 @@ html {
 }
 
 @media (max-width: $phone-media) {
-  html {
-    font-size: calc($base-font-size * 0.8) !important;
-  }
-
   #menubar {
     position: unset;
   }
@@ -337,10 +349,8 @@ html {
     max-width: calc(100% - 60px) !important;
   }
 
-  .pro-content-wrapper {
-    h1 {
-      font-size: 1.6em !important;
-    }
+  #pro-intro-container img { 
+    width: 80% !important;
   }
 
   #pro-services ul li {
@@ -374,13 +384,8 @@ html {
   }
 
   #contact {
-    form {
-      margin-top: 30px !important;
-    }
-
     input {
       font-size: calc($base-font-size * 0.6) !important;
-      height: 1.6em;
       grid-column: span 2;
     }
 
