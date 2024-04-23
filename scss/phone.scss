@@ -105,41 +105,6 @@ $line-height-mult: 2.2;
     font-size: calc($pagination-font-size * $font-mult);
   }
 
-  // Banner
-  #banner {
-    grid-template-columns: $logo-size calc($left-margin-offset - $logo-size) 1fr;
-    display: block;
-    margin-top: 100px;
-  }
-
-  #sitesocial {
-    display: none;
-  }
-
-  header { 
-    padding-bottom: 10px;
-  }
-
-  #sitename {
-    text-align: center;
-    width: 100%;
-    font-size: calc($title-font-size * $font-mult-zoomed);
-    line-height: calc($title-line-height * 1.1);
-    margin-bottom: 50px;
-  }
-
-  #sitedescr {
-    display: flex;
-    margin: 10px 0px 40px 40px;
-    font-size: calc($base-font-size * $font-mult-zoomed);
-  }
-
-  #logo {
-    width: $logo-size;
-    height: 0px;
-    overflow: hidden;
-  }
-
   // Error
   .err-title {
     font-size: calc($title-font-size * 1.5);

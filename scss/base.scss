@@ -21,12 +21,11 @@ body {
   z-index: 3;
   margin-top: 100px;
   display: grid;
-  grid-template-columns: minmax($side-panel-size, 1fr) minmax(300px, auto) minmax($side-panel-size, 1fr);
+  // TODO  IMPORTANT  Fix this
+  /* grid-template-columns: minmax($side-panel-size, 1fr) minmax(300px, auto) minmax($side-panel-size, 1fr); */
 }
 
 .body-content-wrapper {
-  max-width: $desktop-content-width;
-  min-width: $tablet-content-width;
   clear: both;
 }
 

@@ -51,10 +51,9 @@ $banner-height: calc(90px + $banner-top-border);
 $left-margin-offset: ($title-nb-chars * $title-font-size) + $banner-padding-left + $title-padding-right;
 
 // Media width threshold
-$desktop-content-width: 1000px;
-$tablet-content-width: 800px;
-$phone-content-width: 600px;
-$side-panel-size: 400px;
+$min-supported-screen: 350px;
+$tablet-content-width: 1400px;
+$phone-content-width: 480px;
 
-$tablet-media: $tablet-content-width + ($side-panel-size * 2);
-$phone-media: $phone-content-width + ($side-panel-size);
+$tablet-media: $tablet-content-width;
+$phone-media: $phone-content-width;

@@ -1,11 +1,11 @@
 [fr]
 home = "Accueil"
 blog = "Articles"
-contact = "Contactez moi"
+contact = "Contact"
 
 # TODO About, Services, Portfolio
 
 [en]
 home = "Home"
 blog = "Articles"
-contact = "Contact me"
+contact = "Contact"
