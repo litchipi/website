@@ -9,44 +9,6 @@ $font-mult-zoomed: 2.5;
 $line-height-mult: 2.2;
 
 @media screen and (max-width: $phone-media) {
-  // Base
-  html {
-    font-size: calc($base-font-size * $font-mult) !important;
-  }
-  .page-grid {
-    grid-template-columns: 30pt auto 30pt;
-  }
-
-  .body-content-wrapper {
-    max-width: unset;
-    min-width: $phone-content-width;
-  }
-
-  footer {
-    .copyrights {
-      margin-left: 20px;
-      margin-right: 20px;
-    }
-  }
-  
-  .webring-footer {
-    display: none;
-  }
-
-  .styled-list {
-    padding-top: 1em;
-
-    .item-title {
-      margin-bottom: 10pt;
-      font-size: calc($title-font-size * $title-font-mult);
-    }
-
-    .item-description {
-      font-size: calc($base-font-size * $font-mult);
-      margin-bottom: 2em;
-    }
-  }
-
   #hireme-link {
     max-width: unset;
   }

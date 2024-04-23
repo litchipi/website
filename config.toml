@@ -68,8 +68,6 @@ default_sort = [["date"], false]
   "nav.scss", 
   "post.scss", 
   "specific.scss", 
-  "tablet.scss",
-  "phone.scss",
 ]
 "print.css" = [ "print.scss" ]
 "poll.css" = [ "poll.scss"]

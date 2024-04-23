@@ -22,7 +22,7 @@ body {
   margin-top: 100px;
   display: grid;
   // TODO  IMPORTANT  Fix this
-  /* grid-template-columns: minmax($side-panel-size, 1fr) minmax(300px, auto) minmax($side-panel-size, 1fr); */
+  grid-template-columns: minmax($side-panel-size, 1fr) minmax(300px, auto) minmax($side-panel-size, 1fr);
 }
 
 .body-content-wrapper {
@@ -91,6 +91,7 @@ footer {
     text-align: center;
     color: $light-gray;
   }
+  margin: 5px 10px;
 }
 
 .webring-footer {
@@ -121,5 +122,67 @@ footer {
   transition-property: background-color, color;
   strong {
     transition: color 200ms ease-in-out;
+  }
+}
+
+@media screen and (max-width: $tablet-media) {
+  .page-grid {
+    grid-template-columns: 30pt auto 30pt;
+  }
+
+  .webring-footer {
+    display: none;
+  }
+
+}
+
+@media screen and (max-width: $phone-media) {
+  body {
+    margin-top: unset;
+  }
+  .page-grid {
+    margin-top: 0px;
+    grid-template-columns: 10pt auto 10pt;
+  }
+  .body-content-wrapper {
+    max-width: $phone-media;
+  }
+
+  .styled-list {
+    padding-top: 1em;
+
+    h1 {
+      text-align: center;
+      margin: 20px auto;
+    }
+
+    ul {
+      padding: unset;
+    }
+
+    li {
+      border: unset;
+      padding: unset;
+      margin-top: 30px;
+    }
+    :not(:last-child) .item-description {
+      border-bottom: 5px solid $color2-light;
+    }
+
+    .item-title {
+      font-size: 1.2em;
+    }
+
+    .item-metadata {
+      padding-left: 0px;
+      text-align: right;
+      font-size: 0.8em;
+    }
+
+    .item-description {
+      padding: unset;
+      padding-bottom: 40px;
+      font-size: 0.9em;
+    }
   }
 }
