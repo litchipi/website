@@ -2,7 +2,6 @@
 
 // Every attributes of font-size, line-height, letter-spacing, font-weight, font-style
 
-// TODO  Find a better font for this
 @font-face {
   font-family: "blog-font";
   src: url('/static/JUST Sans Regular.otf');
@@ -10,7 +9,6 @@
 }
 
 
-// TODO  Revert this, it was a bad idea.
 html {
   font-size: $base-font-size;
   font-family: "blog-font";

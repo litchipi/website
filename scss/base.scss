@@ -21,7 +21,6 @@ body {
   z-index: 3;
   margin-top: 100px;
   display: grid;
-  // TODO  IMPORTANT  Fix this
   grid-template-columns: minmax($side-panel-size, 1fr) minmax(300px, auto) minmax($side-panel-size, 1fr);
 }
 

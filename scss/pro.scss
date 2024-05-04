@@ -143,11 +143,11 @@ html {
         border-radius: 5px;
         border: 1px solid #cecece;
         padding: 5px 20px;
-        font-size: 16px;  // TODO  Put in var
+        font-size: $contact-placeholder-size;
       }
 
       input::placeholder, textarea::placeholder {
-        font-size: 16px;  // TODO  Put in var
+        font-size: $contact-placeholder-size;
         color: $color1;
       }
 
@@ -162,7 +162,7 @@ html {
         padding: 20px;
         grid-column: span 2;
         resize: none;
-        font-size: 16px;  // TODO  Put in var
+        font-size: $contact-placeholder-size;
       }
 
       input[type="submit"] {
@@ -172,7 +172,7 @@ html {
         padding: 20px;
         color: $color2;
         background-color: white;
-        font-size: 17px;  // TODO  Put in var
+        font-size: $contact-placeholder-size;
         font-weight: 900;
         border: 2px solid $color2;
         grid-column: span 2;
@@ -223,7 +223,7 @@ html {
 }
 
 #menubar {
-  position: sticky;  // TODO  FIXME  Doesn't stick on tablet mode
+  position: sticky;
   top: 0px;
   margin-bottom: 50px;
 }
