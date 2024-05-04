@@ -17,3 +17,4 @@ cd "$ROOT_DIR"
 
 rm -rf ./target/assets
 cargo run "$@" --features "${FEATURES}" -- -c $CONFIG_FILE
+# cargo run --release -- -c $CONFIG_FILE
