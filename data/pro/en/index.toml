@@ -1,0 +1,102 @@
+[metadata]
+title = "Home"
+
+[contact]
+linktext = "Want us to work together ?"
+title = "Contact me"
+name = "Name"
+email = "Email"
+subject = "Subject"
+body = "Message"
+submit = "Send"
+
+[intro]
+title = "Efficiency through Harmony"
+texts = [
+  """
+  Build an idea working environment, maximize the happiness of your colleagues,
+  bring efficiency in your everyday life, with <strong>quality software tools</strong>.
+  """,
+  """
+  The effects of unhappiness at work costs to businesses on average
+  <strong>13 340€ / year</strong> per employee<br/>(in 2018, 
+  <a class="extlink" href="https://www.mozartconsulting.eu/wp-content/uploads/2018/07/IBET-2018_REGARDS-EXPERTS.pdf">source</a>)
+  """,
+  """
+  Every departure of an employee, each absence of a colleague, every source of
+  inefficiency costs to your company, and slows its development.<br/>
+
+  Whatever the size of your company, you can offer to your colleagues a work environment
+  that will make them want to stay, and make your company fruitful.
+  """,
+]
+
+[services]
+order = ["programming", "ai", "formation"]
+
+[services.programming]
+title = "Software tools"
+text = """
+  Adapted to your needs, your envies, your particular context, a software
+  designed for you will be a reliable companion for your profession.
+"""
+
+[services.ai]
+title = "Artificial intelligence"
+text = """
+  Well used, configured, and integrated, an artificial intelligence can
+  revolutionize the way you work, and bring you a working confort you never
+  experiences before.
+"""
+
+[services.formation]
+title = "Training"
+text = """
+  From initiation to advanced training, the transmission of knowledge
+  is part of my missions. Growing skills is the best gift you can
+  offer to a colleague, or to yourself.
+"""
+
+[vision]
+title = "One software, designed for one human"
+why = [
+  """
+    Our <strong>diversity</strong> is a strength we need to profit from,
+    and not seek to normalize.
+  """,
+  """
+    My objective is to provide <strong>serenity</strong> to your profession,
+    <strong>grow value</strong> from our differences,
+    and optimise the <strong>happiness</strong> in the work environment.
+  """,
+  """
+    My mission is to create tools, adapted to <strong>humans</strong>,
+    not the reverse.
+  """,
+]
+
+how = [
+  """
+    By focusing the design process on <strong>you</strong>,
+    we can <strong>together</strong> invent a solution following
+    your own <strong>vision</strong>.
+  """,
+  """
+    <strong>Purified</strong> from anything superfluous,
+    <strong>efficient</strong> to satisfy what you value as important,
+    the solution will be cut to fit your needs <strong>perfectly</strong>
+  """,
+]
+
+what = [
+  """
+    The result is a high quality tool, <strong>ergonomique</strong>,
+    performant and <strong>reliable</strong> through time,
+    which suit you so well it won't create any strain while using it.
+  """,
+  """
+    If you add this tool to your work environment today,
+    it means to allow yourself to <strong>focus</strong> on what matters,
+    what brings you <strong>joy</strong> to your profession.
+  """,
+]
