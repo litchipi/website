@@ -26,14 +26,15 @@ code {
 pre {
   border-style: solid;
   border-radius: 12px;
-  margin-right: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+  max-width: 100%;
 
   code {
-    border: none;
-    overflow-y: hidden;
-    overflow: scroll;
-    margin: 20px;
     display: block;
+    font-size: $code-font-size;
+    box-sizing: border-box;
+    max-width: 100%;
   }
   code::-webkit-scrollbar {
     display: none;
@@ -96,5 +97,89 @@ blockquote {
   .post-tag {
     transition: all 250ms ease-in-out;
     margin-right: 20px;
+  }
+}
+
+@media screen and (max-width: $tablet-media) {
+  p {
+    text-align: justify;
+  }
+
+  code {
+    white-space: unset;
+  }
+
+  #post-title {
+    margin: unset;
+  }
+
+
+  #post-content {
+    h1 {
+      margin-top: 40px;
+    }
+
+    h2 {
+      margin-top: 30px;
+    }
+
+    h3 {
+      margin-top: 30px;
+    }
+  }
+
+  #post-nav {
+    display: none;
+  }
+
+  #site-nav {
+    display: none;
+  }
+}
+
+@media screen and (max-width: $phone-media) {
+  html {
+    word-wrap: anywhere;
+    font-size: calc($base-font-size * 0.8);
+  }
+
+  #post-title {
+    margin: 30px 0px;
+    font-size: calc($title-font-size * 0.7);
+    line-height: 1.2em;
+  }
+
+  #post-metadata {
+    font-size: calc($base-font-size * 0.8);
+  }
+
+  #post-content {
+    h1 {
+      margin-top: 40px;
+      font-size: calc($h1-size * 0.8);
+    }
+
+    h2 {
+      margin-top: 40px;
+      font-size: calc($h2-size * 0.8);
+    }
+
+    h3 {
+      margin-top: 40px;
+      font-size: calc($h3-size * 0.8);
+    }
+
+    code {
+      font-size: calc($base-font-size * 0.7);
+    }
+
+    blockquote {
+      font-size: calc($base-font-size * 0.7);
+      line-height: 1.2em;
+    }
+
+    pre code {
+      font-size: calc($code-font-size * 0.75);
+    }
   }
 }

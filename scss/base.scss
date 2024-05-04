@@ -127,7 +127,7 @@ footer {
 
 @media screen and (max-width: $tablet-media) {
   .page-grid {
-    grid-template-columns: 30pt auto 30pt;
+    grid-template-columns: 30pt calc(100vw - 60pt) 30pt;
   }
 
   .webring-footer {
@@ -142,7 +142,7 @@ footer {
   }
   .page-grid {
     margin-top: 0px;
-    grid-template-columns: 10pt auto 10pt;
+    grid-template-columns: 10pt calc(100vw - 20pt) 10pt;
   }
   .body-content-wrapper {
     max-width: $phone-media;

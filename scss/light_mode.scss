@@ -65,7 +65,6 @@ html[class="light-mode"] {
 
     li:hover {
       color: $link-hover;
-      border-left-color: $link-hover;
 
       .item-header strong {
         color: $color3_dark;
@@ -173,7 +172,7 @@ html[class="light-mode"] {
       color: $color1;
     }
     h2 {
-      color: $color2_dark;
+      color: $color2;
     }
     h3 { 
       color: $color3;

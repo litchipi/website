@@ -14,58 +14,8 @@ $line-height-mult: 2.2;
   }
 
   // Post
-  #post-title {
-    margin-top: 2em;
-    margin-bottom: 1em;
-    font-size: calc($title-font-size * $title-font-mult);
-  }
-
-  #post-metadata {
-    font-size: calc($note-font-size * $font-mult);
-  }
-
-  #post-content {
-    // line-height: calc($base-line-height * $line-height-mult);
-    h1 {
-      margin-top: 100pt;
-      font-size: calc($h1-size * $header-font-mult);
-    }
-    h2 {
-      margin-top: 50pt;
-      font-size: calc($h2-size * $header-font-mult);
-    }
-    h3 {
-      font-size: calc($h3-size * $header-font-mult);
-    }
-  }
-
-  code {
-    white-space: unset;
-    font-size: calc($note-font-size * $font-mult);
-  }
-
-  pre code {
-    font-size: calc($base-font-size * $title-font-mult);
-    line-height: 1.5em;
-  }
-
-  blockquote {
-    font-size: calc($blockquote-font-size * $font-mult);
-    line-height: 1.5em;
-  }
 
   // Nav
-  #post-nav {
-    display: none;
-  }
-
-  #site-nav {
-    display: none;
-  }
-
-  #pagination span a div {
-    font-size: calc($pagination-font-size * $font-mult);
-  }
 
   // Error
   .err-title {
