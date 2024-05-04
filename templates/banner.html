@@ -1,9 +1,13 @@
-{% for lang in pref_langs %}
-  {% if banner[lang] %}
-    {% set_global banner = banner[lang] %}
-    {% break %}
-  {% endif %}
-{% endfor %}
+{% if pref_langs %}
+  {% for lang in pref_langs %}
+    {% if banner[lang] %}
+      {% set_global banner = banner[lang] %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+{% else %}
+  {% set_global banner = banner[default_lang] %}
+{% endif %}
 
 <div id="biglogo">
   <a href="/"><img src="/static/logo.png" alt="Logo of a litchi fruit"/></a>
