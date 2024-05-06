@@ -77,6 +77,8 @@ default_sort = [["date"], false]
 
 # Temporary redirections
 [redirections]
+"/favicon" = "/static/favicon.png"
+"/favicon.png" = "/static/favicon.png"
 "/post/11603320942166757384" = "/post/5607614558439774564"
 "/post/14762501311625827021" = "/post/17476114125344275704"
 "/post/14628100307884912758" = "/post/3630282044331223044"
