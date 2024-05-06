@@ -1,5 +1,15 @@
 {% extends "base.html" %}
 
+{% block meta %}
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="{{ site.name }}" />
+  {% if sources.og_image %}
+  <meta property="og:image" content="{{site.base_url | safe}}/{{ sources.og_image | safe }}" />
+  {% endif %}
+  <meta property="og:url" content="{{ site.base_url | safe }}" />
+  <meta property="og:site_name" content="{{ site.name }}" />
+{% endblock meta %}
+
 {% block title %}{{ proindex.metadata.title }}{% endblock title %}
 
 {% block stylesheets %}

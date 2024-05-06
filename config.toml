@@ -21,7 +21,7 @@ description = """
 copyrights = "Content released under a Creative commons CC BY-NC license"
 
 [plain_context.sources]
-og_image = "/static/images/og_banner.png"
+og_image = "static/og_banner.png"
 content = "https://github.com/litchipi/blog"
 engine = "https://github.com/litchipi/ecoweb"
 
