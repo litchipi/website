@@ -84,13 +84,13 @@
   <!-- Action -->
   <section class="pro-section" id="contact">
     <h1>{{ proindex.contact.title }}</h1>
-    <form action="/contact" method="post">
-        <input type="text" placeholder="{{ proindex.contact.name }}" name="name" required />
-        <input type="email" placeholder="{{ proindex.contact.email }}" name="email" required />
-        <input type="text" placeholder="{{ proindex.contact.subject }}" name="subject" required />
-        <textarea name="body" rows="10" placeholder="{{ proindex.contact.body }}" maxlength=2000></textarea>
+    <form id="contact-form" action="/contact" method="post">
+        <input id="contact-form-name" type="text" placeholder="{{ proindex.contact.name }}" name="name" required />
+        <input id="contact-form-email" type="email" placeholder="{{ proindex.contact.email }}" name="email" required />
+        <input id="contact-form-subject" type="text" placeholder="{{ proindex.contact.subject }}" name="subject" required />
+        <textarea id="contact-form-body" name="body" rows="10" placeholder="{{ proindex.contact.body }}" maxlength=2000></textarea>
 
-        <input type="submit" value="{{ proindex.contact.submit }}" />
+        <input id="contact-form-submit" type="submit" value="{{ proindex.contact.submit }}" />
     </form>
   </section>
 </main>
