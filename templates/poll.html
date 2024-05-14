@@ -146,15 +146,19 @@
       </div>
       <label for="ask-email">{{ poll.lang.email_lbl }}</label>
       <input type="email" id="ask-email" name="ask-email" size=50/>
+
+      <div class="question-note" style="margin-top: 10px;">
+        <input type="checkbox" id="want-recontact-inp" name="want-recontact">
+        <label for="want-recontact">{{ poll.lang.email_recontact }}</label>
+      </div>
     </li>
 
-    <li id="data-consent" class="quesetion-container" style="display: block;">
-      <input type="checkbox" id="data-consent" name="data-consent" required>
+    <li id="data-consent" class="question-container" style="display: block;">
+      <input type="checkbox" id="data-consent-inp" name="data-consent" required>
       <label for="data-consent">{{ poll.lang.data_consent }}</label>
     </li>
   </ul>
 
-  <input type="text" id="save-data-token" name="save-data-token" style="display: none;"/>
   <input
     type="submit"
     id="submitForm" class="poll-submit-button"

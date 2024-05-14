@@ -1,10 +1,7 @@
-# TODO  IMPORTANT  Adapt this survey
 title = "Survey"
-introduction = """
-  Thank you for the time you are giving for [my project](/hireme/en) !
 
-  All data from this survey are stored anonymously, only your answers are kept,
-  no other data is collected.
+# TODO  IMPORTANT    Add the offer here
+introduction = """
 """
 
 question_set_order = ["intro", "tools", "quality_price"]

@@ -1,37 +1,41 @@
 title = "Sondage"
+
+# TODO  IMPORTANT Texte plus gros dans input "text", retirer correction orthographique
+
+# TODO  IMPORTANT Newline broken in question notes
+
+# TODO  IMPORTANT Add the offer here
 introduction = """
-  Merci des quelques minutes que vous accordez pour mon projet entreprenarial !
-
-  Les données de ce formulaire sont stockées de façon anonyme,
-  seuls vos réponses sont conservées, aucune autre donnée n'est collectée.
-
-  Vous avez la possibilité de ne pas répondre à certaines questions si vous ne le désirez
-  pas.
+  Bla bla bla mon offre
 """
 
-question_set_order = ["intro", "tools", "quality_price", "specific"]
+question_set_order = ["intro", "tools", "quality_price"]
 endpoint="/save_market_research"
 
 [introductions]
-specific = """
-  Ayant déjà des projets pour de futurs services, vos réponses à ces questions m'aideront
-  grandement à les développer.
-"""
+# specific = """
+#   Ayant déjà des projets pour de futurs services, vos réponses à ces questions m'aideront
+#   grandement à les développer.
+# """
 
 [lang]
 yes = "Oui"
 no = "Non"
 send_button = "Envoyer"
 email_text = """
-  Intéressés par [ce que je peux vous offrir](/) ?
-  Entrez votre e-mail et je vous recontacterai
+  Intéressé(e) par [ce que je peux vous offrir](/) ?
+
+  Entrez votre e-mail pour recevoir des news et informations
 """
+
+email_recontact = "Je souhaite être recontacté(e)"
 
 email_note = """
   Ceci est totalement optionnel.  
   L'adresse e-mail collectée ne sera pas utilisé avec abus, et ne sera partagé avec
   personne.
 """
+
 email_lbl = "Adresse e-mail:"
 
 data_consent = """
@@ -41,17 +45,11 @@ data_consent = """
 
 # Introduction
 
-[question.intro.1_numeric_or_not]
-text = "Êtes-vous un professionnel du secteur du numérique ?"
-type = "yes_or_no"
-addq_yes = "numeric_pro"
-addq_no = "not_numeric"
-
-[question.intro.2_position]
+[question.intro.1_position]
 text = "Quel poste excercez vous au sein de votre entreprise ?"
 type = "text"
 
-[question.intro.3_company_size]
+[question.intro.2_company_size]
 text = "Combien d'employés environ compte votre entreprise ?"
 type = "radio"
 choices = [
@@ -64,44 +62,10 @@ choices = [
   "Plus de 1000 personnes"
 ]
 
-
-# Numeric pro
-
-[question.numeric_pro.1_write_code]
-text = "Écrivez-vous du logiciel à partir d'un langage de programmation ?"
-type = "yes_or_no"
-addq_yes = "write_code"
-
-[question.write_code.1_what_langage]
-text = "Quel(s) language(s) utilisez-vous ?"
-type = "text"
-
-# Not numeric pro
-
-[question.not_numeric.1_what_field]
-text = "Dans quel secteur d'activité travaillez-vous ?"
-type = "text"
-
-[question.not_numeric.2_ease_with_software]
-text = "À quel point êtes vous à l'aise avec l'informatique en général ?"
-type = "range"
-min = 0
-max = 100
-
-[question.not_numeric.2_ease_with_software.threshold]
-"Sans aucun repères" = 5
-"Pas très à l'aise" = 20
-"Actions de base" = 40
-"Moyennement à l'aise" = 60
-"À l'aise en tant qu'utilisateur" = 75
-"Administrateur" = 90
-"Hacker" = 100
-
-
 # Tools used
 
 [question.tools.1_link_ergonomy_tools]
-text = "Votre ergonomie de travail est-elle liée aux outils logiciels que vous utilisez ?"
+text = "Vos logiciels informatiques affectent-ils beaucoup votre confort au travail ?"
 type = "range"
 min = 0
 max = 10
@@ -111,20 +75,17 @@ max = 10
 "Un peu" = 4
 "Moyennement" = 6
 "Beaucoup" = 9
-"Entièrement" = 10
+"Totalement" = 10
 
 [question.tools.2_tools_used_everyday]
 text = "Quels sont les logiciels que vous utilisez au quotidien ?"
-note = """
-  S'il y en a trop à lister, merci de prioriser les logiciels les plus spécifiques à
-  votre corps de métier.
-"""
+note = "Lister en priorité les logiciels les plus spécifiques à votre métier"
 type = "text"
-rows=10
-cols=50
+rows = 10
+cols = 50
 
 [question.tools.3_software_frustration]
-text = "Vous arrive-t-il d'être frustré par un outil logiciel ?"
+text = "Êtes-vous parfois frustrés par l'utilisation d'un logiciel ?"
 note = "Parce qu'il est trop lent, pas assez complet, pas agréable à utiliser..."
 type = "range"
 min = 0
@@ -138,27 +99,36 @@ max = 10
 "Tout le temps" = 10
 
 [question.tools.4_special_need]
-text = "Manque-t-il à votre corps de métier un outil qui n'existe pas encore, ou est insuffisant ?"
-type = "yes_or_no"
-addq_yes = "special_need_details"
+text = "Y a-t-il un manque d'outil logiciel dans votre métier ?"
+type = "radio"
+choices = [
+  "Logiciel inexistant à créer",
+  "Amélioration d'outil existant",
+  "Aucun besoin",
+]
 
-[question.special_need_details.details]
-text = "Pouvez-vous nous donner des détails sur ce sujet ?"
-note = "Autant de détails que la discrétion vous permet de donner"
+[question.tools.5_manual_trask_automation]
+text = "Vous arrive-t-il d'effecuter manuellement des tâches qui pourraient être automatisées ?"
+note = "Des tâches peu complexes, répétitives, ne nécessitant pas de réflexion réelle"
+type = "yes_or_no"
+addq_yes = "task_automation"
+
+[question.task_automation.details]
+text = "Pouvez-vous donner plus de détails ?"
 type = "text"
-
-[question.tools.5_manual_trask_repetition]
-text = "Avez-vous déjà effecuté une tâche manuelle répétitive par faute d'avoir un outil l'automatisant ?"
-note = "Des tâches peu complexes, ne nécessitant pas de réflexion réelle"
-type = "yes_or_no"
 
 [question.tools.6_high_intensity_slow]
 text = "Lors d'une période de haute intensité, un outil logiciel vous a-t-il déjà ralenti, dérangé, frustré ?"
 note = "Vous ou vos collaborateurs"
 type = "yes_or_no"
+addq_yes = "high_intensity_slow"
+
+[question.high_intensity_slow.details]
+text = "Pouvez-vous donner plus de détails ?"
+type = "text"
 
 [question.tools.7_tools_slowing_everyday]
-text = "En moyenne, estimez le temps perdu à cause de logiciels mal adaptés"
+text = "À combien estimez-vous le temps perdu par jour à cause de logiciels ?"
 note = "En minutes"
 type = "number"
 min = 0
@@ -166,36 +136,34 @@ max = 12000
 step = 1
 
 [question.quality_price.1_software_quality_importance]
-text="Parmis les critères de qualité d'un logiciel ci-dessous, quel est le plus important pour votre usage ?"
+text="Parmis les critères de qualité d'un logiciel ci-dessous, quel est le plus important pour vous ?"
 type = "checkbox"
 choices = [
+  "Sécurité",
   "Ergonomie",
-  "Absence de bugs",
-  "Mise à jour fréquente",
   "Rapidité d'exécution",
-  "Absence de failles de sécurité"
+  "Fonctionnement stable",
+  "Mise à jour fréquente",
 ]
 
-[question.quality_price.2_prefer_quality_or_price]
-text = "Préférez-vous un outil de très bonne qualité, au détriment de son prix ?"
-note = """
-  Par rapport aux critères de qualités importants pour vous parmis ceux listés
-  à la question précédente
-"""
-type="range"
-min=0
-max=100
-
-[question.quality_price.2_prefer_quality_or_price.threshold]
-"Très peu cher, qualité médiocre" = 20
-"Peu cher, mauvaise qualité" = 40
-"Prix et qualité moyens" = 60
-"Cher, mais de bonne qualité" = 80
-"Très cher, mais d'une excellente qualité" = 100
+[question.quality_price.2_software_priority]
+text = "Quel est l'aspect le plus important d'un outil logiciel selon vous ?"
+type="radio"
+choices = [
+  "Sécurité",
+  "Ergonomie",
+  "Performances",
+  "Documentation",
+  "Fonctionnalités",
+  "Maintenabilité",
+  "Impact écologique",
+]
 
 [question.quality_price.4_rse_important]
-text = "Est-ce que l'impact RSE d'un outil est un critère important dans votre choix ?"
+text = "L'impact RSE d'un outil est-il un critère important dans votre choix ?"
 note = """
+  RSE = Responsabilité Sociétale des Entreprises  
+
   Son impact écologique, son accessibilité pour les personnes malvoyantes, handicapées,
   ou ayant un mauvais équipement informatique.
 """
@@ -214,73 +182,33 @@ max=10
 text = "Avez-vous déjà eu recours à un consultant externe pour un besoin en logiciel ?"
 note = "Un freelance, une entreprise de prestation, ..."
 type = "yes_or_no"
+addq_yes = "hire_freelance_yes"
+addq_no = "hire_freelance_no"
 
-[question.quality_price.6_customer_service_importance]
-text = "À quel point est-ce que le SAV est important pour vous ?"
-note = "SAV = Service après vente"
-type = "range"
-min=0
-max=10
+[question.hire_freelance_yes.details]
+text = "Pouvez-vous me donner plus de détails ?"
+type = "text"
 
-[question.quality_price.6_customer_service_importance.threshold]
-"Pas du tout important" = 2
-"Peu important" = 4
-"Neutre" = 6
-"Important" = 8
-"Très important" = 10
+[question.hire_freelance_no.details]
+text = "Pouvez-vous m'expliquer pourquoi ?"
+type = "text"
 
-[question.quality_price.7_price_over_service]
-text = "Préférez-vous un logiciel peu cher sans SAV, ou cher avec un SAV très poussé ?"
-note = "SAV logiciel = mises à jours, correctifs, documentation, contact privilégié..."
-type = "range"
-min = 0
-max = 10
-
-[question.quality_price.7_price_over_service.threshold]
-"Très peu cher, aucun SAV" = 2
-"Peu cher, SAV minimal" = 4
-"Prix et SAV moyen" = 6
-"Cher, SAV assez complet" = 8
-"Très cher, SAV maximal" = 10
-
-
-
-# Specific for my own product / services ideas
-
-[question.specific.1_archive_data]
-text = "Vos données sont-elles archivées régulièrement ?"
+[question.quality_price.6_customer_service_range]
+text = "Quel SAV vous semble le plus attractif, pour un outil logiciel ?"
 note = """
-  Afin de contrer les possibles attaques informatiques, ou défauts matériels,
-  et éviter ainsi la perte de données importantes
+SAV = Service après vente
+
+Chaque offre décrite comprends les avantages de toutes les offres précédentes
 """
-type = "yes_or_no"
-
-[question.specific.2_meeting_remote]
-text = "Faites-vous régulièrement des réunions en distanciel ?"
-note = "Avec des logiciels comme Microsoft Teams, ou Google Meet"
-type = "yes_or_no"
-
-[question.specific.3_brainstorming]
-text = "Avez-vous déjà utilisé des méthodes de réunions plus interactives ?"
-note = "Brainstorming, résolution de problèmes avec le role play, méthode du Lotus, ..."
 type = "radio"
 choices = [
-  "Fréquemment",
-  "De temps en temps",
-  "Rarement",
-  "Jamais",
+  "Aucun SAV",
+  "100 €/an, mises à jours de sécurité uniquement",
+  "200 €/an, mises à jours de librairies",
+  "500 €/an, disponibilité pour travail ponctuel sur petites tâches",
+  "1000 €/an, formation de vos développeurs, amélioration des fonctionnalités existantes",
 ]
 
-[question.specific.4_usage_of_ai]
-text = "Utilisez-vous fréquemment une IA du type ChatGPT ?"
-type = "radio"
-choices = [
-  "Fréquemment",
-  "De temps en temps",
-  "Rarement",
-  "Jamais",
-]
-
-[question.specific.5_integrate_ai]
-text = "Désireriez-vous intégrer plus de services d'IA dans vos outils du quotidien ?"
-type = "yes_or_no"
+[question.quality_price.7_details_customer_service]
+text = "Pourriez-vous expliquer ce choix ?"
+type = "text"

@@ -87,12 +87,6 @@ function get_query(q) {
    return (window.location.search.match(new RegExp('[?&]' + q + '=([^&]+)')) || [, null])[1];
 }
 
-function init_form_token() {
-  let token = get_query("token");
-  document.getElementById("save-data-token").value = token;
-}
-
 function init() {
-  init_form_token();
   init_questions_events();
 }

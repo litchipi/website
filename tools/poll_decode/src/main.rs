@@ -22,6 +22,8 @@ pub struct Args {
     statsfile: PathBuf,
 }
 
+// TODO    IMPORTANT    Display answer in screen while doing computation
+// TODO    IMPORTANT    Add answer to cache file for archiving (in case of data loss)
 fn main() {
     let args = Args::parse();
     let poll = load_poll_questions(&args.poll);
