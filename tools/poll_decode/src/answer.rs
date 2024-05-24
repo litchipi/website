@@ -1,4 +1,5 @@
 use std::collections::{BTreeMap, HashMap};
+use std::path::PathBuf;
 
 use serde::{Deserialize, Serialize};
 
@@ -90,6 +91,32 @@ impl PollAnswer {
             }
         }
     }
+
+    pub fn display(&self, question: &PollQuestion) -> String {
+        match self {
+            PollAnswer::Numeric(n) => n.to_string(),
+            PollAnswer::YesOrNo(b) => if *b {
+                "Yes".to_string()
+            } else {
+                "No".to_string()
+            },
+            PollAnswer::Range(r) if question.qtype == "range" => {
+             format!("{}/{}", *r, question.max.unwrap())
+            },
+            PollAnswer::Text(t) => t.clone(),
+            PollAnswer::Radio(l) if question.qtype == "radio" => {
+                question.choices.as_ref().unwrap().get(*l).unwrap().clone()
+            }
+            PollAnswer::Checkbox(l) if question.qtype == "checkbox" => {
+                let mut choices = vec![];
+                for n in l {
+                    choices.push(question.choices.as_ref().unwrap().get(*n).unwrap().clone());
+                }
+                format!("{choices:?}")
+            }
+            _ => unreachable!(),
+        }
+    }
 }
 
 pub fn to_poll_answers(
@@ -128,4 +155,9 @@ pub fn to_poll_answers(
         }
     }
     answers
+}
+
+// TODO    IMPORTANT    Add answer to cache file for archiving (in case of data loss)
+pub fn save_in_cache(fpath: &PathBuf, answers: &HashMap<String, PollAnswer>) {
+    todo!()
 }

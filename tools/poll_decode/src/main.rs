@@ -15,22 +15,32 @@ mod stats;
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
 pub struct Args {
-    #[arg(short, long)]
+    #[arg(short = 'p', long)]
     poll: PathBuf,
 
     #[arg(short = 'f', long)]
     statsfile: PathBuf,
+
+    #[arg(short = 'c', long)]
+    cachefile: PathBuf,
 }
 
-// TODO    IMPORTANT    Display answer in screen while doing computation
-// TODO    IMPORTANT    Add answer to cache file for archiving (in case of data loss)
 fn main() {
     let args = Args::parse();
-    let poll = load_poll_questions(&args.poll);
+    let (qorder, poll) = load_poll_questions(&args.poll);
     let (id, data) = get_mail_data();
 
     let mut stats = PollStatistics::load(&args.statsfile);
     let answers = to_poll_answers(&poll, data);
+
+    answer::save_in_cache(&args.cachefile, &answers);
+
+    for qslug in qorder {
+        let answer = answers.get(&qslug).unwrap();
+        let question = poll.get(&qslug).unwrap();
+        println!("> {}\n \"{}\"\n", question.text, answer.display(question));
+    }
+
     stats.feed(id, &poll, answers);
     stats.save(&args.statsfile);
 }

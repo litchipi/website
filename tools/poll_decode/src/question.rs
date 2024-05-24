@@ -8,7 +8,7 @@ pub struct PollQuestion {
     #[serde(skip)]
     pub slug: String,
 
-    text: String,
+    pub text: String,
     pub qtype: String,
     note: Option<String>,
 
@@ -50,19 +50,29 @@ fn get_toml_string(key: &str, tmap: &Map<String, toml::Value>) -> Option<String>
     tmap.get(key).map(|v| v.as_str().unwrap().to_string())
 }
 
-pub fn load_poll_questions(fpath: &PathBuf) -> HashMap<String, PollQuestion> {
+pub fn load_poll_questions(fpath: &PathBuf) -> (Vec<String>, HashMap<String, PollQuestion>) {
     let data = std::fs::read_to_string(fpath).unwrap();
     let data: HashMap<String, toml::Value> = toml::from_str(&data).unwrap();
+    let mut order = vec![];
+
     let questions = data.get("question").unwrap().as_table().unwrap();
     let mut hmap = HashMap::new();
-    for (qset, qtable) in questions {
-        let qtable = qtable.as_table().unwrap();
-        for (qslug, q) in qtable {
+
+    let qtable_order = data.get("question_set_order").unwrap().as_array().unwrap();
+    for qset in qtable_order {
+        let qset = qset.as_str().unwrap().to_string();
+        let qtable = questions.get(&qset).unwrap().as_table().unwrap();
+        let mut qtable_keys : Vec<&String> = qtable.keys().collect();
+        qtable_keys.sort();
+
+        for qslug in qtable_keys {
+            let q = qtable.get(qslug).unwrap().as_table().unwrap();
             let qset_slug = format!("q-{qset}-{qslug}");
-            let mut question = PollQuestion::from(q.as_table().unwrap());
+            order.push(qset_slug.clone());
+            let mut question = PollQuestion::from(q);
             question.slug = qslug.clone();
             hmap.insert(qset_slug, question);
         }
     }
-    hmap
+    (order, hmap)
 }
