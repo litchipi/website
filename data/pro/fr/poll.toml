@@ -1,12 +1,13 @@
-title = "Sondage"
+title = "Questionnaire"
 
-# TODO  IMPORTANT Texte plus gros dans input "text", retirer correction orthographique
-
-# TODO  IMPORTANT Newline broken in question notes
-
-# TODO  IMPORTANT Add the offer here
 introduction = """
-  Bla bla bla mon offre
+Merci pour votre réponse à ce questionnaire !
+
+Étant ingénieur logiciel au service des entreprises, vos réponses vont m'aider à
+améliorer ma compréhension de vos coeurs de métiers, et me permettre de proposer
+des services toujours plus utiles aux professionnels.
+
+Vous pouvez retrouver le détail de mon offre, et de ma méthode [ici](/).
 """
 
 question_set_order = ["intro", "tools", "quality_price"]
@@ -23,30 +24,30 @@ yes = "Oui"
 no = "Non"
 send_button = "Envoyer"
 email_text = """
-  Intéressé(e) par [ce que je peux vous offrir](/) ?
+  Voulez-vous recevoir des news, ou être recontacté ?
 
-  Entrez votre e-mail pour recevoir des news et informations
+  Entrez votre e-mail et votre souhait sera réalisé !
 """
 
 email_recontact = "Je souhaite être recontacté(e)"
 
 email_note = """
   Ceci est totalement optionnel.  
-  L'adresse e-mail collectée ne sera pas utilisé avec abus, et ne sera partagé avec
+  L'adresse e-mail collectée ne sera pas utilisée avec abus, et ne sera partagée avec
   personne.
 """
 
 email_lbl = "Adresse e-mail:"
 
 data_consent = """
-  Je consent à ce que mes réponses (et e-mail si renseigné) soit stocké
-  et utilisé afin de conduire une étude de marché.
+  Je consens à ce que mes réponses (et e-mail si renseigné) soient stockées
+  et utilisées afin de conduire une étude de marché.
 """
 
 # Introduction
 
 [question.intro.1_position]
-text = "Quel poste excercez vous au sein de votre entreprise ?"
+text = "Quel poste excercez-vous au sein de votre entreprise ?"
 type = "text"
 
 [question.intro.2_company_size]
@@ -100,15 +101,16 @@ max = 10
 
 [question.tools.4_special_need]
 text = "Y a-t-il un manque d'outil logiciel dans votre métier ?"
-type = "radio"
-choices = [
-  "Logiciel inexistant à créer",
-  "Amélioration d'outil existant",
-  "Aucun besoin",
-]
+note = "Un logiciel manquant, ou un besoin d'amélioration d'un logiciel existant"
+type = "yes_or_no"
+addq_yes = "special_needs"
 
-[question.tools.5_manual_trask_automation]
-text = "Vous arrive-t-il d'effecuter manuellement des tâches qui pourraient être automatisées ?"
+[question.special_needs.details]
+text = "Pouvez-vous détailler ce besoin, son contexte et son usage précis ?"
+type = "text"
+
+[question.tools.6_manual_task_automation]
+text = "Vous arrive-t-il d'effectuer manuellement des tâches qui pourraient être automatisées ?"
 note = "Des tâches peu complexes, répétitives, ne nécessitant pas de réflexion réelle"
 type = "yes_or_no"
 addq_yes = "task_automation"
@@ -117,7 +119,7 @@ addq_yes = "task_automation"
 text = "Pouvez-vous donner plus de détails ?"
 type = "text"
 
-[question.tools.6_high_intensity_slow]
+[question.tools.7_high_intensity_slow]
 text = "Lors d'une période de haute intensité, un outil logiciel vous a-t-il déjà ralenti, dérangé, frustré ?"
 note = "Vous ou vos collaborateurs"
 type = "yes_or_no"
@@ -127,7 +129,7 @@ addq_yes = "high_intensity_slow"
 text = "Pouvez-vous donner plus de détails ?"
 type = "text"
 
-[question.tools.7_tools_slowing_everyday]
+[question.tools.8_tools_slowing_everyday]
 text = "À combien estimez-vous le temps perdu par jour à cause de logiciels ?"
 note = "En minutes"
 type = "number"
@@ -136,13 +138,13 @@ max = 12000
 step = 1
 
 [question.quality_price.1_software_quality_importance]
-text="Parmis les critères de qualité d'un logiciel ci-dessous, quel est le plus important pour vous ?"
+text="Parmi les critères de qualité d'un logiciel ci-dessous, quel est le plus important pour vous ?"
 type = "checkbox"
 choices = [
   "Sécurité",
   "Ergonomie",
   "Rapidité d'exécution",
-  "Fonctionnement stable",
+  "Fonctionnement stable et sans bugs",
   "Mise à jour fréquente",
 ]
 
@@ -162,7 +164,7 @@ choices = [
 [question.quality_price.4_rse_important]
 text = "L'impact RSE d'un outil est-il un critère important dans votre choix ?"
 note = """
-  RSE = Responsabilité Sociétale des Entreprises  
+  RSE = Responsabilité Sociétale des Entreprises<br/>
 
   Son impact écologique, son accessibilité pour les personnes malvoyantes, handicapées,
   ou ayant un mauvais équipement informatique.
@@ -191,20 +193,21 @@ type = "text"
 
 [question.hire_freelance_no.details]
 text = "Pouvez-vous m'expliquer pourquoi ?"
+note = "N'écrivez rien si vous n'avez juste jamais eu de besoin"
 type = "text"
 
 [question.quality_price.6_customer_service_range]
 text = "Quel SAV vous semble le plus attractif, pour un outil logiciel ?"
 note = """
-SAV = Service après vente
+SAV = Service après vente<br/>
 
-Chaque offre décrite comprends les avantages de toutes les offres précédentes
+Chaque offre décrite comprend les avantages de toutes les offres précédentes
 """
 type = "radio"
 choices = [
   "Aucun SAV",
-  "100 €/an, mises à jours de sécurité uniquement",
-  "200 €/an, mises à jours de librairies",
+  "100 €/an, mises à jour de sécurité uniquement",
+  "200 €/an, mises à jour des dépendances externes du code",
   "500 €/an, disponibilité pour travail ponctuel sur petites tâches",
   "1000 €/an, formation de vos développeurs, amélioration des fonctionnalités existantes",
 ]

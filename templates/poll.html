@@ -54,7 +54,7 @@
   <li id="{{idbase}}" class="question-container set-{{ qset }}" style="{{ style }}">
     <p class="question-text">{{ q.text }}</p>
     {% if q.note %}
-      <p class="question-note">{{ q.note }}</p>
+      <p class="question-note">{{ q.note | safe }}</p>
     {% endif %}
     {% if q.label_before %}
       <label for="{{idbase}}">{{ q.label_before }}</label>
@@ -149,13 +149,14 @@
 
       <div class="question-note" style="margin-top: 10px;">
         <input type="checkbox" id="want-recontact-inp" name="want-recontact">
-        <label for="want-recontact">{{ poll.lang.email_recontact }}</label>
+          <label for="want-recontact-inp">{{ poll.lang.email_recontact }}</label>
+        </input>
       </div>
     </li>
 
     <li id="data-consent" class="question-container" style="display: block;">
       <input type="checkbox" id="data-consent-inp" name="data-consent" required>
-      <label for="data-consent">{{ poll.lang.data_consent }}</label>
+      <label for="data-consent-inp">{{ poll.lang.data_consent }}</label>
     </li>
   </ul>
 
