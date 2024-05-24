@@ -157,7 +157,15 @@ pub fn to_poll_answers(
     answers
 }
 
-// TODO    IMPORTANT    Add answer to cache file for archiving (in case of data loss)
-pub fn save_in_cache(fpath: &PathBuf, answers: &HashMap<String, PollAnswer>) {
-    todo!()
+pub fn save_in_cache(id: &String, fpath: &PathBuf, answers: &HashMap<String, PollAnswer>) {
+    if !fpath.is_dir() {
+        std::fs::create_dir_all(fpath).expect("Cannot create cache dir");
+    }
+
+    let json_save = serde_json::to_string(&answers).unwrap();
+
+    let id = id.replace("/", "").replace("=", "");
+    let fpath = fpath.join(id).with_extension("json");
+    println!("Writing answer to cache {fpath:?}");
+    std::fs::write(fpath, &json_save).unwrap();
 }

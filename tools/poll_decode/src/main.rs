@@ -22,7 +22,7 @@ pub struct Args {
     statsfile: PathBuf,
 
     #[arg(short = 'c', long)]
-    cachefile: PathBuf,
+    cachedir: PathBuf,
 }
 
 fn main() {
@@ -33,10 +33,12 @@ fn main() {
     let mut stats = PollStatistics::load(&args.statsfile);
     let answers = to_poll_answers(&poll, data);
 
-    answer::save_in_cache(&args.cachefile, &answers);
+    answer::save_in_cache(&id, &args.cachedir, &answers);
 
     for qslug in qorder {
-        let answer = answers.get(&qslug).unwrap();
+        let Some(answer) = answers.get(&qslug) else {
+            continue;
+        };
         let question = poll.get(&qslug).unwrap();
         println!("> {}\n \"{}\"\n", question.text, answer.display(question));
     }
