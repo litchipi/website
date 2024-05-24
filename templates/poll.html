@@ -92,7 +92,6 @@
     {% if q.type == "text" %}
       {{ qtype::text(idbase=idbase,
         rows=q.rows | default(value="3"),
-        cols=q.cols | default(value="75"),
       ) }}
     {% endif %}
 

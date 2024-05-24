@@ -110,6 +110,11 @@
     grid-template-columns: 1.5fr 3fr 0fr;
     column-gap: 0px;
   }
+
+  #menu a {
+    font-weight: normal;
+    border: unset;
+  }
 }
 
 @media screen and (max-width: $phone-media) {

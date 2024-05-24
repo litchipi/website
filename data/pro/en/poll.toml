@@ -82,7 +82,6 @@ text = "What are the software that you use daily ?"
 note = "Please priorize the software that are specific to your profession"
 type = "text"
 rows = 10
-cols = 50
 
 [question.tools.3_software_frustration]
 text = "Are you sometime frustrated by the usage of a software ?"

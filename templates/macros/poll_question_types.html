@@ -99,8 +99,8 @@ var dict = {
 initRangeThreshold("q-{{qsetslug}}-{{qslug}}", {{q.min}}, {{q.max}}, dict);
 {% endmacro range_disp_threshold %}
 
-{% macro text(idbase, rows, cols) %}
-<textarea id="{{idbase}}-txt" name="{{idbase}}" rows="{{rows}}" cols="{{cols}}" spellcheck="false">
+{% macro text(idbase, rows) %}
+<textarea id="{{idbase}}-txt" name="{{idbase}}" rows="{{rows}}" spellcheck="false">
 </textarea>
 {% endmacro text %}
 
