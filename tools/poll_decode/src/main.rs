@@ -36,10 +36,11 @@ fn main() {
     answer::save_in_cache(&id, &args.cachedir, &answers);
 
     for qslug in qorder {
+        let question = poll.get(&qslug).unwrap();
         let Some(answer) = answers.get(&qslug) else {
+            println!("> {}\nNo answer\n", question.text);
             continue;
         };
-        let question = poll.get(&qslug).unwrap();
         println!("> {}\n \"{}\"\n", question.text, answer.display(question));
     }
 

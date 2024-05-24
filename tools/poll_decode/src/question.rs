@@ -50,6 +50,29 @@ fn get_toml_string(key: &str, tmap: &Map<String, toml::Value>) -> Option<String>
     tmap.get(key).map(|v| v.as_str().unwrap().to_string())
 }
 
+fn load_qtable(questions: &Map<String, toml::Value>, key: &String, hmap: &mut HashMap<String, PollQuestion>) -> Vec<String> {
+    let qtable = questions.get(key).unwrap().as_table().unwrap();
+    let mut qtable_keys : Vec<&String> = qtable.keys().collect();
+    qtable_keys.sort();
+    let mut order = vec![];
+
+    for qslug in qtable_keys {
+        let q = qtable.get(qslug).unwrap().as_table().unwrap();
+        let qset_slug = format!("q-{key}-{qslug}");
+        order.push(qset_slug.clone());
+        let mut question = PollQuestion::from(q);
+        if let Some(ref q) = question.addq_yes {
+            order.extend(load_qtable(&questions, q, hmap));
+        }
+        if let Some(ref q) = question.addq_no {
+            order.extend(load_qtable(&questions, q, hmap));
+        }
+        question.slug = qslug.clone();
+        hmap.insert(qset_slug, question);
+    }
+    order
+}
+
 pub fn load_poll_questions(fpath: &PathBuf) -> (Vec<String>, HashMap<String, PollQuestion>) {
     let data = std::fs::read_to_string(fpath).unwrap();
     let data: HashMap<String, toml::Value> = toml::from_str(&data).unwrap();
@@ -61,18 +84,7 @@ pub fn load_poll_questions(fpath: &PathBuf) -> (Vec<String>, HashMap<String, Pol
     let qtable_order = data.get("question_set_order").unwrap().as_array().unwrap();
     for qset in qtable_order {
         let qset = qset.as_str().unwrap().to_string();
-        let qtable = questions.get(&qset).unwrap().as_table().unwrap();
-        let mut qtable_keys : Vec<&String> = qtable.keys().collect();
-        qtable_keys.sort();
-
-        for qslug in qtable_keys {
-            let q = qtable.get(qslug).unwrap().as_table().unwrap();
-            let qset_slug = format!("q-{qset}-{qslug}");
-            order.push(qset_slug.clone());
-            let mut question = PollQuestion::from(q);
-            question.slug = qslug.clone();
-            hmap.insert(qset_slug, question);
-        }
+        order.extend(load_qtable(&questions, &qset, &mut hmap));
     }
     (order, hmap)
 }
