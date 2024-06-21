@@ -70,7 +70,7 @@ default_template = "post_list.html"
 
 [serie.add_context.all_posts]
 query="similar_pages_from_uri"
-args = ["blog", ["serie", "slug"], "serie_name", {}]
+args = ["blog", ["serie", "slug"], "serie_name", { sort_by = ["serie", "index"], rev_sort = true }]
 
 [serie.add_context.by]
 query = "plain"
