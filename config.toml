@@ -107,7 +107,7 @@ pubkey = "MIGJAoGBAK98NWNHYefwkH0ipJ6t6kVcYJmkKX4wf6AwX+HtC9qFLR09wrtqz8q6D3jl/P
 ## Contact
 [form_endpoints.contact]
 endpoint = "/contact"
-method = { action = "SendOverEmail", args = "New contact from homepage form" }
+method = { action = "NoAction" }
 
 [form_endpoints.contact.notification.fr]
 title = "Merci"
