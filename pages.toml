@@ -124,15 +124,3 @@ args = ["blog", { limit = 0 }]
 route = "/humans.txt"
 default_template = "humans.txt"
 add_headers = { "Content-Type" = "text/plain" }
-
-
-# Poll
-
-[poll]
-route = "/market_research"
-lang_detect = true
-default_template = "poll.html"
-
-[poll.add_context.poll]
-query = "query_context"
-args = ["pro", "poll"]
