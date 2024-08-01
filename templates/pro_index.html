@@ -18,6 +18,7 @@
 
 {% block beforecontent %}
 <main class="pro-content-wrapper">
+  {% if proindex.intro %}
   <section class="pro-section" id="pro-intro">
     <!-- Titre de l'offre -->
     <h1>{{ proindex.intro.title }}</h1>
@@ -33,9 +34,12 @@
       </div>
     </div>
   </section>
+  {% endif %}
 
   <!-- Détail de la solution -->
+  {% if proindex.services %}
   <section class="pro-section" id="pro-services">
+
     <ul>
       {% for sname in proindex.services.order %}
       {% set service = proindex.services[sname] %}
@@ -46,12 +50,20 @@
       </li>
       {% endfor %}
     </ul>
-    <a class="pro-hireme" href="#contact">{{ proindex.contact.linktext }}</a>
-  </section>
 
+    {% if proindex.contact %}
+    <a class="pro-hireme" href="#contact">{{ proindex.contact.linktext }}</a>
+    {% endif %}
+
+  </section>
+  {% endif %}
+
+  {% if proindex.vision %}
   <!-- Valeurs / Mission -->
   <section class="pro-section" id="pro-vision">
+
     <h1>{{ proindex.vision.title }}</h1>
+
     <div>
       <div id="pro-vision-why" style="grid-area: a">
         {% for t in proindex.vision.why %}
@@ -73,14 +85,20 @@
         {% endfor %}
       </div>
       <img src="/static/pro/vision-what.png" style="grid-area: f"/>
+
     </div>
   </section>
+  {% endif %}
 
+  {% if proindex.proofs %}
+  <!-- TODO IMPORTANT  Proofs section -->
   <!-- Preuves quand j'en aurai -->
   <!-- <section class="pro-section" id="pro-testimonials"> -->
   <!-- </section> -->
+  {% endif %}
 
   <!-- Action -->
+  {% if proindex.contact %}
   <section class="pro-section" id="contact">
     <h1>{{ proindex.contact.title }}</h1>
     <form id="contact-form" action="/contact" method="post">
@@ -92,6 +110,7 @@
         <input id="contact-form-submit" type="submit" value="{{ proindex.contact.submit }}" />
     </form>
   </section>
+  {% endif %}
 </main>
 {% endblock beforecontent %}
 

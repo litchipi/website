@@ -23,7 +23,9 @@
     <ul>
       <a href="/#"><li>{{ banner.home }}</li></a>
       <a href="/blog"><li>{{ banner.blog }}</li></a>
+      {% if banner.contact %}
       <a href="/#contact"><li>{{ banner.contact }}</li></a>
+      {% endif %}
     </ul>
   </nav>
   <div></div>

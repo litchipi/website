@@ -1,15 +1,7 @@
 [metadata]
 title = "Accueil"
 
-[contact]
-linktext = "On travaille ensemble ?"
-title = "Contactez moi"
-name = "Nom"
-email = "Email"
-subject = "Sujet"
-body = "Message"
-submit = "Envoyer"
-
+# TODO Refaire: Phrase catchy, philosophie
 [intro]
 title = "L'efficacité par l'Harmonie"
 texts = [
@@ -32,34 +24,10 @@ texts = [
   """,
 ]
 
-[services]
-order = ["programming", "ai", "formation"]
-
-[services.programming]
-title = "Outils logiciels"
-text = """
-  Adapté à vos besoins, vos envies, votre contexte, un outil logiciel conçu
-  pour vous sera un compagnon fiable pour vous accompagner dans votre métier.
-"""
-
-[services.ai]
-title = "Intelligence artificielle"
-text = """
-  Bien utilisée, configurée, et intégrée, l'intelligence artificielle peut
-  révolutionner votre façon de travailler, et vous apporter un confort
-  de travail jusque là inégalé.
-"""
-
-[services.formation]
-title = "Formation"
-text = """
-  De l'initiation à la formation avancée, la transmission de savoir fait
-  partie de mes passions. Monter en compétence est le plus beau cadeau
-  que l'on peut faire à un collaborateur, ou à soi-même.
-"""
-
 [vision]
 title = "Un logiciel, pour un humain"
+
+# TODO Refaire: Faire contribuer l'informatique pour un monde meilleur
 why = [
   """
     Notre <strong>diversité</strong> est une force dont il faut profiter,
@@ -76,6 +44,7 @@ why = [
   """,
 ]
 
+# TODO Refaire: Assister la recherche, automatisation, visualisation
 how = [
   """
     En centrant le processus sur <strong>vous</strong>,
@@ -89,6 +58,7 @@ how = [
   """,
 ]
 
+# TODO Refaire: Formations, services de programmation sur mesure, librairies...
 what = [
   """
     Le résultat est un outil de qualité, <strong>ergonomique</strong>,
