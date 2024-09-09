@@ -1,73 +1,49 @@
 [metadata]
 title = "Accueil"
 
-# TODO Refaire: Phrase catchy, philosophie
 [intro]
-title = "L'efficacité par l'Harmonie"
+title = "Technologie et Harmonie"
 texts = [
   """
-  Apportez un cadre de travail idéal, maximisez le bonheur de vos collaborateurs,
-  apportez de l'efficacité dans votre quotidien,
-  avec des <strong>outils logiciels de qualité</strong>.
-  """,
-  """
-  Les effets du mal-être au travail coûte en moyenne aux entreprises
-  <strong>13 340 € / an</strong> par salarié.<br/>(en 2018,
-  <a class="extlink" href="https://www.mozartconsulting.eu/wp-content/uploads/2018/07/IBET-2018_REGARDS-EXPERTS.pdf">source</a>)
-  """,
-  """
-  Chaque départ d'un salarié, chaque absence d'un collaborateur, chaque inefficacité
-  coûte à votre entreprise, et freine son développement.</br>
+  Programmeur depuis mes jeunes années, ayant découvert de multiples disciplines de
+  l'ingénierie logicielle, je <strong>transmet</strong> aujourd'hui ma passion.<br/>
 
-  Quelle que soit la taille de votre entreprise, vous pouvez offrir à vos collaborateurs
-  un cadre de travail qui les fera rester, et faire fructifier votre entreprise.
+  Élevé par la philosophie des logiciels libres et <strong>open-source</strong>,
+  je travaille aujourd'hui pour que le rapport à la technologie dans notre société
+  soit aligné sur <strong>l'humain</strong> avant tout. 
   """,
+
+  """
+  Devenu <strong>indépendant</strong> depuis Février 2024, je propose aux écoles
+  d'informatique des cours de <strong>Rust</strong>, Python,
+  administration <strong>Linux</strong>, introduction à la <strong>sécurité informatique</strong>, 
+  entre autres sujets plus spécifiques.
+  """,
+
+  """
+  Vous trouverez sur ce site des <strong>tutoriels</strong>, des analyses sur de
+  diverses sujets, tous ayant en commun mon point de vue subjectif. J'aime à mettre
+  en relation des sujets parfois distants, et creuser afin d'apporter une
+  <strong>vision en profondeur</strong> d'un sujet.
+  """
 ]
 
 [vision]
-title = "Un logiciel, pour un humain"
+title = "L'humain au centre de la technologie"
 
-# TODO Refaire: Faire contribuer l'informatique pour un monde meilleur
 why = [
   """
-    Notre <strong>diversité</strong> est une force dont il faut profiter,
-    et non normaliser
+  Diplômé d'une école d'ingénieur, spécialisé en programmation de
+  <strong>systèmes embarqués</strong>.
+  J'ai été embauché en tant que consultant sur différents projets en <strong>Rust</strong>,
+  puis ayant travaillé brièvement à construire une blockchain.
   """,
   """
-    Mon objectif est d'apporter de la <strong>sérénité</strong> à un métier,
-    <strong>valoriser</strong> nos différences,
-    et optimiser le <strong>bonheur</strong> au travail
+  Je suis maintenant <strong>indépendant</strong> afin de me distancer de l'innovation
+  sans clients, et me rapprocher de <strong>l'humain</strong>
   """,
   """
-    Ma mission est de créer des outils numériques adaptés
-    <strong>à l'humain</strong>, et non l'inverse
-  """,
-]
-
-# TODO Refaire: Assister la recherche, automatisation, visualisation
-how = [
+  N'hésitez pas à entrer en contact avec moi, pour parler de mes posts,
+  me proposer du travail, ou tout simplement <strong>disctuer</strong> :-)
   """
-    En centrant le processus sur <strong>vous</strong>,
-    nous pourrons <strong>ensemble</strong> inventer une solution
-    selon votre <strong>vision</strong>
-  """,
-  """
-    <strong>Épurée</strong> du superflu,
-    <strong>efficace</strong> pour satisfaire vos critères,
-    la solution sera taillée pour vous convenir <strong>parfaitement</strong>
-  """,
-]
-
-# TODO Refaire: Formations, services de programmation sur mesure, librairies...
-what = [
-  """
-    Le résultat est un outil de qualité, <strong>ergonomique</strong>,
-    performant et <strong>fiable</strong> à travers les années,
-    et qui ne provoquera aucune tension à l'utilisation
-  """,
-  """
-    Ajouter cet outil à votre environment aujourd'hui,
-    c'est vous permettre de vous <strong>concentrer</strong> sur le principal,
-    ce qui vous apporte de la <strong>joie</strong> dans votre métier
-  """,
 ]

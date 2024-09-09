@@ -20,6 +20,7 @@
 <main class="pro-content-wrapper">
   {% if proindex.intro %}
   <section class="pro-section" id="pro-intro">
+
     <!-- Titre de l'offre -->
     <h1>{{ proindex.intro.title }}</h1>
     <div id="pro-intro-container">
@@ -65,36 +66,35 @@
     <h1>{{ proindex.vision.title }}</h1>
 
     <div>
-      <div id="pro-vision-why" style="grid-area: a">
-        {% for t in proindex.vision.why %}
-        <p>{{ t | safe }}</p>
-        {% endfor %}
-      </div>
-      <img src="/static/pro/vision-why.png" style="grid-area: b"/>
+      {% if proindex.vision.why %}
+        <div id="pro-vision-why" style="grid-area: a">
+          {% for t in proindex.vision.why %}
+          <p>{{ t | safe }}</p>
+          {% endfor %}
+        </div>
+        <img src="/static/pro/vision-why.png" style="grid-area: b"/>
+      {% endif %}
 
-      <img src="/static/pro/vision-how.png" style="grid-area: c"/>
-      <div id="pro-vision-how" style="grid-area: d">
-        {% for t in proindex.vision.how %}
-        <p>{{ t | safe }}</p>
-        {% endfor %}
-      </div>
+      {% if proindex.vision.how %}
+        <img src="/static/pro/vision-how.png" style="grid-area: c"/>
+        <div id="pro-vision-how" style="grid-area: d">
+          {% for t in proindex.vision.how %}
+          <p>{{ t | safe }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
 
+      {% if proindex.vision.what %}
       <div id="pro-vision-what" style="grid-area: e">
         {% for t in proindex.vision.what %}
         <p>{{ t | safe }}</p>
         {% endfor %}
       </div>
       <img src="/static/pro/vision-what.png" style="grid-area: f"/>
+      {% endif %}
 
     </div>
   </section>
-  {% endif %}
-
-  {% if proindex.proofs %}
-  <!-- TODO IMPORTANT  Proofs section -->
-  <!-- Preuves quand j'en aurai -->
-  <!-- <section class="pro-section" id="pro-testimonials"> -->
-  <!-- </section> -->
   {% endif %}
 
   <!-- Action -->
