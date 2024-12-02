@@ -6,7 +6,7 @@ category = "nix"
 tags = [ "nix", "web", "build", "flake" ]
 date = 1673689056
 description = """
-    Build web applications using Nix, ease the processus using a library to build common
+    Build web applications using Nix, ease the process using a library to build common
     Javascript frameworks, and present a script to manage a PostgreSQL database.
     Also calls for contribution on the nix library.
 """
@@ -107,13 +107,13 @@ frontend_compiled_dir = weblib.frontend.react.build {
 
 **Huge thanks to enobayram** for finding a solution to make this happen.
 
-The workflow when developping the frontend would be to simply fire up
+The workflow when developing the frontend would be to simply fire up
 the backend locally and develop using your usual tools, but for the
 final project to compile you'll need to have a `yarn.lock` file.
 
 # Starting a database
 
-Working with databases is not really the funniest thing, and when developping
+Working with databases is not really the funniest thing, and when developing
 and application it can be annoying to go against all kinds of database issues
 when testing the behaviour.
 

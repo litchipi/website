@@ -10,7 +10,7 @@ description = """
 
 ---
 
-Error handling can be tedious and extermely annoying...
+Error handling can be tedious and extremely annoying...
 On most programming languages, but using **Rust** it's actually very simple !
 
 Of course coding methods are a matter of preference and I am nobody to say this

@@ -90,7 +90,7 @@ It's your tool, for your preferences, and there are **no good or bad answers** o
 the design choices, as long as it gets the job done.
 
 Don't try to create a all-in-one pentesting toolbox, instead create a custom tool
-for each operation (and its close derivatives), and try to re-use your code as much
+for each operation (and its close derivatives), and try to reuse your code as much
 as possible.
 
 > This can be also applied to any art.  

@@ -48,7 +48,7 @@ before that.
 of doubts, please check the different sources I give or the Internet to double check what I say**.
 
 It is mainly a way for me to learn about Linux security measures, virtualization features,
-how containerisation works, and the abilitiy to translate a program written with C paradygms
+how containerisation works, and the ability to translate a program written with C paradygms
 with Rust, interacting with the Linux kernel.
 Fortunately for me, there's a lot of documentation out there, videos, articles, etc ...
 
