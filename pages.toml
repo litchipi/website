@@ -113,6 +113,7 @@ args = "All posts"
 route = "/rss"
 default_template = "rss_feed.xml"
 add_headers = { "Content-Type" = "text/xml;charset=UTF-8"}
+minify = false
 
 [rss.add_context.recent_posts]
 query = "recent_pages"
