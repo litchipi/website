@@ -5,7 +5,7 @@ title = "Starting the project"
 category = "rust"
 tags = ["rust", "docker", "container", "tutorial"]
 date = 1633009835
-modified = 1661375842
+modified = 1736848939
 description = """
     Creation of the project, the logging system, the error handlings,
     and arguments validation
@@ -40,7 +40,7 @@ follow the instructions on [the Book](https://doc.rust-lang.org/book/ch01-01-ins
 So I guess you've heard that Rust's mascot is **Ferris**, the little cutie crab.  
 Well, let's put Ferris in a container ! :D
 
-![Wanna eat Ferris ?](/images/container_in_rust/crabcan.png)[width: 250px, style: "align-self: center"]
+![Wanna eat Ferris ?](/static/container_in_rust/crabcan.png)[width: 250px, style: "align-self: center"]
 
 We'll create a Rust binary project called **Crabcan**, and the objective will be to separate the
 different parts of the projects as distincly as possible to allow us to search in the code,
@@ -68,28 +68,30 @@ This command will call `crabcan` with the folder `mountdir` to mount as root for
 the UID number `0`, will output all `debug` messages, and will execute the command `bash` inside
 the container.
 
-## Introducing the `structopt` crate
-The [structopt crate][structopt-cratesio] is a very useful tool to parse arguments from the
-commandline (using the `clap` crates as a backend).
+## Introducing the `clap` crate
+The [clap crate][clap-cratesio] is a very useful tool to parse arguments from the
+commandline.  
 The method is very straightforward, by defining a [struct][rustbook-struct] containing all the arguments:
 ```rust
-#[derive(Debug, StructOpt)]
-#[structopt(name = "example", about = "An example of StructOpt usage.")]
-struct Opt {
+use clap::{arg, Parser};
+
+#[derive(Parser, Debug)]
+#[command(name = "example", about = "An example of Clap usage.")]
+struct Args {
     /// Activate debug mode
     // short and long flags (-d, --debug) will be deduced from the field's name
-    #[structopt(short, long)]
+    #[arg(short, long)]
     debug: bool
 
     // etc ...
 }
 ```
-A detailed use of structopt and all its power is available in its [documentation][structopt-docs].
+A detailed use of clap and all its power is available in its [documentation][clap-docs].  
 One thing worth noticing is that the `/// text` part above an argument defined in the struct
 will be used as a message inside the helper (when you type `crabcan --help` for example).
 
 ## Creating our argument parsing
-We are going to create a new file `src/cli.rs` containing everything related to commandline.
+We are going to create a new file `src/cli.rs` containing everything related to commandline.  
 For it to be used inside our project, we have to include it as a [module][rustbook-module] of the
 project.
 
@@ -108,30 +110,30 @@ struct containing all our configuration defined by the user through the commandl
 Now let's implement that function `parse_args` in `src/cli.rs`:
 ```rust
 use std::path::PathBuf;
-use structopt::StructOpt;
+use clap::{arg, Parser};
 
-#[derive(Debug, StructOpt)]
-#[structopt(name = "crabcan", about = "A simple container in Rust.")]
+#[derive(Parser, Debug)]
+#[command(name = "crabcan", about = "A simple container in Rust.")]
 pub struct Args {
     /// Activate debug mode
-    #[structopt(short, long)]
+    #[arg(short, long)]
     debug: bool,
 
     /// Command to execute inside the container
-    #[structopt(short, long)]
+    #[arg(short, long)]
     pub command: String,
 
     /// User ID to create inside the container
-    #[structopt(short, long)]
+    #[arg(short, long)]
     pub uid: u32,
 
     /// Directory to mount as root of the container
-    #[structopt(parse(from_os_str), short = "m", long = "mount")]
+    #[arg(short = 'm', long = "mount")]
     pub mount_dir: PathBuf,
 }
 
 pub fn parse_args() -> Args {
-    let args = Args::from_args();
+    let args = Args::parse();
 
     // If args.debug: Setup log at debug level
     // Else: Setup log at info level
@@ -141,24 +143,27 @@ pub fn parse_args() -> Args {
     args
 }
 ```
-So here we first import our necessary dependencies `structopt` but also `PathBuf` from the standard
+So here we first import our necessary dependencies `clap` but also `PathBuf` from the standard
 library.   
+
 Then we define our `Args` struct, containing all the arguments and information to be used for
-argument parsing. Let's look what arguments we are expecting:
-- `debug`: Will be used to display debug messages or just normal logs
-- `command`: The command that will be executed inside the container (with arguments)
-- `uid`: The user ID that will be created to run the software inside the container.
+argument parsing.
+
+Let's look what arguments we are expecting:  
+- `debug`: Will be used to display debug messages or just normal logs  
+- `command`: The command that will be executed inside the container (with arguments)  
+- `uid`: The user ID that will be created to run the software inside the container.  
 - `mount_dir`: The folder to use as a root `/` directory inside the container.   
 *Note that this argument will be passed as **mount** in the commandline*
 
 These arguments are defined with the [macro attribute][rustbook-macroattribute]
-`structopt(short, long)` to automatically create a short and long commandline argument from the
-field name.
+`arg(short, long)` to automatically create a short and long commandline argument from the
+field name.  
 (The field `toto` will be defined as arguments `-t` and `--toto`).
 
 Finally, we create the `parse_args` in which we gather the arguments from the commandline with the
 `from_args` function of the struct
-(which  was generated thanks to the `derive(StructOpt)` [macro attribute][rustbook-macroattribute]).
+(which  was generated thanks to the `derive(Parser)` [macro attribute][rustbook-macroattribute]).
 
 After setting some placeholders for arguments validation and logging initialisation, we return
 the arguments.
@@ -167,8 +172,10 @@ One last thing, add the dependencies we just imported inside the `Cargo.toml` fi
 ```toml
 # ...
 [dependencies]
-structopt = "0.3.23"
+clap = { version = "4.5.26", features = ["derive"] }
 ```
+
+> We need the "derive" feature here to be able to use the `#[derive(Parser)]` notation.
 
 ## Testing our code
 
@@ -184,8 +191,8 @@ USAGE:
 
 For more information try --help
 ```
-And this is it, our argument parsing works !
-Now if we try `cargo run -- --mount ./ --uid 0 --command "bash" --debug`, we don't get any errors.
+And this is it, our argument parsing works !  
+Now if we try `cargo run -- --mount ./ --uid 0 --command "bash" --debug`, we don't get any errors.  
 You can add a `println!("{:?}", args)` in our `src/main.rs` file to get a nice output:
 ```
 Args { debug: true, command: "bash", uid: 0, mount_dir: "./" }
@@ -198,16 +205,19 @@ The raw patch to apply on a freshly created project using `cargo new --bin` can 
 # Setup Logging
 
 ## The logging crates
-Now that we got from the user its input, let's set up a way to give him outputs.
+Now that we got from the user its input, let's set up a way to give him outputs.  
 Simple text is enough, but we want to separate debug information from basic information and
-errors. For this, there's a lot of tools, but I chose the crates `log` and `env_logger` to perform
+errors.
+
+For this, there's a lot of tools, but I chose the crates `log` and `env_logger` to perform
 this task.
 
-The [log crate][log-cratesio] is a very used tool to perform logging. It provides a `Log`
-trait ([see the Book for traits explanation][rustbook-trait]) which defines all the function a logger has to have, and lets any other
-crate implement these functions. I chose the [env_logger crate][env_logger-cratesio] to implement
-these.
+The [log crate][log-cratesio] is a very used tool to perform logging.
+It provides a `Log` trait ([see the Book for traits explanation][rustbook-trait]) which
+defines all the function a logger has to have, and lets any other crate implement these
+functions.
 
+I chose the [env_logger crate][env_logger-cratesio] to implement these.  
 In `Cargo.toml`, we add the following dependencies:
 ``` toml
 # ...
@@ -216,9 +226,10 @@ env_logger = "0.9.0"
 ```
 
 ## Setting up logging
-Loggers have to be initialized with a level of verbosity. This will define whether to display
-debug messages, or only errors, or nothing at all.
-On our case, we want it to display normal information by default, and increase verbosity to
+Loggers have to be initialized with a level of verbosity.
+This will define whether to display debug messages, or only errors, or nothing at all.
+
+In our case, we want it to display normal information by default, and increase verbosity to
 debug messages when the `--debug` flag is passed through the commandline.
 
 Let's initialize our logger in `src/cli.rs`:
@@ -246,8 +257,9 @@ if args.debug{
 
 ## Logging
 
-Now that everything is in place, let's actually log something in our terminal !
+Now that everything is in place, let's actually log something in our terminal !  
 In the `main` function of `src/main.rs`, we can output the args gotten into a `info` message.
+
 This is done using the `log::info!` [macro][rustbook-macros].
 ``` rust
 log::info!("{:?}", args);
@@ -264,13 +276,13 @@ The code for this step is available on github [litchipi/crabcan branch "step2"][
 The raw patch to apply on the previous step can be found [here][patch-step2]
 
 # Prepare errors handling
-As a general practise it's good to take care of handling errors.
-When it comes to Rust, this language is far too powerful concerning errors handling to ignore
-them and not exploit them.
+In every kind of programming languages, it's always good to take care of errors.  
+When it comes to Rust, you won't get out of errors handling, the compile assures it.
 
-I am no-one to teach how to properly handle errors, but this part will give an example of how
-errors can be managed in a large Rust project, and use Rust specific tools to handle them more
-easily.
+I am nobody to teach how to properly handle errors, but this part will give one example
+of how errors can be managed in a large Rust project, and use native Rust tools to
+handle them more easily.  
+(You could also look at specific crates like [miette](https://crates.io/crates/miette) )
 
 ## The Errcode enum
 Let's create a `src/errors.rs` file in which we'll define the following [enum][rustbook-enum]:
@@ -281,11 +293,11 @@ Let's create a `src/errors.rs` file in which we'll define the following [enum][r
 pub enum Errcode{
 }
 ```
-Each time we will add a new error type, we'll add a variant to this enum.
+Each time we will add a new error type, we'll add a variant to this enum.  
 The `derive(Debug)` allows the enum to be displayed using a `{:?}` format.
 
 But we may want to display a more complete message for each variant, allowing us to not get lost
-in codes and different numbers around our project.
+in codes and different numbers around our project.  
 For this, let's implement the `std::fmt::Display` [trait][rustbook-trait], defining the behaviour
 of an object when attempting to display it in a regular `{}` format.
 ``` rust
@@ -309,13 +321,14 @@ impl fmt::Display for Errcode {
 > if the `match` statement describe all the variants.
 
 ## Linux return codes
-Linux executable returns a number when they exit, which describe how everything went.
+Linux executable returns a number when they exit, which describe how everything went.  
 A return code of **0** means that there was no errors, and any other number describe an
-error and what that error is (based on the return code value).
-You can find [here][exitcode-meanings] a table of special return codes and their meaning.
+error and what that error is (based on the return code value).  
+> You can find [here][exitcode-meanings] a table of special return codes and their meaning.
 
 We do not seek to perform bash automation scripts here with our tool, but we'll just set up a
 way to return 0 if there was no errors, and 1 if there was an error.   
+
 In our `src/errors.rs` file, let's define a `exit_with_errcode` function:
 ``` rust
 use std::process::exit;
@@ -340,7 +353,9 @@ pub fn exit_with_retcode(res: Result<(), Errcode>) {
 ```
 
 This function exit the process with a return code got from the `get_retcode` function implemented
-by our `Errcode` enum. Let's implement it in the most easy and stupid way:
+by our `Errcode` enum.  
+Let's implement it in the most easy and stupid way, it can be useful later if we want to
+have meaningful return codes:
 ``` rust
 impl Errcode{
     // Translate an Errcode::X into a number to return (the Unix way)
@@ -354,7 +369,9 @@ impl Errcode{
 When a piece of the code is not working properly, we can handle the error using a `Result` in Rust
 ([see the Book for detailed explanation][rustbook-results]).   
 `Result<T, U>` expects two types, one type `T` to return if it's a success, one type `U` to return
-if there's an error. In our case, we want to return an `Errcode` if there's an error, and return
+if there's an error.
+
+In our case, we want to return an `Errcode` if there's an error, and return
 whatever we want if everything goes well.
 
 Let's see how we can set this up in the `parse_args` function:
@@ -387,8 +404,8 @@ match cli::parse_args(){
 };
 ```
 Here, in case the arguments parsing was successful, we log the args and call the
-`exit_with_retcode` with an `Ok(())` value (it will simply exit with the return code 0).
-That is where we're going to place our container starting point later.
+`exit_with_retcode` with an `Ok(())` value (it will simply exit with the return code 0).  
+That's where we're going to place our container starting point later.
 
 In case there was an error, we log it (notice the `{}` format on our `Errcode` that will
 call the `fmt` function of the `Display` trait we implemented earlier), and simply exit with the
@@ -416,7 +433,7 @@ The raw patch to apply on the previous step can be found [here][patch-step3]
 
 # Validate arguments
 
-Before diving into the real work, let's validatet the arguments passed from the commandline.
+Before diving into the real work, let's validatet the arguments passed from the commandline.  
 We will just check that the `mount_dir` actually exists, but this part can be extended with
 additional checks, as we add more options, etc ...   
 Let's replace the placeholders in `src/cli.rs` with the actual arguments validation:
@@ -433,7 +450,8 @@ The condition checks if the path (a `PathBuf` type as we defined in our `Args` s
 and if it's a directory.
 
 If it isn't, we return a `Result::Err` with our `Errcode` enum with a custom variant
-`ArgumentInvalid`, specifying that the fault was on argument `mount`.   
+`ArgumentInvalid`, specifying that the fault was on argument `mount`.
+
 In `src/errors.rs`, we will define this variant:
 ``` rust
 pub enum Errcode{
@@ -467,8 +485,8 @@ The raw patch to apply on the previous step can be found [here][patch-step4]
 [rustbook-results]: https://doc.rust-lang.org/book/ch09-02-recoverable-errors-with-result.html
 [log-cratesio]: https://crates.io/crates/log
 [env_logger-cratesio]: https://crates.io/crates/env_logger
-[structopt-cratesio]: https://crates.io/crates/structopt
-[structopt-docs]: https://docs.rs/structopt/latest/structopt/
+[clap-cratesio]: https://crates.io/crates/clap
+[clap-docs]: https://docs.rs/clap/latest/clap/
 [code-step1]: https://github.com/litchipi/crabcan/tree/step1
 [patch-step1]: https://github.com/litchipi/crabcan/compare/main..step1.diff
 [code-step2]: https://github.com/litchipi/crabcan/tree/step2

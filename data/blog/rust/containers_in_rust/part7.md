@@ -3,6 +3,7 @@ title = "Syscalls and resources restriction"
 category = "rust"
 tags = ["rust", "docker", "container", "tutorial"]
 date = 1646894910
+modified = 1736848939
 description = """
     How to restrict the binary running inside our container in order to protect our
     system. Introduction to seccomp, syscalls, cgroups, rlimit
@@ -26,8 +27,8 @@ description = """
 When an application crashes because of a bug, the problem *has to be contained* in
 such a way that the underlying operating system is not affected.
 
-Imagine if your Tetris game is crashing while saving your highscore. Because
-it didn't finish its operations on the disk, *it can corrupt it*, or leave it in
+Imagine if your Tetris game is crashing while saving your highscore.  
+Because it didn't finish its operations on the disk, *it can corrupt it*, or leave it in
 such a state that would cause troubles for any other application to use it afterward.
 
 > One funny example of that principle was demonstrated live with the very famous
@@ -53,8 +54,7 @@ done by the kernel.
 > that is passed to a register, when executing the `syscall` command, it will
 > switch into the kernel code responsible for handling such a syscall.
 
-<img src="/assets/images/container_in_rust_part7/syscalls.png" alt="syscalls representation"
-width="350">
+![syscalls representation](/static/container_in_rust/syscalls.png)[width: 350px]
 
 Here is a representation of an application writing to the disk using the `write`
 syscall.
@@ -64,13 +64,12 @@ syscall.
 > corresponding syscall when compiled.
 
 The driver is embedded in the kernel as a module, and it manages its internal
-state and operations internally.
+state and operations internally.  
 This way if anything goes wrong and another application wants to write,
 it can reset its state, take care of the special operations that the underlying
 physical device requires (I'm looking at you, [eMMC][emmc_state_graph] !)
 
 > More on the linux kernel drivers [in this article][linux_kernel_driver_article]
-(**BEWARE OF THE ARTICLE COLORS**, protect your eyes, seriously).
 
 A complete list of all the syscalls that can be called with a Linux kernel is
 available [here][linux_syscalls_list]
@@ -101,7 +100,8 @@ such as Docker, basically it isolates a process into a state where *it can only
 read and write* into the filesystem, *or exit*.
 
 This secore computing mode is very restrtictive by default as it denies *any*
-syscall attempt. However for the good functionality of our container, we may
+syscall attempt.  
+However for the good functionality of our container, we may
 want to configure this and add exceptions.   
 To do this, we can set a **profile** for seccomp, which defines special rules,
 allows some syscalls, or triggers special actions.
@@ -155,9 +155,12 @@ the crate `syscallz`, and will also require `libc`.    In `Cargo.toml` add:
 ``` toml
 [dependencies]
 # ...
-syscallz = "0.16.1"
-libc = "0.2.102"
+syscallz = "0.17.0"
+libc = "0.2.169"
 ```
+
+> Note: Be sure you have `libseccomp` installed on your system, the rust compiler will
+> seek for it
 
 Let's create a file `src/syscalls.rs` and create a function like so:
 
@@ -273,9 +276,9 @@ pub fn setsyscalls() -> Result<(), Errcode> {
 
 Syscalls can be restricted when a particular condition is met.   
 For this, we create a rule that takes a value and return whether
-the permission should be set or not. As we have a basic usage of
-this functionality, we simply test whether the variable is *equal* or not
-to an expected value.
+the permission should be set or not.  
+As we have a basic usage of this functionality, we simply test whether the variable is
+*equal* or not to an expected value.
 
 Let's create the `refuse_if_comp` function implementing this:
 
@@ -425,6 +428,7 @@ then **upgrade** it whenever he purchases a performance boost.
 
 This feature is so crucial to containers that a [recent vulnerability][cgroups-vuln]
 let attackers escape from the container and infect the host system directly.
+
 You have to remember that as *we give full power to the contained application*,
 if this app manages to escape the box, **it may keep its powers on the host system**
 
@@ -489,7 +493,7 @@ the contained process can make.
 
 ## Restricting the resources
 
-There's a create call [cgroups_rs](https://crates.io/crates/cgroups-rs)
+There's a create called [cgroups_rs](https://crates.io/crates/cgroups-rs)
 that will ease everything related to
 the cgroups definition, but remember that as *everything in Unix is a file*
 (and Linux follows the philosophy of Unix), even if we didn't have this
@@ -515,7 +519,7 @@ pub fn restrict_resources(hostname: &String) -> Result<(), Errcode>{
     log::debug!("Restricting resources for hostname {}", hostname);
 
     // Cgroups
-    let cgs = CgroupBuilder::new(hostname)
+    let Ok(cgs) = CgroupBuilder::new(hostname)
 
         // Allocate less CPU time than other processes
         .cpu().shares(256).done()
@@ -530,19 +534,22 @@ pub fn restrict_resources(hostname: &String) -> Result<(), Errcode>{
         // Give an access priority to block IO lower than the system
         .blkio().weight(50).done()
 
-        .build(Box::new(V2::new()));
+        .build(Box::new(V2::new()))
+    else {
+        return Err(Errcode::ResourcesError(0));
+    };
 
     // We apply the cgroups rules to the child process we just created
     let pid : u64 = pid.as_raw().try_into().unwrap();
     if let Err(_) = cgs.add_task(CgroupPid::from(pid)) {
-        return Err(Errcode::ResourcesError(0));
+        return Err(Errcode::ResourcesError(1));
     };
 
 
     // Rlimit
     // Can create only 64 file descriptors
     if let Err(_) = setrlimit(Resource::NOFILE, NOFILE_RLIMIT, NOFILE_RLIMIT){
-        return Err(Errcode::ResourcesError(0));
+        return Err(Errcode::ResourcesError(2));
     }
 
     Ok(())
@@ -571,8 +578,8 @@ Let's add the required dependencies in `Cargo.toml`:
 ``` toml
 [dependencies]
 # ...
-cgroups-rs = "0.2.6"
-rlimit = "0.6.2"
+cgroups-rs = "0.3.4"
+rlimit = "0.10.2"
 ```
 
 We also need to add this new module inside `src/main.rs`:
@@ -606,12 +613,12 @@ pub fn clean_cgroups(hostname: &String) -> Result<(), Errcode>{
     match canonicalize(format!("/sys/fs/cgroup/{}/", hostname)){
         Ok(d) => {
             if let Err(_) = remove_dir(d) {
-                return Err(Errcode::ResourcesError(2));
+                return Err(Errcode::ResourcesError(3));
             }
         },
         Err(e) => {
             log::error!("Error while canonicalize path: {}", e);
-            return Err(Errcode::ResourcesError(3));
+            return Err(Errcode::ResourcesError(4));
         }
     }
     Ok(())

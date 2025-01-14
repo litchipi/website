@@ -3,6 +3,7 @@ title = "Defining the container environment"
 category = "rust"
 tags = ["rust", "docker", "container", "tutorial"]
 date = 1641279700
+modified = 1736848939
 description = """
     Set the container hostname, modify the container mount point, pivoting the root.
 """
@@ -80,7 +81,7 @@ it to the dependencies of `Cargo.toml`:
 ``` toml
 [dependencies]
 # ...
-rand = "0.8.4"
+rand = "0.8.5"
 ```
 
 ## Adding to the configuration of the container
@@ -161,7 +162,7 @@ fn child(config: ContainerOpts) -> isize {
             return -1;
         }
     }
-	// ...
+    // ...
 }
 ```
 
@@ -206,7 +207,7 @@ The raw patch to apply on the previous step can be found [here][patch-step9]
 
 # Modifying the container mount point
 
-The mount point is a directory in our system that will be the root, the `/` of our container.
+The mount point is a directory in our system that will be the root, the `/` of our container.  
 A user can pass to the arguments a directory that will be used as the root of the container.
 
 The process will be done as followed:
@@ -222,7 +223,7 @@ of the system by the *mount namespace*.
 In practise, this isolation keeps separated versions of `/proc/<pid>/mountinfo`, `/proc/<pid>/mountstats`
 and `/proc/<pid>/mounts/`, that describes what is mounted where, how, etc ...
 
->See [proc(5) linux manual](https://man7.org/linux/man-pages/man5/proc.5.html) or [mount_namespace linux manual](https://man7.org/linux/man-pages/man7/mount_namespaces.7.html) for more precisions on this.
+> See [proc(5) linux manual](https://man7.org/linux/man-pages/man5/proc.5.html) or [mount_namespace linux manual](https://man7.org/linux/man-pages/man7/mount_namespaces.7.html) for more precisions on this.
 
 ## Preparing the implementation
 
@@ -233,6 +234,7 @@ In `src/child.rs`, let's write our `setmountpoint` function as part of the conta
 configuration process:
 ``` rust
 use crate::mounts::setmountpoint;
+
 fn setup_container_configurations(config: &ContainerOpts) -> Result<(), Errcode> {
     // ...
     setmountpoint(&config.mount_dir)?;
@@ -337,7 +339,7 @@ pub fn setmountpoint(mount_dir: &PathBuf) -> Result<(), Errcode> {
 
 ## Mount the new root
 
-Now let's mount the directory provided by the user so we can *pivot root* later.
+Now let's mount the directory provided by the user so we can *pivot root* later.  
 I won't go into deep details of every line of code as this is simply calling library functions.
 
 First, let's create a `random_string` function that returns, well, a random string.
@@ -488,7 +490,7 @@ inside the `/tmp/crabcan.<random_letters>` directory which became our new `/`.
 
 ### The empty cleaning function
 
-You certainly noticed that the `clean_mounts` function is totally useless right now.
+You certainly noticed that the `clean_mounts` function is totally useless right now.  
 The problem is that the parent container doesn't have any clue of where the user-provided
 directory got mounted (as it's a randomly generated filename).
 

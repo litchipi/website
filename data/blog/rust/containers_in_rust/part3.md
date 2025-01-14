@@ -5,6 +5,7 @@ title = "Creating the skeletton"
 category = "rust"
 tags = ["rust", "docker", "container", "tutorial"]
 date = 1633277875
+modified = 1736848939
 description = """
     Getting the configuration, creating the skeletton for the container, checking
     the Linux kernel version for compatibility
@@ -20,7 +21,6 @@ description = """
 """
 
 ---
-
 
 In this post, we're going to create the skeletton of the actual container, set up
 the flow of our software and create an empty algorithm we'll fill with the parts needed
@@ -49,18 +49,21 @@ pub struct ContainerOpts{
     pub mount_dir:  PathBuf,
 }
 ```
-Let's analyse what we got there:
-- **path**: The path of the binary / executable / script to execute inside the container
-- **argv**: The full arguments passed (including the `path` option) into the commandline.
+Let's analyse what we got there:  
+- **path**: The path of the binary / executable / script to execute inside the container  
+- **argv**: The full arguments passed (including the `path` option) into the commandline.  
 > These are required to perform an [execve syscall][syscall-execve] which we will use
 > to contain our software in a process whose execution context is restricted.
-- **uid**: The ID of the user inside the container. An ID of `0` means it's root (administrator).
+
+- **uid**: The ID of the user inside the container. An ID of `0` means it's root (administrator).  
 > The user ID is visible on GNU/Linux by looking the file `/etc/passwd`, who has a format
 > `username:x:uuid:guid:comment:homedir:shell`
-- **mount_dir**: The path of the directory we want to use as a `/` root inside our container.   
-Configurations will be added later as we need them.
 
-We are using CString because it'll be much easier to use to call the `execve` syscall later.
+- **mount_dir**: The path of the directory we want to use as a `/` root inside our container.   
+
+More arguments will be added later as we need them.
+
+We are using CString because it'll be much easier to use to call the `execve` syscall later.  
 Also as the configuration will be shared with the child process to be created, we need to be able
 to `clone` the struct (which contains data stored on the [heap][so-stackheap]),
 that's why we add a `derive(Clone)` attribute to the struct.   
@@ -124,9 +127,9 @@ impl Container {
 }
 ```
 The `struct Container` is defined with a unique `config` field containing our configuration,
-and implements 3 functions:
-- `new` function that creates the `ContainerOpts` struct from the commandline arguments.
-- `create` function that will handle the container creation process.
+and implements 3 functions:  
+- `new` function that creates the `ContainerOpts` struct from the commandline arguments.  
+- `create` function that will handle the container creation process.  
 - `clean_exit` function that will be called before each exit to be sure we stay clean.   
 For now we let them very basic and will fill them later on.
 
@@ -155,11 +158,12 @@ let mut container = match Container::new(args) {
     Err(e) => return Err(e),
 }
 ```
-However for this, the type in case of `Err` has to be the same. That's why having a unique
-`Errcode` for all our errors in the project is handy, we can basically put `?` everywhere and
-"cascade" any error back to the `start` function which will call `clean_exit` before logging the
-error and exit the process with an error return code thanks to the `exit_with_retcode` function
-we defined in the part about errors handling.
+However for this, the type in case of `Err` has to be the same.  
+That's why having a unique `Errcode` for all our errors in the project is handy,
+we can basically put `?` everywhere and "cascade" any error back to the `start` function
+which will call `clean_exit` before logging the error and exit the process with an error
+return code thanks to the `exit_with_retcode` function we defined in the part about
+errors handling.
 
 ## Linking to the main function
 One last thing, we need to call the `start` function from our `main` function.   
@@ -202,19 +206,22 @@ Let's check our kernel version:
 pub const MINIMAL_KERNEL_VERSION: f32 = 4.8;
 
 pub fn check_linux_version() -> Result<(), Errcode> {
-    let host = uname();
-    log::debug!("Linux release: {}", host.release());
+    let Ok(host) = uname() else {
+        return Err(Errcode::NotSupported(0));
+    };
+    let release = host.release().to_string_lossy();
+    log::debug!("Linux release: {}", release);
 
-    if let Ok(version) = scan_fmt!(host.release(), "{f}.{}", f32) {
+    if let Ok(version) = scan_fmt!(release.as_ref(), "{f}.{}", f32) {
         if version < MINIMAL_KERNEL_VERSION {
-            return Err(Errcode::NotSupported(0));
+            return Err(Errcode::NotSupported(1));
         }
     } else {
         return Err(Errcode::ContainerError(0));
     }
 
     if host.machine() != "x86_64" {
-        return Err(Errcode::NotSupported(1));
+        return Err(Errcode::NotSupported(2));
     }
 
     Ok(())
@@ -249,8 +256,18 @@ And add the needed dependencies in the `Cargo.toml` file:
 ``` toml
 [dependencies]
 # ...
-nix = "0.22.1"
-scan_fmt = "0.2.6"
+
+# Enable some features that we will require later in the tutorial
+nix = { version = "0.29.0", features = [
+    "socket",
+    "hostname",
+    "mount",
+    "fs",
+    "sched",
+    "user",
+    "feature",    # Yes, that's a very weird naming convention
+] }
+scan_fmt = "0.2.6"    # Not very active, but still enough for this tutorial
 ```
 
 Finally, let's insert the `check_linux_version` function into the flow of our `start` function in

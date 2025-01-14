@@ -5,7 +5,7 @@ title = "User namespaces and Linux capabilities"
 category = "rust"
 tags = ["rust", "docker", "container", "tutorial"]
 date = 1641458400
-modified = 1691311854
+modified = 1736848939
 description = """
     Set up user namespaces, map the UID / GID, restrict the child process with linux
     capabilities
@@ -25,7 +25,7 @@ description = """
 # User namespaces
 
 User namespaces allows process to virtually be *root* inside their own namespace,
-but not on the parent system.
+but not on the parent system.  
 It also allows the child namespace to have its own users / groups configuration.
 
 The development of user namespaces started on Linux *2.6.23*, got released in Linux *3.8*, and still
@@ -37,8 +37,8 @@ security issues it raises, etc...
 
 The general user namespace configuration is the following:
 - Child process tries to `unshare` its user resources
-    - If it succeeds, then user namespace isolation is supported
-    - If it fails, then user namespace isolation isn't supported
+  - If it succeeds, then user namespace isolation is supported
+  - If it fails, then user namespace isolation isn't supported
 - Child process tells parent process if it supports user namespace isolation
 - If it supported user namespace isolation, parent process maps UID / GID of the user namespace
 - Parent process tells child process to continue
@@ -283,20 +283,19 @@ set the list of groups the process is part of, for this simple example, let's
 just add the GID of the process.
 
 We use the `setresuid` and `setresgid` to set the UID and GID (respectively) of
-the process.
+the process.  
 This will set the *real user ID*, the *effective user ID*, and the *saved set-user-ID*.
 
-The *real user ID* is **who you are** (who you logged into),   
-the *effective user ID* is **who you claim you are**
-(used for temporary privileges with *sudo*, or impersonate a user with *su*),   
+The *real user ID* is **who you are** (who you logged into), the *effective user ID* is **who you claim you are**  
+(used for temporary privileges with *sudo*, or impersonate a user with *su* ),   
 and the *saved set-user-ID* is **who you were before**
 (in case of chained impersonations ...)
 
 > For a detailed explanation, look at [this StackOverflow answer](https://stackoverflow.com/a/32456814)
 
 So now, the contained process can be root in its isolated environment,
-mapped by the system to a real UID >10000, and it can manage its users and
-groups without polluting the parent system.
+mapped by the system to a real `UID > 10000`,
+and it can manage its users and groups without polluting the parent system.
 
 ## About user namespaces security
 
@@ -304,10 +303,13 @@ On the [original tutorial footnotes][original-tutorial] (seriously, check it out
 you can find out more information, experimentations and documentation about
 user namespaces.
 
-One document I found really helpful when talking about hardening the container
-security and isolation is [this PDF][hardening-linux-container-pdf], which
-covers a lot of aspects that are out of the scope of this tutorial.   
-(User namespaces security are covered on section **5.5** on page **39**)
+If you want to dig further this subject, you can look at [this gist](https://gist.github.com/cellcoresystems/49560b16b75210bd18c624fe6a4e86b4).
+
+Unfortunately, the original document I was referring to in the tutorial is now 404,
+but you can still access it using [the wayback machine](https://web.archive.org/web/20221127014042/https://www.nccgroup.com/globalassets/our-research/us/whitepapers/2016/april/ncc_group_understanding_hardening_linux_containers-1-1.pdf).  
+It covers a lot of aspects that are out of the scope of this tutorial.
+
+> User namespaces security are covered on section **5.5** on page **39**
 
 ## Testing
 
@@ -351,10 +353,12 @@ The raw patch to apply on the previous step can be found [here][patch-step11]
 
 ### Dividing the admin powers
 
-Linux capabilities are a way to divide the almighty `administrator` role with
+Linux capabilities are a way to divide the almighty `root` role with
 supreme powers over the machine into a set of limited powers controlling isolated
 systems and processes of the system.   
+
 Those "isolated powers" include:
+
 - Modifying owner / permission of a file (`CAP_CHOWN`)
 - Using / setting the system time (`CAP_SYS_TIME`)
 - Extensive use of the system resources (`CAP_SYS_RESOURCE`)
@@ -373,8 +377,9 @@ look at [the linux manual][man-capabilities]
 
 The Linux kernel derives a process capabilities from 4 categories of
 capabilities:
+
 - **Ambient**: Capabilities that are *granted* to a process, and *can be inherited*
-by any child process created.   
+by any child process created.  
 In short, **Ambient** capabilities are capabilities **both Permitted and Inheritable**.
 
 - **Permitted**: Capabilities *granted* to a process.   
@@ -424,7 +429,7 @@ Let's add it to `Cargo.toml`:
 ``` toml
 [dependencies]
 # ...
-capctl = "0.2.0"
+capctl = "0.2.4"
 ```
 
 We can create a file `src/capabilities.rs` in which we will handle everything

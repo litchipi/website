@@ -5,7 +5,7 @@ title = "Introduction to containers"
 category = "rust"
 tags = ["rust", "docker", "container", "tutorial"]
 date = 1632127354
-modified = 1646825092
+modified = 1736848939
 description = """
     Overview of what is a container, the problem of software isolation it solves
     and how does it compares to other solutions.
@@ -21,6 +21,12 @@ description = """
 """
 
 ---
+
+> UPDATE  
+> This tutorial has been recently updated, but keep in mind that as the ecosystem
+> evolves quite fast, some techniques, libraries, and systems used here may have changed
+> when you read this.  
+> If you encounter any changes, please consider adding an issue on the [github repository](https://github.com/litchipi/website)
 
 The objective of this series of blog post is to understand what is a container, how does it work
 and create a container to create and manage containers, from scratch in Rust.
@@ -117,7 +123,7 @@ avoid virtual machine evasion), a great post about it is
 [Understanding Docker container escapes][understand-docker-container-escape].
 
 ## Naive representation of containerisation
-![Do not trust this image](/images/container_in_rust/system_virtualmachine_container.png)
+![Do not trust this image](/static/container_in_rust/system_virtualmachine_container.png)
 Okay this representation is false for a lot of reasons, but intuitively there are different
 ways for a system to achieve the *portability* and *isolation* features.
 In reality, the CPU / SoC hardware have features to ease virtualization, but also the software

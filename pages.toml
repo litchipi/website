@@ -125,3 +125,4 @@ args = ["blog", { limit = 0 }]
 route = "/humans.txt"
 default_template = "humans.txt"
 add_headers = { "Content-Type" = "text/plain" }
+minify = false

@@ -69,6 +69,19 @@ pre {
     display: block;
     max-width: 100%;
   }
+
+  em {
+    margin-right: 8px;
+  }
+
+  strong {
+    margin-left: 3px;
+    margin-right: 3px;
+  }
+
+  li {
+    margin-bottom: 15px;
+  }
 }
 
 blockquote {

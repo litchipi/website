@@ -5,6 +5,7 @@ title = "Executing the binary"
 category = "rust"
 tags = ["rust", "docker", "container", "tutorial"]
 date = 1661247785
+modified = 1736848939
 description = """
     Execute a binary inside our container, resolve issues of dynamic libraries, mount
     directories inside the environment.
@@ -35,7 +36,7 @@ that takes 3 arguments:
 - The arguments to pass to the executable
 - The environment variables to set
 
-The linux kernel will then **replace** the current process with the executable.
+The linux kernel will then **replace** the current process with the executable.  
 This is why we needed to *clone* our main process before calling this syscall.
 
 > Check out the `execve` syscall documentation [here][execvedoc]
@@ -201,13 +202,14 @@ The raw patch to apply on the previous step can be found [here][patch-step15]
 # Mounting additional paths
 
 The last bit we need for a useful container is to allow some dynamic binaries
-to be used inside our container. We could simply copy everything each time, and
+to be used inside our container.  
+We could simply copy everything each time, and
 it can be better in terms of security, but we'll use a lighter method for now,
 let's mount directories inside our container !
 
 The idea is simple, when creating the container, we pass a list of directory of
-the hosts and where they should appear inside the container. Then we "mount" them
-and can freely access to them.
+the hosts and where they should appear inside the container.  
+Then we "mount" them and can freely access to them.
 
 Let's add a parameter to the CLI for these additional paths to mount, in `src/cli.rs`:
 
@@ -216,7 +218,7 @@ pub struct Args {
     // ...
 
     /// Mount a directory inside the container
-    #[structopt(parse(from_os_str), short = "a", long = "add")]
+    #[arg(short = 'a', long = "add")]
     pub addpaths: Vec<PathBuf>,
 }
 ```
@@ -374,27 +376,24 @@ use one of the many containerisation solutions instead
 
 It may seams like we arrived to a very minimalist state of a container, but once
 you can add files and execute binaries, you can do pretty much anything from there.
+
 This environment is already enough to execute a web service, or as a compilation
 sandbox, but it lacks severall things to get to the level comparable to Docker:
 
-- **Network isolation**: Creating fake interfaces, bind them to the real network
-hardware, but isolated enough to not have any bad surprises
-- **Port forwarding**: Executing a web service on port 80 of the container and
-redirect the data to whatever local port you wish
+- **Network isolation**: Creating fake interfaces, bind them to the real network hardware, but isolated enough to not have any bad surprises
+- **Port forwarding**: Executing a web service on port 80 of the container and redirect the data to whatever local port you wish
 - **Good security**: Security is hard because it has so many pitfalls.
-- **Container generation from file**: A `Crabfile` with a weird syntax to build
-a container from text
+- **Container generation from file**: A `Crabfile` with a weird syntax to build a container from the text
 
 And many more things that I am forgetting.
 
 ## End of this tutorial
 
 This was the last post of this tutorial that took way too long to write.
-Feel free to reach to me if you have any question or remark, or leave a
-comment using your Github Account.
 
-I tried to keep it beginer-friendly in every aspects, as what I love to
-do when learning a language is build something real with it.
+Feel free to reach to me if you have any question or remark, I tried to keep it
+beginer-friendly in every aspects, as what I love to do when learning a language is
+build something real with it.
 
 The code of this tutorial is a Rust rewrite from [this tutorial][linux-containers-tutorial],
 you **should** go and take a look at least to it as it's filled with

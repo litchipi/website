@@ -27,13 +27,14 @@ channels allowing us to interact with the child process we're going to create.
 # Inter-process communication (IPC) with sockets
 ## Introduction to IPC
 When it comes to inter-process communication (or IPC for short), the **Unix domain sockets** or
-"same host socket communication" is the solution.
+"same host socket communication" is the solution.  
 They differ from the "network socket communication" kind of sockets that are used to perform
 network operations with remote hosts.
 
-You can find a really nice article about sockets and IPC [here][ipctuto]
-It consists in practice of a file (*Unix philosophy: everything is a file*)
-In which we're going to read or write, to transfer information from one process to another.
+> You can find a really nice article about sockets and IPC [here][ipctuto]
+
+It consists in practice of a file (*Unix philosophy: everything is a file*) in which
+we're going to read or write, to transfer information from one process to another.
 
 For our tool, we don't need any fancy IPC, but we want to be able to transfer simple boolean
 to / from our child process.
@@ -42,10 +43,10 @@ to / from our child process.
 Creating a pair of sockets will allow us to give one to the child process, and one to the
 parent process.
 
-![a pair of sockets](/images/container_in_rust/sockets.png)
+![a pair of sockets](/static/container_in_rust/sockets.png)
 
-This way we'll be able to transfer raw binary data from one process to the other the same way
-we write binary data into a file stored in a filesystem.
+This way we'll be able to transfer raw binary data from one process to the other the same
+way we write binary data into a file stored in a filesystem.
 
 Let's create a new file `src/cli.rs` containing everything related to IPC:
 ``` rust
@@ -61,7 +62,7 @@ pub fn generate_socketpair() -> Result<(RawFd, RawFd), Errcode> {
         None,
         SockFlag::SOCK_CLOEXEC)
         {
-            Ok(res) => Ok(res),
+            Ok((a, b)) => Ok((a.into_raw_fd(), b.into_raw_fd())),
             Err(_) => Err(Errcode::SocketError(0))
     }
 }
@@ -70,16 +71,19 @@ pub fn generate_socketpair() -> Result<(RawFd, RawFd), Errcode> {
 We create a `generate_socketpair` function in which we call the `socketpair` function, which is
 the [standard Unix way of creating socket pairs][man-socketpair], but called from Rust.
 
-- `AddressFamily::Unix`: We are creating a Unix domain socket
-(see [all AddressFamily variants for details][AddressFamily-docs])
+- `AddressFamily::Unix`: We are creating a Unix domain socket (see [all AddressFamily variants for details][AddressFamily-docs])
 
-- `SockType::SeqPacket`: The socket will use a communication semantic with packets and fixed length datagrams.
-(see [all SockType variants for details][SockType-docs])
+- `SockType::SeqPacket`: The socket will use a communication semantic with packets and fixed length datagrams. (see [all SockType variants for details][SockType-docs])
 
 - `None`: The socket will use the default protocol associated with the socket type.
 
-- `SockFlag::SOCK_CLOEXEC`: The socket will be automatically closed after any syscall of the
-`exec` family. (see [Linux manual for `exec` syscalls][man-exec])
+- `SockFlag::SOCK_CLOEXEC`: The socket will be automatically closed after any syscall of the `exec` family. (see [Linux manual for `exec` syscalls][man-exec])
+
+> Rust provides a specific [OwnedFd](https://doc.rust-lang.org/beta/std/os/fd/struct.OwnedFd.html)
+> type with plenty of abstraction with it, but as we do pretty low-level stuff with it,
+> it WILL get in the way.  
+> This is why we choose to use `RawFd` types instead (basically a `i32`), it's much less safe,
+> but will interact correctly with syscalls.
 
 As we use a new `Errcode::SocketError` variant, let's add it to `src/errors.rs` now:
 ``` rust
@@ -127,7 +131,7 @@ impl ContainerOpts{
 
 ## Adding to the container, setting up the cleaning
 In our container implementation, let's add a field in the `Container` struct to
-be able to access the sockets more easily.
+be able to access the sockets more easily.  
 In the file `src/container.rs`:
 
 ``` rust
@@ -173,7 +177,7 @@ pub fn clean_exit(&mut self) -> Result<(), Errcode>{
 
 ## Creating wrappers for IPC
 
-To ease the use of the sockets, let's create two wrappers to ease the use.
+To ease the use of the sockets, let's create two wrappers to ease the use.  
 We only want to transfer boolean, so let's create a `send_boolean` and `recv_boolean` function
 in `src/ipc.rs`:
 ``` rust
@@ -196,7 +200,8 @@ pub fn recv_boolean(fd: RawFd) -> Result<bool, Errcode> {
 }
 ```
 Here it's just some interacting with the `send` and `recv` functions from the `nix` crate, handling
-data types conversion, etc... There's nothing much to say about it, but it's still interesting
+data types conversion, etc...  
+There's nothing much to say about it, but it's still interesting
 how we can interact with functions that has a low-level C backend from Rust.
 
 We won't use the wrappers for now, but they'll come handy later.
@@ -210,9 +215,11 @@ The raw patch to apply on the previous step can be found [here][patch-step7]
 
 # Cloning a process
 In order to regroup everything related to the cloning and management of the child process, let's
-create a new module `child` in a file `src/child.rs`. First of all, define the modules in `src/main.rs`:
+create a new module `child` in a file `src/child.rs`.
+
+First of all, define the modules in `src/main.rs`:
 ``` rust
-...
+// ...
 mod config;
 mod child;
 ```
@@ -221,14 +228,14 @@ child process generation or anything during the preparation inside the container
 and add them to `src/errors.rs`:
 ``` rust
 pub enum Errcode {
-    ...
+    // ...
     ContainerError(u8),
     ChildProcessError(u8),
 }
 ```
 
 ## Creating a child process
-For now, we create a dummy child function simply echoing the arguments it will execute.
+For now, we create a dummy child function simply echoing the arguments it will execute.  
 We create the function in `src/child.rs`:
 ``` rust
 fn child(config: ContainerOpts) -> isize {
@@ -237,6 +244,7 @@ fn child(config: ContainerOpts) -> isize {
 }
 ```
 The child process simply outputs something to stdout, and returns 0 as a signal that nothing went wrong.
+
 We also pass it some configuration in which we'll be able to bundle everything we want our
 child process to acknowledge.
 
@@ -255,34 +263,41 @@ const STACK_SIZE: usize = 1024 * 1024;
 pub fn generate_child_process(config: ContainerOpts) -> Result<Pid, Errcode> {
     let mut tmp_stack: [u8; STACK_SIZE] = [0; STACK_SIZE];
     let mut flags = CloneFlags::empty();
-    // Flags definition
-    match clone(
+
+    // Flags definition here
+
+    let res = unsafe { clone(
         Box::new(|| child(config.clone())),
         &mut tmp_stack,
         flags,
         Some(Signal::SIGCHLD as i32)
-    )
-    {
+    )};
+
+    match res {
          Ok(pid) => Ok(pid),
          Err(_) => Err(Errcode::ChildProcessError(0))
     }
 }
 ```
+
 Let's split this code to understand it properly:
-- We first allocate a raw array (aka buffer) of size `STACK_SIZE` that we define of size `1KiB`.
+
+- We first allocate a raw array (aka buffer) of size `STACK_SIZE` that we define of size `1KiB`.  
 This buffer will hold the [stack][whatis-stack] of the child process, note that this is different
 from the original C `clone` function (as detailed in [the nix::sched::clone documentation][docs-clone])
 
 - Secondly we will set the flags we want to activate, a complete list of the flags and their simple description is available
-[in the nix::sched::CloneFlags documentation][docs-CloneFlags], or directly [in the linux manual for clone(2)][man-clone].
+[in the nix::sched::CloneFlags documentation][docs-CloneFlags], or directly [in the linux manual for clone(2)][man-clone].  
 I'll skip the flags definition for their own separate parts as they deserve some proper explanation.
 
-- We then call the `clone` syscall, redirecting to our `child` function, with our `config` struct
-as an argument, the temporary stack for the process, the flags we set, along with the instruction to
+- We then call the `clone` syscall, which is *highly unsafe*, but we won't particularly care in our tutorial.  
+This clone redirects to our `child` function, with our `config` struct as an argument,
+the temporary stack for the process, the flags we set, along with the instruction to
 send the parent process a `SIGCHLD` signal when the child exits.
 
 - If everything goes well, we get a process ID, or `PID` in short, a number identifying uniquely our
-process for the Linux kernel. We return this pid as we will store it in our container struct.
+process for the Linux kernel.  
+We return this pid as we will store it in our container struct.
 
 ### A word about namespaces
 If you don't know what Linux namespaces are, I recommend reading the [Wikipedia article about it][wikipedia-linux-namespaces]
@@ -304,8 +319,8 @@ Check out the [linux manual for namespaces][man-namespaces] for more details abo
 
 ### Setting the flags
 Back to our child cloning preparation, each flag will **create a new namespace for the child process**,
-for the given namespace. If a flag is not set, usually the namespace the child will be part of will
-be the one from the parent process.
+for the given namespace.  
+If a flag is not set, usually the namespace the child will be part of will be the one from the parent process.
 
 Here is the complete code:
 ``` rust
@@ -390,6 +405,7 @@ impl Container {
 ## Waiting for the child to finish
 Now that our container contains everything to generate a new clean child process,
 we will update the main function to wait for the child to finish.   
+
 In `src/container.rs`:
 ``` rust
 pub fn start(args: Args) -> Result<(), Errcode> {
@@ -429,8 +445,8 @@ error if the syscall didn't finished successfully.
 ## Testing
 Maybe since the beginning you were wondering why we need `sudo` to run our tests, in the first 7
 steps that wasn't necessary, but here as we create new namespaces for our child process, the
-`CAP_SYS_ADMIN` capacity is needed (See the [manual for capabilities][man-capabilities] or
-[this article from LWN][lwn-capabilities]).
+`CAP_SYS_ADMIN` capacity is needed.  
+(See the [manual for capabilities][man-capabilities] or [this article from LWN][lwn-capabilities]).
 
 Here's the output we can get from testing this step:
 ```

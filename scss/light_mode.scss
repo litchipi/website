@@ -255,7 +255,8 @@ html[class="light-mode"] {
           color: $color3_dark;
         }
         .current-post {
-          color: $text-color;
+          color: $color2_dark;
+          /* color: $text-color; */
         }
         .current-post:hover {
           color: $link-hover;
