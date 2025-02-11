@@ -21,9 +21,9 @@ texts = [
   """,
 
   """
-  Vous trouverez sur ce site des <strong>tutoriels</strong>, des analyses sur de
-  diverses sujets, tous ayant en commun mon point de vue subjectif. J'aime à mettre
-  en relation des sujets parfois distants, et creuser afin d'apporter une
+  Vous trouverez sur ce site des articles, <strong>tutoriels</strong>, des analyses sur de
+  diverses sujets, tous ayant en commun mon point de vue subjectif.
+  J'aime à mettre en relation des sujets parfois distants, et creuser afin d'apporter une
   <strong>vision en profondeur</strong> d'un sujet.
   """
 ]
@@ -40,10 +40,12 @@ why = [
   """,
   """
   Je suis maintenant <strong>indépendant</strong> afin de me distancer de l'innovation
-  sans clients, et me rapprocher de <strong>l'humain</strong>
+  sans clients, et me rapprocher de <strong>l'humain</strong>.<br/>
+  Utiliser les technologies pour apporter de l'ergonomie, de l'harmonie, et de la liberté
+  dans nos métiers et nos vies, c'est mon objectif. 
   """,
   """
   N'hésitez pas à entrer en contact avec moi, pour parler de mes posts,
-  me proposer du travail, ou tout simplement <strong>disctuer</strong> :-)
+  me proposer du travail, ou tout simplement <strong>discuter</strong> :-)
   """
 ]
